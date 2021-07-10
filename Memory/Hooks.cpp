@@ -975,16 +975,14 @@ void Hooks::Actor_lerpMotion(C_Entity* _this, vec3_t motVec) {
 
 		if (!networkSender) {
 			if (g_Data.getVersion() == GAMEVERSION::g_1_16_0)
-				networkSender = reinterpret_cast<void*>(6 + FindSignature("FF 90 ?? ?? ?? ?? 4C 8D 9C 24 ?? ?? ?? ?? 49 8B 5B 18 49 8B 73 28 49 8B E3 5F C3"));
-			else
-				networkSender = reinterpret_cast<void*>(3 + FindSignature("FF 50 ? 41 80 BE ? ? ? ? ? 0F 85 ? ? ? ? EB 76"));
+				networkSender = (void*)FindSignature("48 8B 74 24 ?? C6 47 ?? ?? 48 8B 5C 24 ??");
 		}
-		
+
 		if (networkSender == _ReturnAddress()) {
 			motVec = _this->velocity.lerp(motVec, noKnockbackmod->xModifier, noKnockbackmod->yModifier, noKnockbackmod->xModifier);
 		}
 	}
-	
+
 	oLerp(_this, motVec);
 }
 
