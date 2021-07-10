@@ -26,7 +26,7 @@ public:
 	ConfigManager();
 	~ConfigManager();
 
-	std::string currentConfig = "default";
+	std::string currentConfig = "SurgePublic";
 
 	void loadConfig(std::string name, bool create);
 	void saveConfig();
