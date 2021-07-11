@@ -8,6 +8,12 @@ public:
 	bool isMobEsp = false;
 	bool doRainbow = true;
 	bool is2d = false;
+	bool isCustom = true;
+	bool itemEsp = true;
+	float customR = 1.f;
+	float customG = 0.f;
+	float customB = 0.f;
+	
 	ESP();
 	~ESP();
 
