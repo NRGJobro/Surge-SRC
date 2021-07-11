@@ -17,3 +17,4 @@ public:
 	virtual void onPreRender(C_MinecraftUIRenderContext* renderCtx) override;
 	virtual void onTick(C_GameMode* gm) override;
 };
+

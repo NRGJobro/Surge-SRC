@@ -1,7 +1,7 @@
 #include "NoFall.h"
 
-NoFall::NoFall() : IModule(VK_NUMPAD3, Category::MOVEMENT, "Prevents you from taking falldamage") {
-}
+NoFall::NoFall() : IModule(0x0, Category::MOVEMENT, "Good enough. It reduces fall damage to half a heart") {
+}	
 
 NoFall::~NoFall() {
 }
@@ -10,14 +10,11 @@ const char* NoFall::getModuleName() {
 	return ("NoFall");
 }
 
-void NoFall::onSendPacket(C_Packet* packet) {
-	if (g_Data.getLocalPlayer() != nullptr && g_Data.getLocalPlayer()->fallDistance > 2.f) {
-		if (packet->isInstanceOf<C_MovePlayerPacket>()) {
-			C_MovePlayerPacket* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
-			movePacket->onGround = true;
-		} /*else if (packet->isInstanceOf<C_ActorFallPacket>()) {
-			C_ActorFallPacket* fallPacket = reinterpret_cast<C_ActorFallPacket*>(packet);
-			fallPacket->fallDistance = 0.f;
-		}*/
-	}
+void NoFall::onTick(C_GameMode* gm) {
+	auto player = g_Data.getLocalPlayer();
+	if (player == nullptr) return;
+
+	if (gm->player->onGround && !gm->player->isInWater()) {
+		gm->player->velocity.y = -99;
+	}//Totally not the code from badman
 }
