@@ -1,10 +1,10 @@
 #pragma once
 #include "Module.h"
-class Jesus : public IModule {
+class Jesus :
+	public IModule
+{
 private:
-	bool walk = false;
 	bool wasInWater = false;
-
 public:
 	Jesus();
 	~Jesus();
