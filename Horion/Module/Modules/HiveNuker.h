@@ -5,7 +5,6 @@
 class HiveNuker : public IModule {
 private:
 	int range = 5;
-	bool andisite = false;
 
 public:
 	HiveNuker();
