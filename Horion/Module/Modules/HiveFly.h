@@ -4,6 +4,7 @@
 
 class HiveFly : public IModule {
 private:
+	int counter = 1;
 	float speed = 0.9f;
 	bool Fly = true;
 	bool Blinc = true;

@@ -2,7 +2,7 @@
 
 HiveFly::HiveFly() : IModule(0, Category::MOVEMENT, "Hop around like a bunny!") {
 	registerFloatSetting("Fly Speed", &this->speed, this->speed, 0.1f,0.9f);
-	registerBoolSetting("Hive Fly", &this->Fly, this->Fly);
+	registerBoolSetting("Combat Fly", &this->Fly, this->Fly);
 	registerBoolSetting("Blink Fly", &this->Blinc, this->Blinc);
 	registerBoolSetting("Hive Glide", &this->Glide, this->Glide);
 }
@@ -34,8 +34,28 @@ void HiveFly::onMove(C_MoveInputHandler* input) {
 	if (player->onGround && pressed)
 		player->jumpFromGround();
 
-	if (pressed && Fly) {
+	if (pressed) {
 		player->velocity.y = 0.f;
+	}
+
+	if (pressed && Fly && counter >= 0) {
+		auto blinkMod = moduleMgr->getModule<Blink>();
+		if (this->Blinc) {
+			blinkMod->setEnabled(true);
+		}
+	}
+
+	if (pressed && Fly && counter == 1) {
+		auto blinkMod = moduleMgr->getModule<Blink>();
+		if (blinkMod->isEnabled()) {
+			blinkMod->setEnabled(false);
+		}
+	}
+
+	if (counter == 30) {
+		counter = 0;
+	} else {
+		counter++;
 	}
 	
 
@@ -60,10 +80,6 @@ void HiveFly::onTick(C_GameMode* gm) {
 			glideModEffective -= 0.5f;
 	}
 	gm->player->velocity.y = glideModEffective;
-	auto blinkMod = moduleMgr->getModule<Blink>();
-	if (this->Blinc) {
-		blinkMod->setEnabled(true);
-	}
 }
 
 void HiveFly::onDisable() {
@@ -77,5 +93,3 @@ void HiveFly::onDisable() {
 		blinkMod->setEnabled(false);
 	}
 }
-//Adding upward and downward fly soon
-//if nothing goes wrong
