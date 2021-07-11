@@ -1,9 +1,10 @@
 #pragma once
+#include "..\ModuleManager.h"
 #include "Module.h"
+
 class NoSlowDown : public IModule {
 private:
-	uint8_t* opcode = 0;
-	uint8_t* opcode1 = 0;
+	float speed = 0.200f;
 
 public:
 	NoSlowDown();
@@ -11,6 +12,5 @@ public:
 
 	// Inherited via IModule
 	virtual const char* getModuleName() override;
-	virtual void onEnable() override;
-	virtual void onDisable() override;
+	virtual void onMove(C_MoveInputHandler* input) override;
 };
