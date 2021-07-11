@@ -24,7 +24,7 @@ void HiveNuker::onTick(C_GameMode* gm) {
 
 				if (destroy) {
 					gm->destroyBlock(&blockPos, 0);
-					if (!moduleMgr->getModule<NoSwing>()->isEnabled())
+					//if (!moduleMgr->getModule<NoSwing>()->isEnabled())
 						g_Data.getLocalPlayer()->swingArm();
 					return;
 				}
