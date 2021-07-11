@@ -37,16 +37,6 @@ void HiveFly::onMove(C_MoveInputHandler* input) {
 	if (pressed && Fly) {
 		player->velocity.y = 0.f;
 	}
-        glideModEffective = glideMod;
-	C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
-
-	if (g_Data.canUseMoveKeys()) {
-		if (GameData::isKeyDown(*input->spaceBarKey))
-			glideModEffective += 0.5f;
-		if (GameData::isKeyDown(*input->sneakKey))
-			glideModEffective -= 0.5f;
-	}
-	gm->player->velocity.y = glideModEffective;
 	
 
 	float calcYaw = (player->yaw + 90) * (PI / 180);
