@@ -39,7 +39,7 @@ void ModuleManager::initModules() {
 		this->moduleList.push_back(std::shared_ptr<IModule>(new Tracer()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new BowAimbot()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new Scaffold()));
-		//this->moduleList.push_back(std::shared_ptr<IModule>(new NoFall()));
+		this->moduleList.push_back(std::shared_ptr<IModule>(new NoFall()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new Blink()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new Nuker()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new InstaBreak()));
@@ -47,7 +47,7 @@ void ModuleManager::initModules() {
 		this->moduleList.push_back(std::shared_ptr<IModule>(new Speed()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new Xray()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new Breaker()));
-		//this->moduleList.push_back(std::shared_ptr<IModule>(new NoSlowDown()));
+		this->moduleList.push_back(std::shared_ptr<IModule>(new NoSlowDown()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new AutoTotem()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new InfiniteReach()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new ClickGuiMod()));

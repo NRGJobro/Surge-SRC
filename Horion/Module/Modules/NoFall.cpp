@@ -1,13 +1,13 @@
 #include "NoFall.h"
 
-NoFall::NoFall() : IModule(0x0, Category::MOVEMENT, "Good enough. It reduces fall damage to half a heart") {
+NoFall::NoFall() : IModule(0x0, Category::MOVEMENT, "Fall Fast, Also works as antikb to an extent") {
 }	
 
 NoFall::~NoFall() {
 }
 
 const char* NoFall::getModuleName() {
-	return ("NoFall");
+	return ("FastFall");
 }
 
 void NoFall::onTick(C_GameMode* gm) {
@@ -15,6 +15,6 @@ void NoFall::onTick(C_GameMode* gm) {
 	if (player == nullptr) return;
 
 	if (gm->player->onGround && !gm->player->isInWater()) {
-		gm->player->velocity.y = -99;
-	}//Totally not the code from badman
+		gm->player->velocity.y = -100;
+	}
 }
