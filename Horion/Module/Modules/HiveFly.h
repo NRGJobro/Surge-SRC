@@ -8,6 +8,8 @@ private:
 	bool Fly = true;
 	bool Blinc = true;
 	bool Glide = false;
+	float glideMod = 0.f;
+	float glideModEffective = 0;
 
 public:
 	HiveFly();
