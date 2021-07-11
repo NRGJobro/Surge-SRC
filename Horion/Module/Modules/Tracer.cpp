@@ -3,7 +3,7 @@
 
 #include "../../../SDK/CCamera.h"
 
-Tracer::Tracer() : IModule('R', Category::VISUAL, "Draws lines to ESP highlighted entities") {
+Tracer::Tracer() : IModule('R', Category::VISUAL, "Draws lines to ESP highlighted entities(MADE BY OLD GREGGO!!)") {
 }
 
 Tracer::~Tracer() {
@@ -12,22 +12,11 @@ Tracer::~Tracer() {
 const char* Tracer::getModuleName() {
 	return "Tracer";
 }
-void Tracer::onLevelRender() {
 
-	auto cameraMgr = g_Data.getClientInstance()->getCameraManager();
-	if(cameraMgr == nullptr)
-		return;
-	auto cam = cameraMgr->getCameraOrDebugCamera();
-	if(cam == nullptr)
-		return;
-	vec3_t forward{};
-	cam->getForwardVector(&forward);
-
-	const vec3_t center = g_Data.getClientInstance()->levelRenderer->origin.add(forward.mul(0.2f) /*place the start of the line slightly forward so it won't get clipped*/);
-	g_Data.forEachEntity([&](C_Entity* ent, bool valid) {
-	  if(ent != g_Data.getLocalPlayer() && Target::isValidTarget(ent)){
-			DrawUtils::setColor(128, 0, 128, 1);
-		  DrawUtils::drawLine3d(center, *ent->getPos());
-	  }
-	});
+void Tracer::onPreRender(C_MinecraftUIRenderContext* ctx) {
+	if (GameData::canUseMoveKeys())  //sexy 2d shit
+		g_Data.forEachEntity([](C_Entity* ent, bool valid) {
+			if (Target::isValidTarget(ent) && ent != g_Data.getLocalPlayer())
+				DrawUtils::drawTracer(ent);
+		});
 }

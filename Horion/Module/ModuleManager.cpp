@@ -36,7 +36,7 @@ void ModuleManager::initModules() {
 		this->moduleList.push_back(std::shared_ptr<IModule>(new Phase()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new Freecam()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new AutoSprint()));
-		//this->moduleList.push_back(std::shared_ptr<IModule>(new Tracer()));
+		this->moduleList.push_back(std::shared_ptr<IModule>(new Tracer()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new BowAimbot()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new Scaffold()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new NoFall()));
@@ -86,10 +86,10 @@ void ModuleManager::initModules() {
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new NightMode()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new NoSwing()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new HiveFly()));
-		this->moduleList.push_back(std::shared_ptr<IModule>(new AirStuck()));
+		//this->moduleList.push_back(std::shared_ptr<IModule>(new AirStuck()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new Zoom()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new Teams()));
-		this->moduleList.push_back(std::shared_ptr<IModule>(new Nbt()));
+		//this->moduleList.push_back(std::shared_ptr<IModule>(new Nbt()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new Godmode()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new Freelook()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new AutoSneak()));

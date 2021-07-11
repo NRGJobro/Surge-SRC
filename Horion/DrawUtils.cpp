@@ -175,6 +175,17 @@ void DrawUtils::drawQuad(vec2_t p1, vec2_t p2, vec2_t p3, vec2_t p4) {
 	tess_vertex(tesselator, p4.x, p4.y, 0);
 
 	meshHelper_renderImm(screenContext2d, tesselator, uiMaterial);
+} 
+
+void DrawUtils::drawTracer(C_Entity* ent) {
+	static auto tracerMod = moduleMgr->getModule<Tracer>();
+	vec2_t target;
+	refdef->OWorldToScreen(origin, *ent->getPos(), target, fov, screenSize);
+	vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame) / 2));
+	if (target != vec2_t(0, 0)) {
+		DrawUtils::setColor(0, 0, 255, 1);
+		DrawUtils::drawLine(mid, target, 0.2f);
+	}
 }
 
 void DrawUtils::drawLine(vec2_t start, vec2_t end, float lineWidth) {
