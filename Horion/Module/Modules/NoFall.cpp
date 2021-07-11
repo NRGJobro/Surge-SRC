@@ -1,6 +1,6 @@
 #include "NoFall.h"
 
-NoFall::NoFall() : IModule(0x0, Category::MOVEMENT, "Reduces fall damage to half a heart") {
+NoFall::NoFall() : IModule(0x0, Category::MOVEMENT, "Good enough. It reduces fall damage to half a heart") {
 }	
 
 NoFall::~NoFall() {
