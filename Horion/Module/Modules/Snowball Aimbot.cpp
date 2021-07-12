@@ -78,7 +78,7 @@ void SnowballAimbot::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			p.headYaw = angle.y;
 			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p);
 		} else {
-			if (pitch < 92 && pitch > -92) {
+			if (pitch < 120 && pitch > -120) {
 				vec2_t angles = vec2_t(pitch, yaw);
 
 				vec2_t appl = angles.sub(localPlayer->viewAngles).normAngles();
