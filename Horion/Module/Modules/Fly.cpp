@@ -5,6 +5,7 @@ Fly::Fly() : IModule(0, Category::MOVEMENT, "Fly like a bird! (By Kow)") {
 	registerBoolSetting("CreativeFly", &vanilla, vanilla);
 	registerBoolSetting("CubeGlide", &cubeMode, cubeMode);
 	registerBoolSetting("Mineplex", &mineplexMode, mineplexMode);
+	registerBoolSetting("Damage", &this->dmg, this->dmg);
 }
 
 Fly::~Fly() {
@@ -25,8 +26,10 @@ bool Fly::isFlashMode() {
 }
 
 void Fly::onEnable() {
-	auto player = g_Data.getLocalPlayer();
-	player->animateHurt();
+	if (this->dmg) {
+		auto player = g_Data.getLocalPlayer();
+		player->animateHurt();
+	}
 	if (cubeMode) g_Data.getLocalPlayer()->setPos((*g_Data.getLocalPlayer()->getPos()).add(vec3_t(0, 1, 0)));
 }
 

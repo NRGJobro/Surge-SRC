@@ -836,13 +836,13 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 	}
 
 	// Zoom calc
-	//{
-		//static auto zoomModule = moduleMgr->getModule<Zoom>();
-		//if (zoomModule->isEnabled()) zoomModule->target = zoomModule->strength;
-		//zoomModule->modifier = zoomModule->target - ((zoomModule->target - zoomModule->modifier) * 0.8f);
-		//if (abs(zoomModule->modifier - zoomModule->target) < 0.1f && !zoomModule->isEnabled())
-			//zoomModule->zooming = false;
-	//}
+	{
+		static auto zoomModule = moduleMgr->getModule<Zoom>();
+		if (zoomModule->isEnabled()) zoomModule->target = zoomModule->strength;
+		zoomModule->modifier = zoomModule->target - ((zoomModule->target - zoomModule->modifier) * 0.8f);
+		if (abs(zoomModule->modifier - zoomModule->target) < 0.1f && !zoomModule->isEnabled())
+			zoomModule->zooming = false;
+	}
 
 	if (shouldPostRender) moduleMgr->onPostRender(renderCtx);
 	HImGui.endFrame();
@@ -1182,7 +1182,7 @@ float Hooks::LevelRendererPlayer_getFov(__int64 _this, float a2, bool a3) {
 
 	static void* setupCamera = reinterpret_cast<void*>(FindSignature("44 0F 28 D8 F3 44 0F 59 1D ?? ?? ?? ?? 0F"));
 
-	//static auto zoomModule = moduleMgr->getModule<Zoom>();
+	static auto zoomModule = moduleMgr->getModule<Zoom>();
 
 	if (_ReturnAddress() == renderItemInHand) {
 		return oGetFov(_this, a2, a3);
@@ -1190,8 +1190,8 @@ float Hooks::LevelRendererPlayer_getFov(__int64 _this, float a2, bool a3) {
 	if (_ReturnAddress() == setupCamera) {
 		g_Data.fov = -oGetFov(_this, a2, a3) + 110.f;
 		if (moduleMgr->isInitialized()) {
-			//if (!zoomModule->smooth && zoomModule->isEnabled()) return -zoomModule->target + 110.f;
-			//if (zoomModule->smooth && zoomModule->zooming) return -zoomModule->modifier + 110.f;
+			if (zoomModule->isEnabled()) return -zoomModule->target + 110.f;
+			if (zoomModule->zooming) return -zoomModule->modifier + 110.f;
 		}
 		return oGetFov(_this, a2, a3);
 	}

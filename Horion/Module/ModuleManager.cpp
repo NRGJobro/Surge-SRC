@@ -87,7 +87,7 @@ void ModuleManager::initModules() {
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new NoSwing()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new HiveFly()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new AirStuck()));
-		//this->moduleList.push_back(std::shared_ptr<IModule>(new Zoom()));
+		this->moduleList.push_back(std::shared_ptr<IModule>(new Zoom()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new Teams()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new Nbt()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new Godmode()));
