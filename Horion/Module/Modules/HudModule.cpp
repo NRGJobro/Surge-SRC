@@ -2,8 +2,7 @@
 #include "../../DrawUtils.h"
 #include "../../Scripting/ScriptManager.h"
 
-HudModule::HudModule() : IModule(0, Category::VISUAL, "Displays ArrayList And More") {
-	registerBoolSetting("ArrayList", &this->arraylist, this->arraylist);
+HudModule::HudModule() : IModule(0, Category::VISUAL, "Displays More") {
 	registerBoolSetting("ClickToggle", &this->clickToggle, this->clickToggle);
 	registerBoolSetting("Watermark", &this->watermark, this->watermark);
 	registerBoolSetting("Coordinates", &this->coordinates, this->coordinates);

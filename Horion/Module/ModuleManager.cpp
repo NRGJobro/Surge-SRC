@@ -99,7 +99,7 @@ void ModuleManager::initModules() {
 		this->moduleList.push_back(std::shared_ptr<IModule>(new Waypoints()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new TimeChanger()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new	Spider()));
-		//this->moduleList.push_back(std::shared_ptr<IModule>(new	Compass()));
+		this->moduleList.push_back(std::shared_ptr<IModule>(new	ArrayList()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new	Radar()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new InsideTP()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new Twerk()));
@@ -123,6 +123,7 @@ void ModuleManager::initModules() {
 	this->getModule<HudModule>()->setEnabled(true);
 	this->getModule<ClickGuiMod>()->setEnabled(false);
 	this->getModule<AntiBot>()->setEnabled(true);
+	this->getModule<ArrayList>()->setEnabled(true);
 }
 
 void ModuleManager::disable() {

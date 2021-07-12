@@ -438,13 +438,13 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 			//float elapsedFlot = (float)elapsed.QuadPart / frequency.QuadPart;
 			//if (elapsedFlot > 1.5f && !hasSentWarning) {
 				//hasSentWarning = true;
-				//auto box = g_Data.addInfoBox("Warning", "Your injector doesn't seem to connect to Horion correctly.\nYou can ignore this, but some features may not work as expected.");
+				//auto box = g_Data.addInfoBox("Warning", "Yon't seem to connect toHnot work as eur injector doxpected."); idk either
 				//box->closeTimer = 5;
 				/*vec2_t windowSize = dat->windowSize;
 
 				DrawUtils::fillRectangle(vec4_t(0, 0, windowSize.x, windowSize.y), MC_Color(0.2f, 0.2f, 0.2f), 0.8f);
 
-				std::string text = "Download the new injector at http://horionbeta.club/";
+				std::string text = "Download the new injector at http://urmomclient.club/";
 				if (!wasConnectedBefore)
 					DrawUtils::drawText(vec2_t(windowSize.x / 2 - DrawUtils::getTextWidth(&text, 1.5f) / 2, windowSize.y * 0.4f), &text, MC_Color(), 1.5f);
 				text = "Remember to keep the injector open while playing";
@@ -465,6 +465,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 		return oText(a1, renderCtx);
 
 	static auto hudModule = moduleMgr->getModule<HudModule>();
+	static auto arraylist = moduleMgr->getModule<ArrayList>();
 	static auto clickGuiModule = moduleMgr->getModule<ClickGuiMod>();
 
 	HImGui.startFrame();
@@ -626,7 +627,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 
 		} else {
 			shouldRenderTabGui = hudModule->tabgui && hudModule->isEnabled();
-			//shouldRenderArrayList = hudModule->arraylist && hudModule->isEnabled();
+			shouldRenderArrayList = arraylist->enabled && arraylist->isEnabled();
 			shouldRenderWatermark = hudModule->watermark && hudModule->isEnabled();
 
 			if (clickGuiModule->isEnabled()) {
@@ -659,7 +660,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 					constexpr float borderPadding = 1;
 					constexpr float margin = 5;
 
-					static std::string name = "Surge Client|Public";
+					static std::string name = "Surge Client|Dev";
 #ifdef _DEBUG
 					static std::string version = "";
 #elif defined _BETA
@@ -677,7 +678,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						windowSize.y - margin);
 
 					DrawUtils::drawRectangle(rect, MC_Color(0, 0, 0), 1.f);
-					DrawUtils::fillRectangle(rect, MC_Color(00, 00, 00), 0.05f);
+					DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), 0.05f);
 					DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color (0, 0, 255), 1.5f, nameTextSize);
 					DrawUtils::drawText(vec2_t(rect.x + borderPadding + nameLength, rect.w - 7), &version, MC_Color(0, 0, 0), versionTextSize);
 				}
@@ -748,6 +749,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						std::vector<std::shared_ptr<IModule>>* moduleList = moduleMgr->getModuleList();
 						for (auto it : *moduleList) {
 							if (it.get() != hudModule)
+								if (it.get() != arraylist)
 								modContainerList.emplace(IModuleContainer(it));
 						}
 					}
@@ -811,7 +813,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						currColor[0] += 1.f / a * c;
 						Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
 
-						DrawUtils::fillRectangle(rectPos, MC_Color(00, 00, 00), 0.05f);
+						DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), arraylist->opacity); // Background
 						DrawUtils::fillRectangle(leftRect, MC_Color(0, 0, 0), 1.f);
 						DrawUtils::fillRectangle(bottomRect, MC_Color(0, 0, 0), 1.f);
 						if (!GameData::canUseMoveKeys() && rectPos.contains(&mousePos) && hudModule->clickToggle) {

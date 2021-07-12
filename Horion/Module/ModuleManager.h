@@ -91,7 +91,7 @@
 #include "Modules/NoPaintingCrash.h"
 #include "Modules/Waypoints.h"
 #include "Modules/Spider.h"
-#include "Modules/Compass.h"
+#include "Modules/ArrayList.h"
 #include "Modules/Radar.h"
 #include "Modules/InsideAura.h"
 #include "Modules/Twerk.h"
