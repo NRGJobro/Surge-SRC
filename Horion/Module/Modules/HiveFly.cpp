@@ -1,10 +1,10 @@
 #include "HiveFly.h"
 
-HiveFly::HiveFly() : IModule(0, Category::MOVEMENT, "Hop around like a bunny!") {
+HiveFly::HiveFly() : IModule(0, Category::MOVEMENT, "Fly, but for the hive") {
 	registerFloatSetting("Fly Speed", &this->speed, this->speed, 0.1f,0.9f);
 	registerBoolSetting("Combat Fly", &this->Fly, this->Fly);
-	registerBoolSetting("Blink Fly", &this->Blinc, this->Blinc);
-	registerBoolSetting("Hive Glide", &this->Glide, this->Glide);
+	//registerBoolSetting("Damage Fly", &this->Blinc, this->Blinc);
+	//registerBoolSetting("Hive Glide", &this->Glide, this->Glide);
 }
 
 HiveFly::~HiveFly() {
@@ -12,6 +12,12 @@ HiveFly::~HiveFly() {
 
 const char* HiveFly::getModuleName() {
 	return ("HiveFly");
+}
+
+void HiveFly::onEnable() {
+	auto player = g_Data.getLocalPlayer();
+	g_Data.getLocalPlayer()->setPos((*g_Data.getLocalPlayer()->getPos()).add(0, 1.25, 0));
+	return;
 }
 
 void HiveFly::onMove(C_MoveInputHandler* input) {
@@ -31,16 +37,10 @@ void HiveFly::onMove(C_MoveInputHandler* input) {
 		player->velocity.y = -0.24f;
 	}
 
-	if (player->onGround && pressed)
-		player->jumpFromGround();
-
-	if (pressed) {
-		player->velocity.y = 0.f;
-	}
-
 	if (pressed && Fly && counter >= 0) {
+		player->velocity.y = 0.f;
 		auto blinkMod = moduleMgr->getModule<Blink>();
-		if (this->Blinc) {
+		if (this->Fly) {
 			blinkMod->setEnabled(true);
 		}
 	}
@@ -50,9 +50,10 @@ void HiveFly::onMove(C_MoveInputHandler* input) {
 		if (blinkMod->isEnabled()) {
 			blinkMod->setEnabled(false);
 		}
+		g_Data.getLocalPlayer()->setPos((*g_Data.getLocalPlayer()->getPos()).add(0, -0.1, 0));
 	}
 
-	if (counter == 30) {
+	if (counter == 31) {
 		counter = 0;
 	} else {
 		counter++;
