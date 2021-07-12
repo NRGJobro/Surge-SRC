@@ -1,9 +1,9 @@
 #include "HiveFly.h"
 
 HiveFly::HiveFly() : IModule(0, Category::MOVEMENT, "Fly, but for the hive") {
-	registerFloatSetting("Fly Speed", &this->speed, this->speed, 0.1f,0.9f);
+	registerFloatSetting("Fly Speed", &this->speed, this->speed, 0.1f, 0.9f);
 	registerBoolSetting("Combat Fly", &this->Fly, this->Fly);
-	//registerBoolSetting("Damage Fly", &this->Blinc, this->Blinc);
+	registerBoolSetting("Damage Fly", &this->Blinc, this->Blinc);
 	//registerBoolSetting("Hive Glide", &this->Glide, this->Glide);
 }
 
@@ -15,6 +15,10 @@ const char* HiveFly::getModuleName() {
 }
 
 void HiveFly::onEnable() {
+	if (this->Blinc) {
+		auto player = g_Data.getLocalPlayer();
+		player->animateHurt();
+	}
 	auto player = g_Data.getLocalPlayer();
 	g_Data.getLocalPlayer()->setPos((*g_Data.getLocalPlayer()->getPos()).add(0, 1.25, 0));
 	return;
@@ -58,7 +62,6 @@ void HiveFly::onMove(C_MoveInputHandler* input) {
 	} else {
 		counter++;
 	}
-	
 
 	float calcYaw = (player->yaw + 90) * (PI / 180);
 	vec3_t moveVec;
@@ -89,7 +92,7 @@ void HiveFly::onDisable() {
 	player->velocity.x = 0.f;
 	player->velocity.y = 0.f;
 	player->velocity.z = 0.f;
-	
+
 	if (blinkMod->isEnabled()) {
 		blinkMod->setEnabled(false);
 	}
