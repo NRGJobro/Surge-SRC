@@ -7,6 +7,7 @@ private:
 	bool vanilla = true;
 	bool cubeMode = false;
 	bool mineplexMode = false;
+	bool dmg = true;
 
 public:
 	Fly();
