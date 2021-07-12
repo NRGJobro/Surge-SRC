@@ -305,11 +305,11 @@ private:
 
 public:
 	virtual bool isInvulnerableTo(__int64 const &) const;
-	virtual __int64 animateHurt(void);
 
-private:
+public:
 	virtual __int64 getBlockDamageCause();
 	virtual void actuallyHurt(int, __int64 const *, bool);
+	virtual __int64 animateHurt(void);
 	virtual __int64 doFireHurt(int);
 	virtual __int64 onLightningHit(void);
 	virtual __int64 onBounceStarted(vec3_ti const &, __int64 const &);
