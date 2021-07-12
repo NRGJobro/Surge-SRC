@@ -659,7 +659,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 					constexpr float borderPadding = 1;
 					constexpr float margin = 5;
 
-					static std::string name = "Surge Client|Dev";
+					static std::string name = "Surge Client|Public";
 #ifdef _DEBUG
 					static std::string version = "";
 #elif defined _BETA
