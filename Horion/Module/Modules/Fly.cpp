@@ -25,6 +25,8 @@ bool Fly::isFlashMode() {
 }
 
 void Fly::onEnable() {
+	auto player = g_Data.getLocalPlayer();
+	player->animateHurt();
 	if (cubeMode) g_Data.getLocalPlayer()->setPos((*g_Data.getLocalPlayer()->getPos()).add(vec3_t(0, 1, 0)));
 }
 
