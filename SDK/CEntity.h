@@ -733,7 +733,7 @@ private:
 public:
 	virtual void setName(std::string const &);
 
-private:
+public:
 	virtual __int64 checkMovementStats(vec3_t const &);
 	virtual __int64 unknown20(void) const;
 	virtual __int64 unknown21(void) const;
