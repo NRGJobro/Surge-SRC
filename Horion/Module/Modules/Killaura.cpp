@@ -110,8 +110,8 @@ void Killaura::onTick(C_GameMode* gm) {
 			auto player = g_Data.getLocalPlayer();
 			player->pitch = angle.x;
 			player->pitch = angle.y;
-			//player->bodyYaw = angle.y;
-			//player->bodyYaw = angle.x;
+			player->bodyYaw = angle.y;
+			player->bodyYaw = angle.x;
 
 			if (this->target) {
 				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
@@ -130,11 +130,13 @@ void Killaura::onEnable() {
 }
 
 void Killaura::onSendPacket(C_Packet* packet) {
-	if (packet->isInstanceOf<C_MovePlayerPacket>()) {
+	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr) {
 		if (!targetList.empty()) {
 			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
 			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
-			auto player = g_Data.getLocalPlayer();
+			movePacket->pitch = angle.x;
+			movePacket->headYaw = angle.y;
+			movePacket->yaw = angle.y;
 		}
 	}
 }
