@@ -59,7 +59,7 @@ void ModuleManager::initModules() {
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new AirSwim()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new InventoryMove()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new LongJump()));
-		this->moduleList.push_back(std::shared_ptr<IModule>(new NoWeb()));
+		this->moduleList.push_back(std::shared_ptr<IModule>(new SpinAtack()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new SuperSaiyan()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new StackableItem()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new Emo()));
@@ -81,7 +81,7 @@ void ModuleManager::initModules() {
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new InventoryCleaner()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new HiveNuker()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new Crasher()));
-		this->moduleList.push_back(std::shared_ptr<IModule>(new CrystalAura()));
+		//this->moduleList.push_back(std::shared_ptr<IModule>(new CrystalAura()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new Timer()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new NightMode()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new NoSwing()));
@@ -92,7 +92,7 @@ void ModuleManager::initModules() {
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new Nbt()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new Godmode()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new Freelook()));
-		this->moduleList.push_back(std::shared_ptr<IModule>(new AutoSneak()));
+		//this->moduleList.push_back(std::shared_ptr<IModule>(new AutoSneak()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new NoHurtcam()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new AntiImmobile()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new	NoPaintingCrash()));
@@ -102,7 +102,7 @@ void ModuleManager::initModules() {
 		this->moduleList.push_back(std::shared_ptr<IModule>(new	ArrayList()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new	Radar()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new InsideTP()));
-		this->moduleList.push_back(std::shared_ptr<IModule>(new Twerk()));
+		//this->moduleList.push_back(std::shared_ptr<IModule>(new Twerk()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new FollowPathModule()));
 
 #ifdef _DEBUG
@@ -146,6 +146,7 @@ void ModuleManager::onLoadConfig(void* confVoid) {
 	this->getModule<HudModule>()->setEnabled(true);
 	this->getModule<ClickGuiMod>()->setEnabled(false);
 	this->getModule<AntiBot>()->setEnabled(true);
+	this->getModule<ArrayList>()->setEnabled(true);
 }
 
 void ModuleManager::onSaveConfig(void* confVoid) {

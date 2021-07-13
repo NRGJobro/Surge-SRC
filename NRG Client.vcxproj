@@ -339,7 +339,7 @@
     <ClCompile Include="Horion\Module\Modules\NoPaintingCrash.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoSlowDown.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoSwing.cpp" />
-    <ClCompile Include="Horion\Module\Modules\NoWeb.cpp" />
+    <ClCompile Include="Horion\Module\Modules\SpinAtack.cpp" />
     <ClCompile Include="Horion\Module\Modules\Nuker.cpp" />
     <ClCompile Include="Horion\Module\Modules\PacketLogger.cpp" />
     <ClCompile Include="Horion\Module\Modules\Phase.cpp" />
@@ -526,7 +526,7 @@
     <ClInclude Include="Horion\Module\Modules\NoPaintingCrash.h" />
     <ClInclude Include="Horion\Module\Modules\NoSlowDown.h" />
     <ClInclude Include="Horion\Module\Modules\NoSwing.h" />
-    <ClInclude Include="Horion\Module\Modules\NoWeb.h" />
+    <ClInclude Include="Horion\Module\Modules\SpinAtack.h" />
     <ClInclude Include="Horion\Module\Modules\Nuker.h" />
     <ClInclude Include="Horion\Module\Modules\PacketLogger.h" />
     <ClInclude Include="Horion\Module\Modules\Phase.h" />

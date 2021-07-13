@@ -13,7 +13,7 @@ const char* Twerk::getModuleName() {
 
 void Twerk::onEnable() {
 	auto player = g_Data.getLocalPlayer();
-	player->kill();
+	player->openInventory();
 }
 
 //void Twerk::onTick(C_GameMode* gm) {
