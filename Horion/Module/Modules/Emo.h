@@ -1,13 +1,12 @@
 #pragma once
 #include "Module.h"
-class Twerk : public IModule {
+class Emo : public IModule {
 public:
 	int amount = 1;
-	Twerk();
-	~Twerk();
+	Emo();
+	~Emo();
 
 private:
-
 	virtual const char* getModuleName() override;
 	virtual void onEnable() override;
 	//void onTick(C_GameMode* gm);

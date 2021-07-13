@@ -482,7 +482,7 @@ public:
 public:
 	virtual void setDamageNearbyMobs(bool);
 
-private:
+public:
 	virtual __int64 renderDebugServerState(__int64 const &);
 	virtual __int64 reloadLootTable(void);
 	virtual __int64 reloadLootTable(__int64 const *);
@@ -514,7 +514,7 @@ private:
 public:
 	virtual __int64 doWaterSplashEffect(void);
 
-private:
+public:
 	virtual __int64 spawnTrailBubbles(void);
 	virtual __int64 updateInsideBlock(void);
 	virtual __int64 getLootTable(void);

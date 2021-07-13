@@ -284,7 +284,7 @@
     <ClCompile Include="Horion\Module\Modules\AntiBot.cpp" />
     <ClCompile Include="Horion\Module\Modules\AntiImmobile.cpp" />
     <ClCompile Include="Horion\Module\Modules\AntiVoid.cpp" />
-    <ClCompile Include="Horion\Module\Modules\AutoArmor.cpp" />
+    <ClCompile Include="Horion\Module\Modules\XP.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoClicker.cpp" />
     <ClCompile Include="Horion\Module\Modules\Snowball Aimbot.cpp" />
     <ClCompile Include="Horion\Module\Modules\AutoSneak.cpp" />
@@ -305,7 +305,7 @@
     <ClCompile Include="Horion\Module\Modules\HiveNuker.cpp" />
     <ClCompile Include="Horion\Module\Modules\EditionFaker.cpp" />
     <ClCompile Include="Horion\Module\Modules\ESP.cpp" />
-    <ClCompile Include="Horion\Module\Modules\FastEast.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Emo.cpp" />
     <ClCompile Include="Horion\Module\Modules\FastLadder.cpp" />
     <ClCompile Include="Horion\Module\Modules\Fly.cpp" />
     <ClCompile Include="Horion\Module\Modules\FollowPathModule.cpp" />
@@ -471,7 +471,7 @@
     <ClInclude Include="Horion\Module\Modules\AntiBot.h" />
     <ClInclude Include="Horion\Module\Modules\AntiImmobile.h" />
     <ClInclude Include="Horion\Module\Modules\AntiVoid.h" />
-    <ClInclude Include="Horion\Module\Modules\AutoArmor.h" />
+    <ClInclude Include="Horion\Module\Modules\XP.h" />
     <ClInclude Include="Horion\Module\Modules\AutoClicker.h" />
     <ClInclude Include="Horion\Module\Modules\Snowball Aimbot.h" />
     <ClInclude Include="Horion\Module\Modules\AutoSneak.h" />
@@ -492,7 +492,7 @@
     <ClInclude Include="Horion\Module\Modules\HiveNuker.h" />
     <ClInclude Include="Horion\Module\Modules\EditionFaker.h" />
     <ClInclude Include="Horion\Module\Modules\ESP.h" />
-    <ClInclude Include="Horion\Module\Modules\FastEat.h" />
+    <ClInclude Include="Horion\Module\Modules\Emo.h" />
     <ClInclude Include="Horion\Module\Modules\FastLadder.h" />
     <ClInclude Include="Horion\Module\Modules\Fly.h" />
     <ClInclude Include="Horion\Module\Modules\FollowPathModule.h" />
