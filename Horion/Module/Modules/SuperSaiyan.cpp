@@ -1,6 +1,6 @@
 #include "SuperSaiyan.h"
 
-SuperSaiyan::SuperSaiyan() : IModule(0x0, Category::MOVEMENT, "Fukin Insane") {
+SuperSaiyan::SuperSaiyan() : IModule(0x0, Category::MISC, "Fukin Insane") {
 }
 
 SuperSaiyan::~SuperSaiyan() {

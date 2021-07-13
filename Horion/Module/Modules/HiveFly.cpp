@@ -1,6 +1,6 @@
 #include "HiveFly.h"
 
-HiveFly::HiveFly() : IModule(0, Category::MOVEMENT, "Fly, but for the hive") {
+HiveFly::HiveFly() : IModule(0, Category::CUSTOM, "Fly, but for the hive") {
 	registerFloatSetting("Fly Speed", &this->speed, this->speed, 0.1f, 0.9f);
 	registerBoolSetting("Combat Fly", &this->Fly, this->Fly);
 	registerBoolSetting("Damage Fly", &this->Blinc, this->Blinc);

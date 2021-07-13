@@ -771,9 +771,7 @@ void ClickGui::render() {
 	renderCategory(Category::PLAYER);
 	renderCategory(Category::WORLD);
 	renderCategory(Category::MISC);
-
-	if (scriptMgr.getNumEnabledScripts() > 0)
-		renderCategory(Category::CUSTOM);
+	renderCategory(Category::CUSTOM);
 
 	shouldToggleLeftClick = false;
 	shouldToggleRightClick = false;

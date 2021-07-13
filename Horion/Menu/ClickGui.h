@@ -58,6 +58,9 @@ private:
 			case Category::MOVEMENT:
 				categoryName = "Movement";
 				break;
+			case Category::CUSTOM:
+				categoryName = "Flys";
+				break;
 			case Category::PLAYER:
 				categoryName = "Player";
 				break;
@@ -66,9 +69,6 @@ private:
 				break;
 			case Category::MISC:
 				categoryName = "Misc";
-				break;
-			case Category::CUSTOM:
-				categoryName = "Scripts";
 				break;
 			}
 		}

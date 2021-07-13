@@ -1,6 +1,6 @@
 #include "Fly.h"
 
-Fly::Fly() : IModule(0, Category::MOVEMENT, "Fly like a bird! (By Kow)") {
+Fly::Fly() : IModule(0, Category::CUSTOM, "Fly like a bird! (Mineplex Fly By Kow)") {
 	registerFloatSetting("Fly Speed", &speed, speed, 0.5f, 3.f);
 	registerBoolSetting("CreativeFly", &vanilla, vanilla);
 	registerBoolSetting("CubeGlide", &cubeMode, cubeMode);

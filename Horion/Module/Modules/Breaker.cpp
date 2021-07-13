@@ -1,6 +1,6 @@
 #include "Breaker.h"
 
-Breaker::Breaker() : IModule(VK_NUMPAD9, Category::MISC, "Destroys specific things around you (Hive Nuker Was Packets Idea)") {
+Breaker::Breaker() : IModule(VK_NUMPAD9, Category::WORLD, "Destroys specific things around you (Hive Nuker Was Packets Idea)") {
 	registerIntSetting("Range", &this->range, this->range, 1, 10);
 	registerBoolSetting("Beds", &this->beds, this->beds);
 	registerBoolSetting("Eggs", &this->eggs, this->eggs);

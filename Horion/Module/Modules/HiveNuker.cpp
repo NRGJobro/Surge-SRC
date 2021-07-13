@@ -1,6 +1,6 @@
 #include "HiveNuker.h"
 
-HiveNuker::HiveNuker() : IModule(VK_NUMPAD9, Category::MISC, "Destroys blocks around you") {
+HiveNuker::HiveNuker() : IModule(VK_NUMPAD9, Category::WORLD, "Destroys blocks around you") {
 	registerIntSetting("Range", &this->range, this->range, 1, 8);
 }
 

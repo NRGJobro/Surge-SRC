@@ -1,6 +1,6 @@
 #include "SpinAtack.h"
 
-SpinAtack::SpinAtack() : IModule(0x0, Category::MOVEMENT, "Spin") {
+SpinAtack::SpinAtack() : IModule(0x0, Category::MISC, "Spin") {
 }
 
 SpinAtack::~SpinAtack() {
