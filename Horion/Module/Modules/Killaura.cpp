@@ -24,7 +24,7 @@ void findEntity(C_Entity* currentEntity, bool isRegularEntity) {
 
 	if (currentEntity == nullptr)
 		return;
-	
+
 	if (currentEntity == g_Data.getLocalPlayer())  // Skip Local player
 		return;
 
@@ -34,15 +34,15 @@ void findEntity(C_Entity* currentEntity, bool isRegularEntity) {
 	if (!g_Data.getLocalPlayer()->isAlive())
 		return;
 
-	if(!currentEntity->isAlive())
+	if (!currentEntity->isAlive())
 		return;
 
 	if (killauraMod->isMobAura) {
 		if (currentEntity->getNameTag()->getTextLength() <= 1 && currentEntity->getEntityTypeId() == 63)
 			return;
-		if(currentEntity->width <= 0.01f || currentEntity->height <= 0.01f) // Don't hit this pesky antibot on 2b2e.org
+		if (currentEntity->width <= 0.01f || currentEntity->height <= 0.01f)  // Don't hit this pesky antibot on 2b2e.org
 			return;
-		if(currentEntity->getEntityTypeId() == 64) // item
+		if (currentEntity->getEntityTypeId() == 64)  // item
 			return;
 	} else {
 		if (!Target::isValidTarget(currentEntity))
@@ -104,13 +104,20 @@ void Killaura::onTick(C_GameMode* gm) {
 			}
 		}
 		Odelay = 0;
-	}
-	vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
-	auto player = g_Data.getLocalPlayer();
+		if (this->silent) {
+			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+			auto player = g_Data.getLocalPlayer();
+			player->pitch = angle.x;
+			player->pitch2 = angle.x;
 
-	if (silent) {
-		gm->player->pitch = angle.x;
-		gm->player->yaw = angle.y;
+			if (this->silent) {
+				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+				auto player = g_Data.getLocalPlayer();
+				player->bodyYaw = angle.x;
+				player->oldBodyYaw = angle.x;
+				player->yaw = angle.y;
+			}
+		}
 	}
 }
 
@@ -120,10 +127,11 @@ void Killaura::onEnable() {
 }
 
 void Killaura::onSendPacket(C_Packet* packet) {
-	//	if (!targetList.empty()& silent) {
-		//	vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
-		//	auto player = g_Data.getLocalPlayer();
-		//	gm->player->pitch = angle.x;
-		//	gm->player->yaw = angle.y;
-		//}
+	if (packet->isInstanceOf<C_MovePlayerPacket>()) {
+		if (!targetList.empty()) {
+			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
+			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+			auto player = g_Data.getLocalPlayer();
+		}
+	}
 }
