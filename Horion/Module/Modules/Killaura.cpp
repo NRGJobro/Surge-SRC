@@ -8,6 +8,7 @@ Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around y
 	this->registerBoolSetting("hurttime", &this->hurttime, this->hurttime);
 	this->registerBoolSetting("AutoWeapon", &this->autoweapon, this->autoweapon);
 	this->registerBoolSetting("Rotations", &this->silent, this->silent);
+	this->registerBoolSetting("Move To Target", &this->target, this->target);
 }
 
 Killaura::~Killaura() {
@@ -108,13 +109,15 @@ void Killaura::onTick(C_GameMode* gm) {
 			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
 			auto player = g_Data.getLocalPlayer();
 			player->pitch = angle.x;
-			player->pitch2 = angle.x;
+			player->pitch = angle.y;
+			player->bodyYaw = angle.y;
+			player->bodyYaw = angle.x;
 
-			if (this->silent) {
+			if (this->target) {
 				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
 				auto player = g_Data.getLocalPlayer();
-				player->bodyYaw = angle.x;
-				player->oldBodyYaw = angle.x;
+				//player->bodyYaw = angle.x;
+				//player->oldBodyYaw = angle.x;
 				player->yaw = angle.y;
 			}
 		}
