@@ -306,7 +306,7 @@
     <ClCompile Include="Horion\Module\Modules\EditionFaker.cpp" />
     <ClCompile Include="Horion\Module\Modules\ESP.cpp" />
     <ClCompile Include="Horion\Module\Modules\Emo.cpp" />
-    <ClCompile Include="Horion\Module\Modules\FastLadder.cpp" />
+    <ClCompile Include="Horion\Module\Modules\SuperSaiyan.cpp" />
     <ClCompile Include="Horion\Module\Modules\Fly.cpp" />
     <ClCompile Include="Horion\Module\Modules\FollowPathModule.cpp" />
     <ClCompile Include="Horion\Module\Modules\Freecam.cpp" />
@@ -493,7 +493,7 @@
     <ClInclude Include="Horion\Module\Modules\EditionFaker.h" />
     <ClInclude Include="Horion\Module\Modules\ESP.h" />
     <ClInclude Include="Horion\Module\Modules\Emo.h" />
-    <ClInclude Include="Horion\Module\Modules\FastLadder.h" />
+    <ClInclude Include="Horion\Module\Modules\SuperSaiyan.h" />
     <ClInclude Include="Horion\Module\Modules\Fly.h" />
     <ClInclude Include="Horion\Module\Modules\FollowPathModule.h" />
     <ClInclude Include="Horion\Module\Modules\Freecam.h" />

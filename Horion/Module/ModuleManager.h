@@ -36,7 +36,7 @@
 #include "Modules/ESP.h"
 #include "Modules/EditionFaker.h"
 #include "Modules/Emo.h"
-#include "Modules/FastLadder.h"
+#include "Modules/SuperSaiyan.h"
 #include "Modules/Fly.h"
 #include "Modules/Freecam.h"
 #include "Modules/FullBright.h"
