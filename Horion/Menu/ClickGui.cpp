@@ -785,17 +785,20 @@ void ClickGui::render() {
 void ClickGui::init() { initialised = true; }
 
 void ClickGui::onMouseClickUpdate(int key, bool isDown) {
-	switch (key) {
-	case 1:  // Left Click
-		isLeftClickDown = isDown;
-		if (isDown)
-			shouldToggleLeftClick = true;
-		break;
-	case 2:  // Right Click
-		isRightClickDown = isDown;
-		if (isDown)
-			shouldToggleRightClick = true;
-		break;
+	static auto clickGuiMod = moduleMgr->getModule<ClickGuiMod>();
+	if (clickGuiMod->isEnabled() && g_Data.isInGame()) {
+		switch (key) {
+		case 1:  // Left Click
+			isLeftClickDown = isDown;
+			if (isDown)
+				shouldToggleLeftClick = true;
+			break;
+		case 2:  // Right Click
+			isRightClickDown = isDown;
+			if (isDown)
+				shouldToggleRightClick = true;
+			break;
+		}
 	}
 }
 
