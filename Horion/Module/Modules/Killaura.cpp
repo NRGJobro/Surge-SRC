@@ -1,13 +1,13 @@
 #include "Killaura.h"
 
-Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around you automatically") {
+Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around you automatically(2474 helped with rotations)") {
 	this->registerBoolSetting("MultiAura", &this->isMulti, this->isMulti);
 	this->registerBoolSetting("MobAura", &this->isMobAura, this->isMobAura);
 	this->registerFloatSetting("range", &this->range, this->range, 2.f, 7.f);
 	this->registerIntSetting("delay", &this->delay, this->delay, 0, 20);
 	this->registerBoolSetting("hurttime", &this->hurttime, this->hurttime);
 	this->registerBoolSetting("AutoWeapon", &this->autoweapon, this->autoweapon);
-	this->registerBoolSetting("Silent Rotations", &this->silent, this->silent);
+	this->registerBoolSetting("Rotations", &this->silent, this->silent);
 }
 
 Killaura::~Killaura() {
@@ -75,7 +75,6 @@ void Killaura::findWeapon() {
 }
 
 void Killaura::onTick(C_GameMode* gm) {
-
 	//Loop through all our players and retrieve their information
 	targetList.clear();
 
@@ -83,7 +82,6 @@ void Killaura::onTick(C_GameMode* gm) {
 
 	Odelay++;
 	if (!targetList.empty() && Odelay >= delay) {
-
 		if (autoweapon) findWeapon();
 
 		if (g_Data.getLocalPlayer()->velocity.squaredxzlen() < 0.01) {
@@ -107,6 +105,13 @@ void Killaura::onTick(C_GameMode* gm) {
 		}
 		Odelay = 0;
 	}
+	vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+	auto player = g_Data.getLocalPlayer();
+
+	if (silent) {
+		gm->player->pitch = angle.x;
+		gm->player->yaw = angle.y;
+	}
 }
 
 void Killaura::onEnable() {
@@ -115,13 +120,10 @@ void Killaura::onEnable() {
 }
 
 void Killaura::onSendPacket(C_Packet* packet) {
-	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr && silent) {
-		if (!targetList.empty()) {
-			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
-			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
-			movePacket->pitch = angle.x;
-			movePacket->headYaw = angle.y;
-			movePacket->yaw = angle.y;
-		}
-	}
+	//	if (!targetList.empty()& silent) {
+		//	vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+		//	auto player = g_Data.getLocalPlayer();
+		//	gm->player->pitch = angle.x;
+		//	gm->player->yaw = angle.y;
+		//}
 }

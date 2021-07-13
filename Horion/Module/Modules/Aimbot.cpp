@@ -77,6 +77,8 @@ void Aimbot::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			}
 			if (!vertical)
 				appl.x = 0;
+			g_Data.getLocalPlayer()->swing();
+			g_Data.getCGameMode()->attack(targetList[0]);
 			localPlayer->applyTurnDelta(&appl);
 		}
 	}
