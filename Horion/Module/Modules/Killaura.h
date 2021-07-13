@@ -13,6 +13,7 @@ private:
 	void findWeapon();
 	bool silent = true;
 	bool target = true;
+	bool spin = true;
 
 public:
 	bool isMobAura = false;

@@ -8,6 +8,7 @@ Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around y
 	this->registerBoolSetting("hurttime", &this->hurttime, this->hurttime);
 	this->registerBoolSetting("AutoWeapon", &this->autoweapon, this->autoweapon);
 	this->registerBoolSetting("Rotations", &this->silent, this->silent);
+	this->registerBoolSetting("Spin Rotations", &this->spin, this->spin);
 	this->registerBoolSetting("Move To Target", &this->target, this->target);
 }
 
@@ -76,6 +77,7 @@ void Killaura::findWeapon() {
 }
 
 void Killaura::onTick(C_GameMode* gm) {
+	C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
 	//Loop through all our players and retrieve their information
 	targetList.clear();
 
@@ -112,7 +114,7 @@ void Killaura::onTick(C_GameMode* gm) {
 			player->pitch = angle.y;
 			player->bodyYaw = angle.y;
 			player->bodyYaw = angle.x;
-
+		}
 			if (this->target) {
 				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
 				auto player = g_Data.getLocalPlayer();
@@ -120,9 +122,17 @@ void Killaura::onTick(C_GameMode* gm) {
 				//player->oldBodyYaw = angle.x;
 				player->yaw = angle.y;
 			}
+			if (this->spin) {
+				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+				auto player = g_Data.getLocalPlayer();
+				//player->pitch = angle.x;
+				//player->pitch = angle.y;
+				//player->bodyYaw = angle.y;
+				//player->bodyYaw = angle.x;
+				localPlayer->applyTurnDelta(&angle);
+			}
 		}
 	}
-}
 
 void Killaura::onEnable() {
 	if (g_Data.getLocalPlayer() == nullptr)
