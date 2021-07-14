@@ -192,7 +192,7 @@ void Scaffold::onTick(C_GameMode* gm) {
 	}
 
 
-	if (AutoSelect) {
+	if (delay == 1 && AutoSelect) {
 		prevSlot = supplies->selectedHotbarSlot;
 		FinishSelect = true;
 		for (int n = 0; n < 9; n++) {
@@ -205,6 +205,10 @@ void Scaffold::onTick(C_GameMode* gm) {
 				}
 			}
 		}
+		return;
+	}
+	if (this->delay >= 1) {
+		this->delay = 0;
 		return;
 	}
 }
