@@ -5,13 +5,14 @@
 class Breaker : public IModule {
 private:
 	int range = 5;
-	bool beds = true;
-	bool eggs = true;
-	bool cakes = true;
-	bool treasures = true;
-	bool chests = false;
+	bool beds = false;
+	bool eggs = false;
+	bool cakes = false;
+	bool treasures = false;
+	bool chests = true;
 	bool redstone = false;
 	bool diamond = false;
+	bool emerald = false;
 	//bool andisite = false;
 	//bool nuke = true;
 

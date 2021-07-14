@@ -9,7 +9,8 @@ Breaker::Breaker() : IModule(VK_NUMPAD9, Category::WORLD, "Destroys specific thi
 	registerBoolSetting("Chests", &this->chests, this->chests);
 	registerBoolSetting("Redstone", &this->redstone, this->redstone);
 	registerBoolSetting("Diamonds", &this->diamond, this->diamond);
-	//registerBoolSetting("Hive Nuker", &this->andisite, this->andisite);
+	registerBoolSetting("Emeralds", &this->emerald, this->emerald);
+	//registerBoolSetting("HiveNuker", &this->Andisite, this->Andisite);
 }
 
 Breaker::~Breaker() {
@@ -34,6 +35,7 @@ void Breaker::onTick(C_GameMode* gm) {
 				if (id == 54 && this->chests) destroy = true;    // Chests
 				if (id == 73 && this->redstone) destroy = true;  // Redstone
 				if (id == 56 && this->diamond) destroy = true;  // Diamond
+				if (id == 129 && this->emerald) destroy = true;  // Emerald
 																 /*	
 				if (id == 1 && this->andisite) destroy = true;  // Andisite
 				if (id == 56 && this->andisite) destroy = true;  // Andisite
