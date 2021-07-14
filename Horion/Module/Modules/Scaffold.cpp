@@ -207,7 +207,7 @@ void Scaffold::onTick(C_GameMode* gm) {
 		}
 		return;
 	}
-	if (this->delay >= 1) {
+	if (this->delay >= 2) {
 		this->delay = 0;
 		return;
 	}
