@@ -9,6 +9,7 @@ Scaffold::Scaffold() : IModule(0, Category::WORLD, "it makes me mad how bad u r 
 	registerBoolSetting("Staircase Mode", &this->staircaseMode, this->staircaseMode);
 	registerBoolSetting("Andromeda Bridge", &this->andromeda, this->andromeda);
 	registerBoolSetting("Tower", &this->tower, this->tower);
+	registerBoolSetting("Auto select", &this->AutoSelect, this->AutoSelect);
 	registerFloatSetting("Timer Speed", &speed, speed, 0.5f, 3.f);
 	registerFloatSetting("Tower Speed", &towerspeed, towerspeed, 0.5f, 3.f);
 }
@@ -177,6 +178,34 @@ void Scaffold::onTick(C_GameMode* gm) {
 				}
 			}
 		}
+	}
+	if (shouldChange) {
+		shouldChange = true;
+	}
+	this->delay++;
+	if (supplies == nullptr)
+		supplies = g_Data.getLocalPlayer()->getSupplies();
+	if (inv == nullptr)
+		inv = supplies->inventory;
+	if (this->delay == 0) {
+		return;
+	}
+
+
+	if (AutoSelect) {
+		prevSlot = supplies->selectedHotbarSlot;
+		FinishSelect = true;
+		for (int n = 0; n < 9; n++) {
+			C_ItemStack* stack = inv->getItemStack(n);
+			if (stack->item != nullptr) {
+				if ((*stack->item)->isBlock()){
+					if (prevSlot != n)
+						supplies->selectedHotbarSlot = n;
+					return;
+				}
+			}
+		}
+		return;
 	}
 }
 void Scaffold::onMove(C_MoveInputHandler* input) {

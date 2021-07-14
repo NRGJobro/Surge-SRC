@@ -3,6 +3,10 @@
 class Scaffold : public IModule {
 private:
 	bool free = false;
+	bool AutoSelect = true;
+	bool FinishSelect = false;
+	int prevSlot;
+	int delay = 0;
 	bool tower = false;
 	bool time = false;
 	bool spoof = false;
@@ -12,10 +16,13 @@ private:
 	bool findBlock();
 	float speed = 1.5f;
 	float towerspeed = 1.5f;
+	C_PlayerInventoryProxy* supplies = nullptr;
+	C_Inventory* inv = nullptr;
 
 public:
 	Scaffold();
 	~Scaffold();
+	bool shouldChange = false;
 
 	// Inherited via IModule
 	virtual const char* getModuleName() override;

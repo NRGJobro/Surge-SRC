@@ -114,7 +114,7 @@ void CrystalAura::DestroyC(C_Entity* ent, int range) {
 	}
 }
 
-bool shouldChange = false;
+inline bool shouldChange = false;
 void CrystalAura::onTick(C_GameMode* gm) {
 	if (shouldChange) {
 		shouldChange = false;
