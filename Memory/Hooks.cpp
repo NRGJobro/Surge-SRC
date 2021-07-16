@@ -981,12 +981,12 @@ void Hooks::Actor_lerpMotion(C_Entity* _this, vec3_t motVec) {
 			else
 				networkSender = reinterpret_cast<void*>(3 + FindSignature("FF 50 ? 41 80 BE ? ? ? ? ? 0F 85 ? ? ? ? EB 76"));
 		}
-
+		
 		if (networkSender == _ReturnAddress()) {
-			motVec = _this->velocity.lerp(motVec, 0.0);
+			motVec = _this->velocity.lerp(motVec, noKnockbackmod->xModifier, noKnockbackmod->yModifier, noKnockbackmod->xModifier);
 		}
 	}
-
+	
 	oLerp(_this, motVec);
 }
 
