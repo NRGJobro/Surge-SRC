@@ -11,6 +11,7 @@ private:
 	bool time = false;
 	bool spoof = false;
 	bool staircaseMode = false;
+	bool extend = false;
 	bool andromeda = false;
 	bool rot = true;
 	bool tryScaffold(vec3_t blockBelow);
