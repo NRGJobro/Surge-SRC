@@ -10,6 +10,7 @@ Scaffold::Scaffold() : IModule(0, Category::WORLD, "it makes me mad how bad u r 
 	registerBoolSetting("Andromeda Bridge", &this->andromeda, this->andromeda);
 	registerBoolSetting("Tower", &this->tower, this->tower);
 	registerBoolSetting("Auto select", &this->AutoSelect, this->AutoSelect);
+	registerBoolSetting("Rotations/Bypass", &this->rot, this->rot);
 	registerFloatSetting("Timer Speed", &speed, speed, 0.5f, 3.f);
 	registerFloatSetting("Tower Speed", &towerspeed, towerspeed, 0.5f, 3.f);
 }
@@ -167,6 +168,13 @@ void Scaffold::onTick(C_GameMode* gm) {
 
 		if (!tryScaffold(blockBelow)) {
 			if (speed > 0.05f) {  // Are we actually walking?
+				if (this->rot) {
+					for (int i = 0; i < 40; i++) {
+						auto player = g_Data.getLocalPlayer();
+						player->pitch = blockBelow.y;
+						player->bodyYaw = blockBelow.y;
+					}
+				}
 				blockBelow.z -= vel.z * 0.4f;
 				if (!tryScaffold(blockBelow)) {
 					blockBelow.x -= vel.x * 0.4f;

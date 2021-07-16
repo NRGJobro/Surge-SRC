@@ -12,6 +12,7 @@ private:
 	bool spoof = false;
 	bool staircaseMode = false;
 	bool andromeda = false;
+	bool rot = true;
 	bool tryScaffold(vec3_t blockBelow);
 	bool findBlock();
 	float speed = 1.5f;
