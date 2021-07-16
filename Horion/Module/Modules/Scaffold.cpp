@@ -10,7 +10,7 @@ Scaffold::Scaffold() : IModule(0, Category::WORLD, "it makes me mad how bad u r 
 	registerBoolSetting("Andromeda Bridge", &this->andromeda, this->andromeda);
 	registerBoolSetting("Tower", &this->tower, this->tower);
 	registerBoolSetting("Auto select", &this->AutoSelect, this->AutoSelect);
-	registerBoolSetting("Rotations/Bypass", &this->rot, this->rot);
+	registerBoolSetting("Rotations", &this->rot, this->rot);
 	registerFloatSetting("Timer Speed", &speed, speed, 0.5f, 3.f);
 	registerFloatSetting("Tower Speed", &towerspeed, towerspeed, 0.5f, 3.f);
 }
