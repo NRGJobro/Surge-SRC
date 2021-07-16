@@ -10,6 +10,7 @@ Scaffold::Scaffold() : IModule(0, Category::WORLD, "it makes me mad how bad u r 
 	registerBoolSetting("Andromeda Bridge", &this->andromeda, this->andromeda);
 	registerBoolSetting("Tower", &this->tower, this->tower);
 	registerBoolSetting("Auto select", &this->AutoSelect, this->AutoSelect);
+	registerBoolSetting("Extend", &this->extend, this->extend);
 	registerBoolSetting("Rotations", &this->rot, this->rot);
 	registerFloatSetting("Timer Speed", &speed, speed, 0.5f, 3.f);
 	registerFloatSetting("Tower Speed", &towerspeed, towerspeed, 0.5f, 3.f);
@@ -105,6 +106,32 @@ void Scaffold::onTick(C_GameMode* gm) {
 	float speed = g_Data.getLocalPlayer()->velocity.magnitudexz();
 	vec3_t vel = g_Data.getLocalPlayer()->velocity;
 	vel = vel.normalize();  // Only use values from 0 - 1
+	if (extend) {
+		vec3_t blockBelow = g_Data.getLocalPlayer()->eyePos0;  // Block 1 block below the player
+		blockBelow.y -= g_Data.getLocalPlayer()->height;
+		float calcyaw = (gm->player->yaw + 90) * (PI / 180);
+		blockBelow.x = blockBelow.x + cos(calcYaw) * 3;
+		blockBelow.z = blockBelow.x + cos(calcYaw) * 3;
+
+		if (!tryScaffold(blockBelow) && !tryScaffold(blockBelowBelow)) {
+			if (speed > 0.05f) {  // Are we actually walking?
+				blockBelow.z -= vel.z * 0.4f;
+				blockBelowBelow.z -= vel.z * 0.4f;
+				if (!tryScaffold(blockBelow) && !tryScaffold(blockBelowBelow)) {
+					blockBelow.x -= vel.x * 0.4f;
+					blockBelowBelow.x -= vel.x * 0.4f;
+					if (!tryScaffold(blockBelow) && !tryScaffold(blockBelowBelow) && g_Data.getLocalPlayer()->isSprinting()) {
+						blockBelow.z += vel.z;
+						blockBelow.x += vel.x;
+						blockBelowBelow.z += vel.z;
+						blockBelowBelow.x += vel.x;
+						tryScaffold(blockBelow);
+					}
+				}
+			}
+		}
+		
+	}
 
 	if (this->andromeda) {
 		vec3_t blockBelow = g_Data.getLocalPlayer()->eyePos0;  // Block 1 block below the player
