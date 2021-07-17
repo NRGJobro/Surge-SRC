@@ -17,6 +17,7 @@ private:
 	bool tryScaffold(vec3_t blockBelow);
 	bool findBlock();
 	float speed = 1.5f;
+	float thicc = 5.f;
 	float towerspeed = 1.5f;
 	C_PlayerInventoryProxy* supplies = nullptr;
 	C_Inventory* inv = nullptr;

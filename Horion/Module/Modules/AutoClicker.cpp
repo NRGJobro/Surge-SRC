@@ -28,7 +28,7 @@ void AutoClicker::onTick(C_GameMode* gm) {
 
 			g_Data.leftclickCount++;
 
-			if (!moduleMgr->getModule<NoSwing>()->isEnabled())
+			//if (!moduleMgr->getModule<NoSwing>()->isEnabled())
 				localPlayer->swingArm();
 
 			if (pointing->entityPtr != 0)
