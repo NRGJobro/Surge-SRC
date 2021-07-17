@@ -149,6 +149,9 @@ void ClickGui::renderCategory(Category category) {
 		case Category::CUSTOM:
 			ourWindow->pos.x = yot / 7.f * 6.f;
 			break;
+		case Category::TEAMS:
+			ourWindow->pos.x = yot / 7.f * 7.f;
+			break;
 		}
 	}
 
@@ -843,7 +846,7 @@ void ClickGui::onLoadConfig(void* confVoid) {
 		auto obj = conf->at("ClickGui");
 		if (obj.is_null())
 			return;
-		for (int i = 0; i <= (int)Category::CUSTOM /*last category*/; i++) {
+		for (int i = 0; i <= (int)Category::TEAMS /*last category*/; i++) {
 			auto catName = ClickGui::catToName((Category)i);
 			if (obj.contains(catName)) {
 				auto value = obj.at(catName);

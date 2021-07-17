@@ -70,6 +70,9 @@ private:
 			case Category::MISC:
 				categoryName = "Misc";
 				break;
+			case Category::TEAMS:
+				categoryName = "Hidden";
+				break;
 			}
 		}
 		return categoryName;
