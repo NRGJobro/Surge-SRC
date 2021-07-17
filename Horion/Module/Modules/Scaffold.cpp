@@ -62,21 +62,19 @@ bool Scaffold::tryScaffold(vec3_t blockBelow) {
 }
 
 bool Scaffold::findBlock() {
-	__int64 id = *g_Data.getLocalPlayer()->getUniqueId();
-	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 	C_Inventory* inv = supplies->inventory;
+	float damage = 0;
+	int slot = supplies->selectedHotbarSlot;
 	for (int n = 0; n < 9; n++) {
 		C_ItemStack* stack = inv->getItemStack(n);
 		if (stack->item != nullptr) {
-			if ((*stack->item)->isBlock()) {
-				C_MobEquipmentPacket a(id, *stack, n, n);
-				g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&a);
-				return true;
+		if ((*stack->item)->isBlock()) {
+				slot = n;
 			}
 		}
 	}
-	C_MobEquipmentPacket a(id, *g_Data.getLocalPlayer()->getSelectedItem(), supplies->selectedHotbarSlot, supplies->selectedHotbarSlot);
-	g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&a);
+	supplies->selectedHotbarSlot = slot;
 	return false;
 }
 
