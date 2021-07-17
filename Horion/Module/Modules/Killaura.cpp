@@ -110,17 +110,16 @@ void Killaura::onTick(C_GameMode* gm) {
 		if (this->silent) {
 			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
 			auto player = g_Data.getLocalPlayer();
-			player->pitch = angle.x;
-			player->pitch = angle.y;
-			player->bodyYaw = angle.y;
 			player->bodyYaw = angle.x;
+			player->pitch = angle.y;
 		}
 			if (this->target) {
-				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
-				auto player = g_Data.getLocalPlayer();
-				//player->bodyYaw = angle.x;
-				//player->oldBodyYaw = angle.x;
-				player->yaw = angle.y;
+			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+			auto player = g_Data.getLocalPlayer();
+			//player->bodyYaw = angle.x;
+			//player->oldBodyYaw = angle.x;
+			player->bodyYaw = angle.y;
+			player->viewAngles = angle;
 			}
 			if (this->spin) {
 				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());

@@ -2,8 +2,8 @@
 
 InfiniteReach::InfiniteReach() : IModule(0, Category::COMBAT, "Killaura with infinite reach") {
 	this->registerBoolSetting("multiaura", &this->isMulti, this->isMulti);
-	this->registerFloatSetting("range", &this->range, this->range, 15, 300);
-	this->registerIntSetting("delay", &this->delay, this->delay, 1, 20);
+	this->registerFloatSetting("range", &this->range, this->range, 7, 300);
+	this->registerIntSetting("delay", &this->delay, this->delay, 0, 20);
 }
 
 InfiniteReach::~InfiniteReach() {

@@ -2,9 +2,9 @@
 
 HiveFly::HiveFly() : IModule(0, Category::CUSTOM, "Fly, but for the hive") {
 	registerFloatSetting("Fly Speed", &this->speed, this->speed, 0.1f, 0.9f);
-	registerBoolSetting("Combat Fly", &this->Fly, this->Fly);
+	registerBoolSetting("Blink Fly", &this->Fly, this->Fly);
 	registerBoolSetting("Damage Fly", &this->Blinc, this->Blinc);
-	//registerBoolSetting("Hive Glide", &this->Glide, this->Glide);
+	registerBoolSetting("PVP Fly", &this->Glide, this->Glide);
 }
 
 HiveFly::~HiveFly() {
@@ -54,10 +54,10 @@ void HiveFly::onMove(C_MoveInputHandler* input) {
 		if (blinkMod->isEnabled()) {
 			blinkMod->setEnabled(false);
 		}
-		g_Data.getLocalPlayer()->setPos((*g_Data.getLocalPlayer()->getPos()).add(0, -0.1, 0));
+		g_Data.getLocalPlayer()->setPos((*g_Data.getLocalPlayer()->getPos()).add(0, -0.15, 0));
 	}
 
-	if (counter == 31) {
+	if (counter == 32) {
 		counter = 0;
 	} else {
 		counter++;
