@@ -417,20 +417,20 @@ void Scaffold::onTick(C_GameMode* gm) {
 
 
 	if (AutoSelect) {
-		prevSlot = supplies->selectedHotbarSlot;
-		FinishSelect = true;
-		for (int n = 0; n < 9; n++) {
-			C_ItemStack* stack = inv->getItemStack(n);
-			if (stack->item != nullptr) {
-				if ((*stack->item)->isBlock()){
-					if (prevSlot != n)
-						supplies->selectedHotbarSlot = n;
-					return;
-				}
+	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+	C_Inventory* inv = supplies->inventory;
+	float damage = 0;
+	int slot = supplies->selectedHotbarSlot;
+	for (int n = 0; n < 9; n++) {
+		C_ItemStack* stack = inv->getItemStack(n);
+		if (stack->item != nullptr) {
+			if ((*stack->item)->isBlock()) {
+				slot = n;
 			}
 		}
-		return;
 	}
+	supplies->selectedHotbarSlot = slot;
+}
 	if (this->delay >= 2) {
 		this->delay = 0;
 		return;
