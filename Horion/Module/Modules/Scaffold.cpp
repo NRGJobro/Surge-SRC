@@ -416,7 +416,7 @@ void Scaffold::onTick(C_GameMode* gm) {
 	}
 
 
-	if (AutoSelect) {
+while (AutoSelect = true) {
 	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 	C_Inventory* inv = supplies->inventory;
 	float damage = 0;
@@ -436,6 +436,7 @@ void Scaffold::onTick(C_GameMode* gm) {
 		return;
 	}
 }
+
 void Scaffold::onMove(C_MoveInputHandler* input) {
 	auto player = g_Data.getLocalPlayer();
 	vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
