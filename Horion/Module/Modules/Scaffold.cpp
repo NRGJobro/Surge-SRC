@@ -154,7 +154,7 @@ void Scaffold::onTick(C_GameMode* gm) {
 	if (extend) {
 		vec3_t blockBelow = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
 		blockBelow.x -= 0.1f;
-		blockBelow.z -= 1.f *thicc;
+		blockBelow.z -= 1.f * thicc;
 		blockBelow.y -= g_Data.getLocalPlayer()->height;
 		blockBelow.y -= 0.5f;
 
@@ -415,22 +415,21 @@ void Scaffold::onTick(C_GameMode* gm) {
 		return;
 	}
 
-
-while (AutoSelect = true) {
-	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
-	C_Inventory* inv = supplies->inventory;
-	float damage = 0;
-	int slot = supplies->selectedHotbarSlot;
-	for (int n = 0; n < 9; n++) {
-		C_ItemStack* stack = inv->getItemStack(n);
-		if (stack->item != nullptr) {
-			if ((*stack->item)->isBlock()) {
-				slot = n;
+	if (this->AutoSelect) {
+		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+		C_Inventory* inv = supplies->inventory;
+		float damage = 0;
+		int slot = supplies->selectedHotbarSlot;
+		for (int n = 0; n < 9; n++) {
+			C_ItemStack* stack = inv->getItemStack(n);
+			if (stack->item != nullptr) {
+				if ((*stack->item)->isBlock()) {
+					slot = n;
+				}
 			}
 		}
+		supplies->selectedHotbarSlot = slot;
 	}
-	supplies->selectedHotbarSlot = slot;
-}
 	if (this->delay >= 2) {
 		this->delay = 0;
 		return;
