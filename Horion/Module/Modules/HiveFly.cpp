@@ -4,7 +4,7 @@ HiveFly::HiveFly() : IModule(0, Category::CUSTOM, "Fly, but for the hive") {
 	registerFloatSetting("Fly Speed", &this->speed, this->speed, 0.1f, 0.9f);
 	registerBoolSetting("Blink Fly", &this->Fly, this->Fly);
 	registerBoolSetting("Damage Fly", &this->Blinc, this->Blinc);
-	registerBoolSetting("PVP Fly", &this->Glide, this->Glide);
+	//registerBoolSetting("PVP Fly", &this->Glide, this->Glide);
 }
 
 HiveFly::~HiveFly() {
