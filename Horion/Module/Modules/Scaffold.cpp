@@ -379,7 +379,19 @@ void Scaffold::onTick(C_GameMode* gm) {
 		vec3_t blockBelow = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
 		blockBelow.y -= g_Data.getLocalPlayer()->height;
 		blockBelow.y -= 0.5f;
-
+		if (!tryScaffold(blockBelow)) {
+			if (speed > 0.05f) {
+				blockBelow.z -= vel.z * 0.4f;
+				if (!tryScaffold(blockBelow)) {
+					blockBelow.x -= vel.x * 0.4f;
+					if (!tryScaffold(blockBelow) && g_Data.getLocalPlayer()->isSprinting()) {
+						blockBelow.z += vel.z;
+						blockBelow.x += vel.x;
+						tryScaffold(blockBelow);
+					}
+				}
+			}
+		}
 		if (!tryScaffold(blockBelow)) {
 			if (speed > 0.05f) {  // Are we actually walking?
 				if (this->rot) {
