@@ -9,7 +9,6 @@ private:
 	int delay = 0;
 	bool tower = false;
 	bool time = false;
-	bool spoof = true;
 	bool staircaseMode = false;
 	bool extend = false;
 	bool andromeda = false;
@@ -26,6 +25,7 @@ public:
 	Scaffold();
 	~Scaffold();
 	bool shouldChange = false;
+	bool spoof = true;
 
 	// Inherited via IModule
 	virtual const char* getModuleName() override;

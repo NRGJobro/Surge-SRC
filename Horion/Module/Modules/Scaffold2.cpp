@@ -65,11 +65,14 @@ void Scaffold2::onMove(C_MoveInputHandler* input) {
 	}
 }
 void Scaffold2::onTick(C_GameMode* gm) {
+	auto blinkMod = moduleMgr->getModule<Scaffold>();
+	blinkMod->spoof = false;
 }
 
 void Scaffold2::onDisable() {
 	auto blinkMod = moduleMgr->getModule<Scaffold>();
 	auto player = g_Data.getLocalPlayer();
+	blinkMod->spoof = true;
 
 	if (blinkMod->isEnabled()) {
 		blinkMod->setEnabled(false);
