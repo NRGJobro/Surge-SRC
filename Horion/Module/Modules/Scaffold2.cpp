@@ -44,13 +44,6 @@ void Scaffold2::onMove(C_MoveInputHandler* input) {
 			blinkMod->setEnabled(false);
 		}
 	}
-
-	if (pressed && Fly && counter == 1) {
-		auto blinkMod = moduleMgr->getModule<Scaffold>();
-		if (this->Fly) {
-			blinkMod->setEnabled(true);
-		}
-	}
 	if (pressed && Fly && counter == 2) {
 		auto blinkMod = moduleMgr->getModule<Scaffold>();
 		if (this->Fly) {
