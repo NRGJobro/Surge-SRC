@@ -450,9 +450,6 @@ void Scaffold::onMove(C_MoveInputHandler* input) {
 	vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
 	bool pressed = moveVec2d.magnitude() > 0.01f;
 	if (player == nullptr) return;
-	if (pressed && spoof) {
-		player->velocity.y = 0.f;
-	}
 }
 
 void Scaffold::onDisable() {

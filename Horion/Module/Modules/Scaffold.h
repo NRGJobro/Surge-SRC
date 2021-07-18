@@ -9,7 +9,7 @@ private:
 	int delay = 0;
 	bool tower = false;
 	bool time = false;
-	bool spoof = false;
+	bool spoof = true;
 	bool staircaseMode = false;
 	bool extend = false;
 	bool andromeda = false;
