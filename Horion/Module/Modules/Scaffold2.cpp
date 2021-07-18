@@ -2,7 +2,7 @@
 
 Scaffold2::Scaffold2() : IModule(0, Category::CUSTOM, "Fly, but for the hive") {
 	//registerFloatSetting("Fly Speed", &this->speed, this->speed, 0.1f, 0.9f);
-	registerBoolSetting("Blink Fly", &this->Fly, this->Fly);
+	registerBoolSetting("BlockFly", &this->Fly, this->Fly);
 	//registerBoolSetting("Damage Fly", &this->Blinc, this->Blinc);
 	//registerBoolSetting("PVP Fly", &this->Glide, this->Glide);
 }
@@ -58,6 +58,9 @@ void Scaffold2::onMove(C_MoveInputHandler* input) {
 		}
 	}
 	if (pressed && Fly && counter == 4) {
+		auto selectedItem = g_Data.getLocalPlayer()->getSelectedItem();
+		if (!selectedItem->isValid() || !(*selectedItem->item)->isBlock())  // Block in hand?
+			return;
 		auto player = g_Data.getLocalPlayer();
 		player->jumpFromGround();
 	}

@@ -21,7 +21,7 @@ bool Tower::tryTower(vec3_t blockBelow) {
 
 	blockBelow = blockBelow.floor();
 
-	DrawUtils::drawBox(blockBelow, vec3_t(blockBelow).add(1), 0.4f);
+	DrawUtils::drawBox(blockBelow, vec3_t(blockBelow).add(1), 1.f);
 
 	C_Block* block = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(blockBelow));
 	C_BlockLegacy* blockLegacy = (block->blockLegacy);
