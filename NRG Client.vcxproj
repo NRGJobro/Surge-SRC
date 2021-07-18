@@ -255,7 +255,7 @@
     <ClCompile Include="Horion\Command\Commands\PathCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\PlayerTeleportCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\RelativeTeleportCommand.cpp" />
-    <ClCompile Include="Horion\Command\Commands\SayCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\BlockSave.cpp" />
     <ClCompile Include="Horion\Command\Commands\ScriptCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\ServerCommand.cpp" />
     <ClCompile Include="Horion\Command\Commands\setoffhandCommand.cpp" />
@@ -295,7 +295,7 @@
     <ClCompile Include="Horion\Module\Modules\BowAimbot.cpp" />
     <ClCompile Include="Horion\Module\Modules\ChestAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\ChestESP.cpp" />
-    <ClCompile Include="Horion\Module\Modules\ChestStealer.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Scaffold2.cpp" />
     <ClCompile Include="Horion\Module\Modules\ClickGuiMod.cpp" />
     <ClCompile Include="Horion\Module\Modules\ArrayList.cpp" />
     <ClCompile Include="Horion\Module\Modules\Crasher.cpp" />
@@ -442,7 +442,7 @@
     <ClInclude Include="Horion\Command\Commands\PathCommand.h" />
     <ClInclude Include="Horion\Command\Commands\PlayerTeleportCommand.h" />
     <ClInclude Include="Horion\Command\Commands\RelativeTeleportCommand.h" />
-    <ClInclude Include="Horion\Command\Commands\SayCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\BlockSave.h" />
     <ClInclude Include="Horion\Command\Commands\ScriptCommand.h" />
     <ClInclude Include="Horion\Command\Commands\ServerCommand.h" />
     <ClInclude Include="Horion\Command\Commands\setoffhandCommand.h" />
@@ -482,7 +482,7 @@
     <ClInclude Include="Horion\Module\Modules\BowAimbot.h" />
     <ClInclude Include="Horion\Module\Modules\ChestAura.h" />
     <ClInclude Include="Horion\Module\Modules\ChestESP.h" />
-    <ClInclude Include="Horion\Module\Modules\ChestStealer.h" />
+    <ClInclude Include="Horion\Module\Modules\Scaffold2.h" />
     <ClInclude Include="Horion\Module\Modules\ClickGuiMod.h" />
     <ClInclude Include="Horion\Module\Modules\ArrayList.h" />
     <ClInclude Include="Horion\Module\Modules\Crasher.h" />

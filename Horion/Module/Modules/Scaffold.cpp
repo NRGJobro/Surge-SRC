@@ -385,7 +385,6 @@ void Scaffold::onTick(C_GameMode* gm) {
 				if (this->rot) {
 					for (int i = 0; i < 40; i++) {
 						auto player = g_Data.getLocalPlayer();
-						player->pitch = blockBelow.y;
 						player->bodyYaw = blockBelow.y;
 					}
 				}
