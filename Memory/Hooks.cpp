@@ -685,7 +685,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 
 				// Draw ArrayList
 				if (moduleMgr->isInitialized() && shouldRenderArrayList) {
-
 					// Parameters
 					float textSize = hudModule->scale;
 					float textPadding = 1.0f * textSize;
@@ -749,7 +748,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						std::vector<std::shared_ptr<IModule>>* moduleList = moduleMgr->getModuleList();
 						for (auto it : *moduleList) {
 							if (it.get() != hudModule)
-								if (it.get() != arraylist)
 								modContainerList.emplace(IModuleContainer(it));
 						}
 					}
@@ -797,11 +795,12 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							yOffset,
 							xOffset - 1,
 							yOffset + textPadding * 2 + textHeight);
-						vec4_t bottomRect = vec4_t(
-							xOffset - 3,
-							yOffset,
-							xOffset - 4,
-							yOffset + textPadding * 8 + textHeight);
+						vec4_t underline = vec4_t(
+							xOffset - 2,
+							leftRect.w,
+							windowSize.x,
+							leftRect.w + 1.f);
+						DrawUtils::fillRectangle(underline, MC_Color(0, 0, 0), 1.f);
 						c++;
 						b++;
 						if (b < 20)
@@ -813,9 +812,8 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						currColor[0] += 1.f / a * c;
 						Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
 
-						DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), arraylist->opacity); // Background
+						DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), arraylist->opacity);  // Background
 						DrawUtils::fillRectangle(leftRect, MC_Color(0, 0, 0), 1.f);
-						DrawUtils::fillRectangle(bottomRect, MC_Color(0, 0, 0), 1.f);
 						if (!GameData::canUseMoveKeys() && rectPos.contains(&mousePos) && hudModule->clickToggle) {
 							vec4_t selectedRect = rectPos;
 							selectedRect.x = leftRect.z;
