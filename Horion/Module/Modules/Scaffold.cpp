@@ -464,14 +464,12 @@ void Scaffold::onDisable() {
 	}
 	if (towerMod->isEnabled()) {
 		towerMod->setEnabled(false);
-		if (timerBool) {
-			*g_Data.getClientInstance()->minecraft->timer = 20.f;
-		}
-		if (g_Data.getLocalPlayer() == nullptr)
+	}
+	*g_Data.getClientInstance()->minecraft->timer = 20.f;
+	if (g_Data.getLocalPlayer() == nullptr)
 			return;
 		__int64 id = *g_Data.getLocalPlayer()->getUniqueId();
 		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 		C_MobEquipmentPacket a(id, *g_Data.getLocalPlayer()->getSelectedItem(), supplies->selectedHotbarSlot, supplies->selectedHotbarSlot);
 		g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&a);
 	}
-}
