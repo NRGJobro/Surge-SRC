@@ -102,6 +102,7 @@ void ClickGui::renderLabel(const char* text) {
 }
 
 void ClickGui::renderTooltip(std::string* text) {
+	static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
 	vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
 	vec2_t currentTooltipPos = vec2_t(5.f, windowSize.y - 15.f);
 	float textWidth = DrawUtils::getTextWidth(text, textSize);
@@ -113,7 +114,7 @@ void ClickGui::renderTooltip(std::string* text) {
 		currentTooltipPos.y - 2.f,
 		currentTooltipPos.x + (textPadding * 2) + textWidth + 2.f,
 		currentTooltipPos.y + textHeight + 2.f);
-	DrawUtils::fillRectangle(rectPos, MC_Color(00, 00, 00), 0.05f);
+	DrawUtils::fillRectangle(rectPos, MC_Color(00, 00, 00), ClickguiOpac->opacity);
 	DrawUtils::drawRectangle(rectPos, MC_Color(0, 0, 0), 1.f, 0.5f);
 	DrawUtils::drawText(textPos, text, MC_Color(0, 0, 255), textSize);
 }
@@ -205,6 +206,7 @@ void ClickGui::renderCategory(Category category) {
 
 	currentYOffset += textHeight + (textPadding * 2);
 	// Loop through Modules to display em
+	//ANIMATIONS
 	if (ourWindow->isExtended || ourWindow->isInAnimation) {
 		if (ourWindow->isInAnimation) {
 			currentYOffset -= ourWindow->animation * moduleList.size() * (textHeight + (textPadding * 2));
@@ -679,6 +681,7 @@ void ClickGui::renderCategory(Category category) {
 			categoryHeaderYOffset + textHeight + (textPadding * 2));
 
 		// Extend Logic
+		//ANIMATION
 		{
 			if (rectPos.contains(&mousePos) && shouldToggleRightClick && !isDragging) {
 				shouldToggleRightClick = false;

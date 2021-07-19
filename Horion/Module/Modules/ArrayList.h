@@ -3,8 +3,11 @@
 #include "../../DrawUtils.h"
 class ArrayList : public IModule {
 public:
-	float opacity = 0.05;
+	float opacity = 0.f;
 	bool enabled = true;
+	bool bar = false;
+	bool underbar = false;
+	bool ice = true;
 
 	ArrayList();
 	~ArrayList();

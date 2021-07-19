@@ -7,6 +7,7 @@ public:
 	~ClickGuiMod();
 
 	bool showTooltips = true;
+	float opacity = 0.f;
 
 	// Inherited via IModule
 	virtual void onPostRender(C_MinecraftUIRenderContext* renderCtx) override;

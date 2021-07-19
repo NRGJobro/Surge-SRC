@@ -473,6 +473,7 @@ void DrawUtils::drawItem(C_ItemStack* item, vec2_t itemPos, float opacity, float
 }
 
 void DrawUtils::drawKeystroke(char key, vec2_t pos) {
+	static auto hudModule = moduleMgr->getModule<HudModule>();
 	std::string keyString = Utils::getKeybindName(key);
 	C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 	if (key == *input->spaceBarKey) keyString = "-";
@@ -484,7 +485,7 @@ void DrawUtils::drawKeystroke(char key, vec2_t pos) {
 	vec2_t textPos(
 		(rectPos.x + (rectPos.z - rectPos.x) / 2) - (DrawUtils::getTextWidth(&keyString) / 2.f),
 		rectPos.y + 10.f - DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() / 2.f);
-	fillRectangle(rectPos, GameData::isKeyDown(key) ? MC_Color(255, 255, 255) : MC_Color(0, 0, 0), 0.05f);
+	fillRectangle(rectPos, GameData::isKeyDown(key) ? MC_Color(255, 255, 255) : MC_Color(0, 0, 0), hudModule->opacity);
 	drawText(textPos, &keyString, MC_Color(0, 0, 255), 1.f, 1.f);
 }
 

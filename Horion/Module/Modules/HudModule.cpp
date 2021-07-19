@@ -13,6 +13,7 @@ HudModule::HudModule() : IModule(0, Category::VISUAL, "Displays More") {
 	registerBoolSetting("Show CPS", &this->cps, this->cps);
 	registerBoolSetting("Always show", &this->alwaysShow, this->alwaysShow);
 	registerFloatSetting("Scale", &this->scale, this->scale, 0.5f, 1.5f);
+	registerFloatSetting("Opacity", &this->opacity, this->opacity, 0.0f, 1.f);
 }
 
 HudModule::~HudModule() {
@@ -36,7 +37,7 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			std::string fpsText = "FPS: " + std::to_string(g_Data.getFPS());
 			vec4_t rectPos = vec4_t(2.5f, startY + 5.f * scale, len, startY + 15.f * scale);
 			vec2_t textPos = vec2_t(rectPos.x + 1.5f, rectPos.y + 1.f);
-			DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), 0.05f);
+			DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0),opacity);
 			DrawUtils::drawText(textPos, &fpsText, MC_Color(0, 0, 255), scale);
 
 			startY += f;
@@ -47,7 +48,7 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			std::string cpsText = "CPS: " + std::to_string(g_Data.getLeftCPS()) + " - " + std::to_string(g_Data.getRightCPS());
 			vec4_t rectPos = vec4_t(2.5f, startY + 5.f * scale, len, startY + 15.f * scale);
 			vec2_t textPos = vec2_t(rectPos.x + 1.5f, rectPos.y + 1.f);
-			DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), 0.05f);
+			DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0),opacity);
 			DrawUtils::drawText(textPos, &cpsText, MC_Color(0, 0, 225), scale);
 
 			startY += f;
@@ -62,7 +63,7 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			std::string coordsZ = "Z: " + std::to_string((int)floorf(pos->z));
 			vec4_t rectPos = vec4_t(2.5f, startY + 5.f * scale, len, startY + 35.f * scale);
 			vec2_t textPos = vec2_t(rectPos.x + 1.5f, rectPos.y + 1.f);
-			DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), 0.05f);
+			DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0),opacity);
 			DrawUtils::drawText(textPos, &coordsX, MC_Color(0, 0, 255), scale);
 			textPos.y += f;
 			DrawUtils::drawText(textPos, &coordsY, MC_Color(0, 0, 255), scale);

@@ -3,6 +3,9 @@
 #include "../ModuleManager.h"
 
 ArrayList::ArrayList() : IModule(0, Category::VISUAL, "ArrayList") {
+	this->registerBoolSetting("Icy Arraylist", &this->ice, this->ice);
+	this->registerBoolSetting("Side Bar", &this->bar, this->bar);
+	this->registerBoolSetting("Bottom Bar", &this->underbar, this->underbar);
 	registerFloatSetting("Opacity", &this->opacity, this->opacity, 0.f, 1.f);
 }
 

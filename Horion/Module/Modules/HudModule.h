@@ -19,6 +19,7 @@ public:
 	bool alwaysShow = false;
 
 	float scale = 1.f;
+	float opacity = 0.f;
 
 	// Inherited via IModule
 	virtual const char* getModuleName() override;

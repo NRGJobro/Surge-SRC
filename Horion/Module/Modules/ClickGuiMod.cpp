@@ -3,6 +3,7 @@
 
 ClickGuiMod::ClickGuiMod() : IModule(VK_INSERT, Category::VISUAL, "The clickgui - toggle everything by just clicking on it!") {
 	registerBoolSetting("Show Tooltips", &this->showTooltips, this->showTooltips);
+	registerFloatSetting("Opacity", &this->opacity, this->opacity, 0.f, 1.f);
 }
 
 ClickGuiMod::~ClickGuiMod() {

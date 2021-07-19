@@ -653,6 +653,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				mousePos.mul(windowSize);
 
 				// Draw Horion logo
+				static auto hudModule = moduleMgr->getModule<HudModule>();
 				if (shouldRenderWatermark) {
 					constexpr float nameTextSize = 1.49f;
 					constexpr float versionTextSize = 0.6f;
@@ -678,7 +679,7 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						windowSize.y - margin);
 
 					DrawUtils::drawRectangle(rect, MC_Color(0, 0, 0), 1.f);
-					DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), 0.05f);
+					DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), hudModule->opacity);
 					DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color (0, 0, 255), 1.5f, nameTextSize);
 					DrawUtils::drawText(vec2_t(rect.x + borderPadding + nameLength, rect.w - 7), &version, MC_Color(0, 0, 0), versionTextSize);
 				}
@@ -795,12 +796,25 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							yOffset,
 							xOffset - 1,
 							yOffset + textPadding * 2 + textHeight);
+						vec4_t topIce = vec4_t(
+							xOffset - 3,
+							yOffset,
+							xOffset - 1,
+							yOffset + textPadding * 2 + textHeight);
+						vec4_t rightRect = vec4_t(
+							xOffset - 2,
+							yOffset,
+							xOffset - 1,
+							yOffset + textPadding * 7 + textHeight);
 						vec4_t underline = vec4_t(
 							xOffset - 2,
 							leftRect.w,
 							windowSize.x,
 							leftRect.w + 1.f);
-						DrawUtils::fillRectangle(underline, MC_Color(0, 0, 0), 1.f);
+						static auto underbarmod = moduleMgr->getModule<ArrayList>();
+						if (underbarmod->underbar == false()) {
+							DrawUtils::fillRectangle(underline, MC_Color(0, 0, 0), 1.f);
+						}
 						c++;
 						b++;
 						if (b < 20)
@@ -813,10 +827,19 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
 
 						DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), arraylist->opacity);  // Background
-						DrawUtils::fillRectangle(leftRect, MC_Color(0, 0, 0), 1.f);
+						static auto barmod = moduleMgr->getModule<ArrayList>();
+						if (barmod->bar == false()) {
+							DrawUtils::fillRectangle(leftRect, MC_Color(0, 0, 0), 1.f);
+							}
+						static auto icemod = moduleMgr->getModule<ArrayList>();
+							if (icemod->ice == false()) {
+								DrawUtils::fillRectangle(topIce, MC_Color(209, 237, 242), 1.f);
+								DrawUtils::fillRectangle(rightRect, MC_Color(220, 220, 220), 1.f);
+							}
 						if (!GameData::canUseMoveKeys() && rectPos.contains(&mousePos) && hudModule->clickToggle) {
 							vec4_t selectedRect = rectPos;
 							selectedRect.x = leftRect.z;
+							selectedRect.x = rightRect.z;
 							if (leftMouseDown) {
 								DrawUtils::fillRectangle(selectedRect, MC_Color(0.8f, 0.8f, 0.8f), 0.8f);
 								if (executeClick)
