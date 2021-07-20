@@ -5,7 +5,7 @@
 
 Scaffold::Scaffold() : IModule(0, Category::WORLD, "it makes me mad how bad u r at coding - packet") {
 	registerBoolSetting("Freecam Scaffold", &this->free, this->free);
-	registerBoolSetting("Timer", &this->time, this->time);
+	registerBoolSetting("Timer", &this->timerBool, this->timerBool);
 	registerBoolSetting("Staircase Mode", &this->staircaseMode, this->staircaseMode);
 	registerBoolSetting("Andromeda Bridge", &this->andromeda, this->andromeda);
 	registerBoolSetting("Tower", &this->tower, this->tower);
@@ -13,7 +13,7 @@ Scaffold::Scaffold() : IModule(0, Category::WORLD, "it makes me mad how bad u r 
 	registerBoolSetting("Thick", &this->extend, this->extend);
 	registerFloatSetting("Thick Radius", &thicc, thicc, 0.1f, 0.7f);
 	registerBoolSetting("Rotations", &this->rot, this->rot);
-	registerFloatSetting("Timer Speed", &speed, speed, 0.5f, 3.f);
+	this->registerIntSetting("TPS", &this->timer, this->timer, 20, 200);
 	registerFloatSetting("Tower Speed", &towerspeed, towerspeed, 0.5f, 3.f);
 }
 
@@ -93,8 +93,11 @@ void Scaffold::onTick(C_GameMode* gm) {
 	if (this->tower) {
 		towerMod->setEnabled(true);
 	}
-	if (this->time) {
-		*g_Data.getClientInstance()->minecraft->timer = 65.f * speed;
+	if (timerBool) {
+		*g_Data.getClientInstance()->minecraft->timer = static_cast<float>(this->timer);
+	}
+	if (!timerBool) {
+		*g_Data.getClientInstance()->minecraft->timer = 20.f;
 	}
 
 	auto selectedItem = g_Data.getLocalPlayer()->getSelectedItem();
@@ -464,9 +467,9 @@ void Scaffold::onDisable() {
 	}
 	*g_Data.getClientInstance()->minecraft->timer = 20.f;
 	if (g_Data.getLocalPlayer() == nullptr)
-		return;
-	__int64 id = *g_Data.getLocalPlayer()->getUniqueId();
-	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
-	C_MobEquipmentPacket a(id, *g_Data.getLocalPlayer()->getSelectedItem(), supplies->selectedHotbarSlot, supplies->selectedHotbarSlot);
-	g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&a);
-}
+			return;
+		__int64 id = *g_Data.getLocalPlayer()->getUniqueId();
+		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+		C_MobEquipmentPacket a(id, *g_Data.getLocalPlayer()->getSelectedItem(), supplies->selectedHotbarSlot, supplies->selectedHotbarSlot);
+		g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&a);
+	}

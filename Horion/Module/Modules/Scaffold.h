@@ -3,19 +3,19 @@
 class Scaffold : public IModule {
 private:
 	bool free = false;
+	bool timerBool = false;
+	int timer = 20;
 	bool AutoSelect = true;
 	bool FinishSelect = false;
 	int prevSlot;
 	int delay = 0;
 	bool tower = false;
-	bool time = false;
 	bool staircaseMode = false;
 	bool extend = false;
 	bool andromeda = false;
 	bool rot = true;
 	bool tryScaffold(vec3_t blockBelow);
 	bool findBlock();
-	float speed = 1.5f;
 	float thicc = 5.f;
 	float towerspeed = 1.5f;
 	C_PlayerInventoryProxy* supplies = nullptr;
