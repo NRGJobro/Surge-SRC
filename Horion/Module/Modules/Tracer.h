@@ -2,6 +2,8 @@
 #include "Module.h"
 class Tracer : public IModule {
 public:
+	bool isMob = false;
+	bool isPlayer = true;
 	Tracer();
 	~Tracer();
 
