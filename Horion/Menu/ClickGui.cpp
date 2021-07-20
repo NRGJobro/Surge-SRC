@@ -37,7 +37,7 @@ static constexpr float categoryMargin = 0.5f;
 static constexpr float paddingRight = 13.5f;
 static constexpr float crossSize = textHeight / 2.f;
 static constexpr float crossWidth = 0.3f;
-static constexpr float backgroundAlpha = 0.05;
+static constexpr float backgroundAlpha = 0.0f;
 static const MC_Color selectedModuleColor = MC_Color(0, 0, 255);
 static const MC_Color selectedSettingColor1 = MC_Color(20, 100, 195);
 static const MC_Color selectedSettingColor2 = MC_Color(40, 120, 205);
@@ -246,8 +246,9 @@ void ClickGui::renderCategory(Category category) {
 
 			// Background
 			if (allowRender) {
+				static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
 				if (!ourWindow->isInAnimation && !isDragging && rectPos.contains(&mousePos)) {  // Is the Mouse hovering above us?
-					DrawUtils::fillRectangle(rectPos, selectedModuleColor, backgroundAlpha);
+					DrawUtils::fillRectangle(rectPos, selectedModuleColor, ClickguiOpac->opacity);
 					std::string tooltip = mod->getTooltip();
 					static auto clickGuiMod = moduleMgr->getModule<ClickGuiMod>();
 					if (clickGuiMod->showTooltips && !tooltip.empty())
@@ -257,7 +258,7 @@ void ClickGui::renderCategory(Category category) {
 						shouldToggleLeftClick = false;
 					}
 				} else {
-					DrawUtils::fillRectangle(rectPos, moduleColor, backgroundAlpha);
+					DrawUtils::fillRectangle(rectPos, moduleColor, ClickguiOpac->opacity);
 				}
 			}
 
@@ -307,7 +308,12 @@ void ClickGui::renderCategory(Category category) {
 							switch (setting->valueType) {
 							case ValueType::BOOL_T: {
 								rectPos.w = currentYOffset + textHeight + (textPadding * 2);
-								DrawUtils::fillRectangle(rectPos, moduleColor, backgroundAlpha);
+								static auto rgbHud = moduleMgr->getModule<ClickGuiMod>();
+								if (rgbHud->opacity == false()) {
+									DrawUtils::fillRectangle(rectPos, moduleColor, backgroundAlpha);
+								} else {
+									DrawUtils::fillRectangle(rectPos, moduleColor, rgbHud->opacity);
+								}
 								vec4_t selectableSurface = vec4_t(
 									textPos.x + textPadding,
 									textPos.y + textPadding,
@@ -359,6 +365,7 @@ void ClickGui::renderCategory(Category category) {
 								break;
 							}
 							case ValueType::ENUM_T: {
+								static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
 								// Text and background
 								{
 									char name[0x22];
@@ -370,7 +377,7 @@ void ClickGui::renderCategory(Category category) {
 									std::string elTexto = name;
 									rectPos.w = currentYOffset + textHeight + (textPadding * 2);
 									windowSize->x = fmax(windowSize->x, DrawUtils::getTextWidth(&elTexto, textSize) + 5 /* because we add 5 to text padding*/ + crossSize);
-									DrawUtils::fillRectangle(rectPos, moduleColor, backgroundAlpha);
+									DrawUtils::fillRectangle(rectPos, moduleColor, ClickguiOpac->opacity);
 									DrawUtils::drawText(textPos, &elTexto, MC_Color(1.0f, 1.0f, 1.0f), textSize);
 									GuiUtils::drawCrossLine(vec2_t(
 																currentXOffset + windowSize->x + paddingRight - (crossSize / 2) - 1.f,
@@ -422,8 +429,8 @@ void ClickGui::renderCategory(Category category) {
 											else
 												col = SettingColor2;
 										}
-										DrawUtils::fillRectangle(rectPos, moduleColor, backgroundAlpha);
-										DrawUtils::fillRectangle(selectableSurface, col, backgroundAlpha);
+										DrawUtils::fillRectangle(rectPos, moduleColor, ClickguiOpac->opacity);
+										DrawUtils::fillRectangle(selectableSurface, col, ClickguiOpac->opacity);
 										DrawUtils::drawText(textPos, &elTexto, MC_Color(1.f, 1.f, 1.f));
 										// logic
 										if (selectableSurface.contains(&mousePos) &&
@@ -437,6 +444,7 @@ void ClickGui::renderCategory(Category category) {
 								break;
 							}
 							case ValueType::FLOAT_T: {
+								static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
 								// Text and background
 								{
 									// Convert first letter to uppercase for more friendlieness
@@ -450,7 +458,7 @@ void ClickGui::renderCategory(Category category) {
 									DrawUtils::drawText(textPos, &elTexto, MC_Color(1.0f, 1.0f, 1.0f), textSize);
 									currentYOffset += textPadding + textHeight;
 									rectPos.w = currentYOffset;
-									DrawUtils::fillRectangle(rectPos, moduleColor, backgroundAlpha);
+									DrawUtils::fillRectangle(rectPos, moduleColor, ClickguiOpac->opacity);
 								}
 
 								if ((currentYOffset - ourWindow->pos.y) > cutoffHeight) {
@@ -472,8 +480,8 @@ void ClickGui::renderCategory(Category category) {
 										// Background
 										const bool areWeFocused = rect.contains(&mousePos);
 
-										DrawUtils::fillRectangle(rectPos, moduleColor, backgroundAlpha);              // Background
-										DrawUtils::drawRectangle(rect, MC_Color(1.0f, 1.0f, 1.0f), 1.f, backgroundAlpha);  // Slider background
+										DrawUtils::fillRectangle(rectPos, moduleColor, ClickguiOpac->opacity);             // Background
+										DrawUtils::drawRectangle(rect, MC_Color(1.0f, 1.0f, 1.0f), 1.f, ClickguiOpac->opacity);  // Slider background
 
 										const float minValue = setting->minValue->_float;
 										const float maxValue = setting->maxValue->_float - minValue;
@@ -531,8 +539,7 @@ void ClickGui::renderCategory(Category category) {
 								}
 							} break;
 							case ValueType::INT_T: {
-
-								
+								static auto ClickguiOpac = moduleMgr->getModule<ClickGuiMod>();
 								// Text and background
 								{
 									// Convert first letter to uppercase for more friendlieness
@@ -546,7 +553,7 @@ void ClickGui::renderCategory(Category category) {
 									DrawUtils::drawText(textPos, &elTexto, MC_Color(1.0f, 1.0f, 1.0f), textSize);
 									currentYOffset += textPadding + textHeight;
 									rectPos.w = currentYOffset;
-									DrawUtils::fillRectangle(rectPos, moduleColor, backgroundAlpha);
+									DrawUtils::fillRectangle(rectPos, moduleColor, ClickguiOpac->opacity);
 								}
 								if ((currentYOffset - ourWindow->pos.y) > (g_Data.getGuiData()->heightGame * 0.75)) {
 									overflowing = true;
@@ -567,8 +574,8 @@ void ClickGui::renderCategory(Category category) {
 										// Background
 										const bool areWeFocused = rect.contains(&mousePos);
 
-										DrawUtils::fillRectangle(rectPos, moduleColor, backgroundAlpha);              // Background
-										DrawUtils::drawRectangle(rect, MC_Color(1.0f, 1.0f, 1.0f), 1.f, backgroundAlpha);  // Slider background
+										DrawUtils::fillRectangle(rectPos, moduleColor, ClickguiOpac->opacity);             // Background
+										DrawUtils::drawRectangle(rect, MC_Color(1.0f, 1.0f, 1.0f), 1.f, ClickguiOpac->opacity);  // Slider background
 
 										const float minValue = (float)setting->minValue->_int;
 										const float maxValue = (float)setting->maxValue->_int - minValue;

@@ -8,6 +8,8 @@ HudModule::HudModule() : IModule(0, Category::VISUAL, "Displays More") {
 	registerBoolSetting("Coordinates", &this->coordinates, this->coordinates);
 	registerBoolSetting("Show Keybinds", &this->keybinds, this->keybinds);
 	registerBoolSetting("Show ArmorHUD", &this->displayArmor, this->displayArmor);
+	registerBoolSetting("RGB Borders", &this->rgbborders, this->rgbborders);
+	registerBoolSetting("RGB Text", &this->rgbtext, this->rgbtext);
 	registerBoolSetting("Keystrokes", &this->keystrokes, this->keystrokes);
 	registerBoolSetting("Show FPS", &this->fps, this->fps);
 	registerBoolSetting("Show CPS", &this->cps, this->cps);
@@ -24,6 +26,25 @@ const char* HudModule::getModuleName() {
 }
 
 void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
+	static float rcolors[4];          // Rainbow color array RGBA
+	static float disabledRcolors[4];  // Rainbow Colors, but for disabled modules
+	static float currColor[4];        // ArrayList colors
+
+	// Rainbow color updates
+	{
+		Utils::ApplyRainbow(rcolors);  // Increase Hue of rainbow color array
+		disabledRcolors[0] = std::min(1.f, rcolors[0] * 0.4f + 0.2f);
+		disabledRcolors[1] = std::min(1.f, rcolors[1] * 0.4f + 0.2f);
+		disabledRcolors[2] = std::min(1.f, rcolors[2] * 0.4f + 0.2f);
+		disabledRcolors[3] = 1;
+	}
+	int a = 0;
+	int b = 0;
+	int c = 0;
+	currColor[3] = rcolors[3];
+	Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
+	currColor[0] += 1.f / a * c;
+	Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
 
 	vec2_t windowSize = g_Data.getClientInstance()->getGuiData()->windowSize;
 	float f = 10.f * this->scale;
@@ -38,7 +59,12 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			vec4_t rectPos = vec4_t(2.5f, startY + 5.f * scale, len, startY + 15.f * scale);
 			vec2_t textPos = vec2_t(rectPos.x + 1.5f, rectPos.y + 1.f);
 			DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0),opacity);
-			DrawUtils::drawText(textPos, &fpsText, MC_Color(0, 0, 255), scale);
+			static auto rgbHud = moduleMgr->getModule<HudModule>();
+			if (rgbHud->rgbtext == false()) {
+				DrawUtils::drawText(textPos, &fpsText, MC_Color(rcolors), scale);
+			} else {
+				DrawUtils::drawText(textPos, &fpsText, MC_Color(0, 0, 255), scale);
+			}
 
 			startY += f;
 		}
@@ -49,7 +75,12 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			vec4_t rectPos = vec4_t(2.5f, startY + 5.f * scale, len, startY + 15.f * scale);
 			vec2_t textPos = vec2_t(rectPos.x + 1.5f, rectPos.y + 1.f);
 			DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0),opacity);
-			DrawUtils::drawText(textPos, &cpsText, MC_Color(0, 0, 225), scale);
+			static auto rgbHud = moduleMgr->getModule<HudModule>();
+			if (rgbHud->rgbtext == false()) {
+				DrawUtils::drawText(textPos, &cpsText, MC_Color(rcolors), scale);
+			} else {
+				DrawUtils::drawText(textPos, &cpsText, MC_Color(0, 0, 225), scale);
+			}
 
 			startY += f;
 		}
@@ -64,11 +95,20 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			vec4_t rectPos = vec4_t(2.5f, startY + 5.f * scale, len, startY + 35.f * scale);
 			vec2_t textPos = vec2_t(rectPos.x + 1.5f, rectPos.y + 1.f);
 			DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0),opacity);
-			DrawUtils::drawText(textPos, &coordsX, MC_Color(0, 0, 255), scale);
-			textPos.y += f;
-			DrawUtils::drawText(textPos, &coordsY, MC_Color(0, 0, 255), scale);
-			textPos.y += f;
-			DrawUtils::drawText(textPos, &coordsZ, MC_Color(0, 0, 255), scale);
+			static auto rgbHud = moduleMgr->getModule<HudModule>();
+			if (rgbHud->rgbtext == false()) {
+				DrawUtils::drawText(textPos, &coordsX, MC_Color(rcolors), scale);
+				textPos.y += f;
+				DrawUtils::drawText(textPos, &coordsY, MC_Color(rcolors), scale);
+				textPos.y += f;
+				DrawUtils::drawText(textPos, &coordsZ, MC_Color(rcolors), scale);
+			} else {
+				DrawUtils::drawText(textPos, &coordsX, MC_Color(0, 0, 255), scale);
+				textPos.y += f;
+				DrawUtils::drawText(textPos, &coordsY, MC_Color(0, 0, 255), scale);
+				textPos.y += f;
+				DrawUtils::drawText(textPos, &coordsZ, MC_Color(0, 0, 255), scale);
+			}
 		}
 	}
 	{  // ArmorHUD

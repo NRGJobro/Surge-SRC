@@ -14,6 +14,8 @@ public:
 	bool keybinds = true;
 	bool displayArmor = true;
 	bool keystrokes = true;
+	bool rgbborders = true;
+	bool rgbtext = true;
 	bool fps = true;
 	bool cps = true;
 	bool alwaysShow = false;
