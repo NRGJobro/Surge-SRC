@@ -677,8 +677,12 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						windowSize.y - margin - textHeight,
 						windowSize.x - margin + borderPadding,
 						windowSize.y - margin);
-
-					DrawUtils::drawRectangle(rect, MC_Color(0, 0, 0), 1.f);
+					static auto rgbmod = moduleMgr->getModule<ArrayList>();
+					if (rgbmod->rgb == false()) {
+						DrawUtils::drawRectangle(rect, MC_Color(currColor), 1.f);
+					} else {
+						DrawUtils::drawRectangle(rect, MC_Color(0, 0, 0), 1.f);
+					}
 					DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), hudModule->opacity);
 					DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color (0, 0, 255), 1.5f, nameTextSize);
 					DrawUtils::drawText(vec2_t(rect.x + borderPadding + nameLength, rect.w - 7), &version, MC_Color(0, 0, 0), versionTextSize);
@@ -831,11 +835,16 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						if (barmod->bar == false()) {
 							DrawUtils::fillRectangle(leftRect, MC_Color(0, 0, 0), 1.f);
 							}
-						static auto icemod = moduleMgr->getModule<ArrayList>();
-							if (icemod->ice == false()) {
-								DrawUtils::fillRectangle(topIce, MC_Color(209, 237, 242), 1.f);
-								DrawUtils::fillRectangle(rightRect, MC_Color(220, 220, 220), 1.f);
+						static auto rgbmod = moduleMgr->getModule<ArrayList>();
+							if (rgbmod->rgb == false()) {
+								DrawUtils::fillRectangle(underline, MC_Color(currColor), 1.f);
+								DrawUtils::fillRectangle(leftRect, MC_Color(currColor), 1.f);
 							}
+						static auto icemod = moduleMgr->getModule<ArrayList>();
+						if (icemod->ice == false()) {
+							DrawUtils::fillRectangle(topIce, MC_Color(209, 237, 242), 1.f);
+							DrawUtils::fillRectangle(rightRect, MC_Color(220, 220, 220), 1.f);
+						}
 						if (!GameData::canUseMoveKeys() && rectPos.contains(&mousePos) && hudModule->clickToggle) {
 							vec4_t selectedRect = rectPos;
 							selectedRect.x = leftRect.z;

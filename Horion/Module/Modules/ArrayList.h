@@ -8,6 +8,7 @@ public:
 	bool bar = false;
 	bool underbar = false;
 	bool ice = true;
+	bool rgb = true;
 
 	ArrayList();
 	~ArrayList();
