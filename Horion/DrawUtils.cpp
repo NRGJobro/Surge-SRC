@@ -178,13 +178,28 @@ void DrawUtils::drawQuad(vec2_t p1, vec2_t p2, vec2_t p3, vec2_t p4) {
 } 
 
 void DrawUtils::drawTracer(C_Entity* ent) {
+	static float rcolors[4];
+	{
+		if (rcolors[3] < 1) {
+			rcolors[0] = 0.2f;
+			rcolors[1] = 0.2f;
+			rcolors[2] = 1.f;
+			rcolors[3] = 1;
+		}
+
+		Utils::ApplyRainbow(rcolors, 0.0015f);
+	}
 	static auto tracerMod = moduleMgr->getModule<Tracer>();
 	vec2_t target;
 	refdef->OWorldToScreen(origin, *ent->getPos(), target, fov, screenSize);
 	vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame) / 2));
 	if (target != vec2_t(0, 0)) {
-		DrawUtils::setColor(0, 0, 255, 1);
-		DrawUtils::drawLine(mid, target, 0.2f);
+		if (tracerMod->RGB == false()) {
+			DrawUtils::setColor(rcolors[0], rcolors[1], rcolors[2], 1);
+		} else {
+			DrawUtils::setColor(0, 0, 255, 1);
+		}
+			DrawUtils::drawLine(mid, target, 0.2f);
 	}
 }
 

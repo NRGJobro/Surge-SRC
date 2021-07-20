@@ -7,7 +7,7 @@
 Tracer::Tracer() : IModule('R', Category::VISUAL, "Draws lines to ESP highlighted entities(MADE BY OLD GREGGO!!)") {
 	this->registerBoolSetting("Mob Tracers", &this->isMob, this->isMob);
 	this->registerBoolSetting("Player Tracers", &this->isPlayer, this->isPlayer);
-
+	this->registerBoolSetting("RGB", &this->RGB, this->RGB);
 }
 
 Tracer::~Tracer() {
