@@ -22,6 +22,9 @@ const char* Killaura::getModuleName() {
 static std::vector<C_Entity*> targetList;
 
 void findEntity(C_Entity* currentEntity, bool isRegularEntity) {
+	auto KillauraMod = moduleMgr->getModule<Killaura>();
+	if (!g_Data.isInGame())
+		KillauraMod->setEnabled(false);
 	static auto killauraMod = moduleMgr->getModule<Killaura>();
 
 	if (currentEntity == nullptr)
@@ -59,6 +62,9 @@ void findEntity(C_Entity* currentEntity, bool isRegularEntity) {
 }
 
 void Killaura::findWeapon() {
+	auto KillauraMod = moduleMgr->getModule<Killaura>();
+	if (!g_Data.isInGame())
+		KillauraMod->setEnabled(false);
 	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
 	C_Inventory* inv = supplies->inventory;
 	float damage = 0;
@@ -77,6 +83,9 @@ void Killaura::findWeapon() {
 }
 
 void Killaura::onTick(C_GameMode* gm) {
+	auto KillauraMod = moduleMgr->getModule<Killaura>();
+	if (!g_Data.isInGame())
+		KillauraMod->setEnabled(false);
 	C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
 	//Loop through all our players and retrieve their information
 	targetList.clear();
@@ -134,11 +143,17 @@ void Killaura::onTick(C_GameMode* gm) {
 	}
 
 void Killaura::onEnable() {
+		auto KillauraMod = moduleMgr->getModule<Killaura>();
+		if (!g_Data.isInGame())
+			KillauraMod->setEnabled(false);
 	if (g_Data.getLocalPlayer() == nullptr)
 		this->setEnabled(false);
 }
 
 void Killaura::onSendPacket(C_Packet* packet) {
+	auto KillauraMod = moduleMgr->getModule<Killaura>();
+	if (!g_Data.isInGame())
+		KillauraMod->setEnabled(false);
 	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr) {
 		if (!targetList.empty()) {
 			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
