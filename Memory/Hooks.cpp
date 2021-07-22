@@ -507,9 +507,19 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 				std::string text = "Surge  Client";
 				vec2_t textPos = vec2_t(wid.x / 1.38f - DrawUtils::getTextWidth(&text, 7.f) / 1.f, wid.y / -30.f);
 				vec4_t rectPos = vec4_t(textPos.x - 20.f, textPos.y - 20.f, textPos.x + DrawUtils::getTextWidth(&text, 3.f) + 20.f, textPos.y + 40.f);
-				DrawUtils::fillRectangle(rectPos, MC_Color(255, 255, 255), 0.f);
+				static auto rgbborderhud = moduleMgr->getModule<HudModule>();
+				if (rgbborderhud->rgbborders == false()) {
+					DrawUtils::fillRectangle(rectPos, MC_Color(currColor), 0.f);
+				} else {
+					DrawUtils::fillRectangle(rectPos, MC_Color(255, 255, 255), 0.f);
+				}
 				//DrawUtils::drawRectangle(rectPos, MC_Color(0, 0, 0), 0.f);
-				DrawUtils::drawText(textPos, &text, MC_Color(0, 0, 255), 8.f);
+				static auto rgbHud = moduleMgr->getModule<HudModule>();
+				if (rgbHud->rgbtext == false()) {
+					DrawUtils::drawText(textPos, &text, MC_Color(currColor), 8.f);
+				} else {
+					DrawUtils::drawText(textPos, &text, MC_Color(0, 0, 255), 8.f);
+				}
 			}
 
 			// Draw Custom Geo Button
@@ -677,14 +687,19 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						windowSize.y - margin - textHeight,
 						windowSize.x - margin + borderPadding,
 						windowSize.y - margin);
-					static auto rgbmod = moduleMgr->getModule<ArrayList>();
-					if (rgbmod->rgb == false()) {
+					static auto rgbborderhud = moduleMgr->getModule<HudModule>();
+					if (rgbborderhud->rgbborders == false()) {
 						DrawUtils::drawRectangle(rect, MC_Color(currColor), 1.f);
 					} else {
 						DrawUtils::drawRectangle(rect, MC_Color(0, 0, 0), 1.f);
 					}
 					DrawUtils::fillRectangle(rect, MC_Color(0, 0, 0), hudModule->opacity);
-					DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color (0, 0, 255), 1.5f, nameTextSize);
+					static auto rgbTexthud = moduleMgr->getModule<HudModule>();
+					if (rgbTexthud->rgbtext == false()) {
+						DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(currColor), 1.5f, nameTextSize);
+					} else {
+						DrawUtils::drawText(vec2_t(rect.x + borderPadding, rect.y), &name, MC_Color(0, 0, 255), 1.5f, nameTextSize);
+					}
 					DrawUtils::drawText(vec2_t(rect.x + borderPadding + nameLength, rect.w - 7), &version, MC_Color(0, 0, 0), versionTextSize);
 				}
 
@@ -815,10 +830,6 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							leftRect.w,
 							windowSize.x,
 							leftRect.w + 1.f);
-						static auto underbarmod = moduleMgr->getModule<ArrayList>();
-						if (underbarmod->underbar == false()) {
-							DrawUtils::fillRectangle(underline, MC_Color(0, 0, 0), 1.f);
-						}
 						c++;
 						b++;
 						if (b < 20)
@@ -831,15 +842,22 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 						Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
 
 						DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), arraylist->opacity);  // Background
-						static auto barmod = moduleMgr->getModule<ArrayList>();
-						if (barmod->bar == false()) {
-							DrawUtils::fillRectangle(leftRect, MC_Color(0, 0, 0), 1.f);
-							}
 						static auto rgbmod = moduleMgr->getModule<ArrayList>();
-							if (rgbmod->rgb == false()) {
-								DrawUtils::fillRectangle(underline, MC_Color(currColor), 1.f);
-								DrawUtils::fillRectangle(leftRect, MC_Color(currColor), 1.f);
+						if (rgbmod->rgb == false()) {
+							DrawUtils::fillRectangle(underline, MC_Color(currColor), 1.f);
+							DrawUtils::fillRectangle(leftRect, MC_Color(currColor), 1.f);
+						} else {
+							static auto underbarmod = moduleMgr->getModule<ArrayList>();
+							if (underbarmod->underbar == false()) {
+								DrawUtils::fillRectangle(underline, MC_Color(0, 0, 0), 1.f);
 							}
+
+							static auto barmod = moduleMgr->getModule<ArrayList>();
+							if (barmod->bar == false()) {
+								DrawUtils::fillRectangle(leftRect, MC_Color(0, 0, 0), 1.f);
+							}
+						}
+
 						static auto icemod = moduleMgr->getModule<ArrayList>();
 						if (icemod->ice == false()) {
 							DrawUtils::fillRectangle(topIce, MC_Color(209, 237, 242), 1.f);
@@ -856,7 +874,12 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							} else
 								DrawUtils::fillRectangle(selectedRect, MC_Color(0.8f, 0.8f, 0.8f, 0.8f), 0.3f);
 						}
-						DrawUtils::drawText(textPos, &textStr, MC_Color(0, 0, 255), textSize);
+						static auto rgbText = moduleMgr->getModule<ArrayList>();
+						if (rgbText->rgbtext == false()) {
+							DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
+						} else {
+							DrawUtils::drawText(textPos, &textStr, MC_Color(0, 0, 255), textSize);
+						}
 
 						yOffset += textHeight + (textPadding * 2);
 					}

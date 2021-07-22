@@ -2,6 +2,9 @@
 #include "Module.h"
 class Tracer : public IModule {
 public:
+	bool isMob = false;
+	bool RGB = true;
+	bool isPlayer = true;
 	Tracer();
 	~Tracer();
 

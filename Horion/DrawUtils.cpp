@@ -178,13 +178,28 @@ void DrawUtils::drawQuad(vec2_t p1, vec2_t p2, vec2_t p3, vec2_t p4) {
 } 
 
 void DrawUtils::drawTracer(C_Entity* ent) {
+	static float rcolors[4];
+	{
+		if (rcolors[3] < 1) {
+			rcolors[0] = 0.2f;
+			rcolors[1] = 0.2f;
+			rcolors[2] = 1.f;
+			rcolors[3] = 1;
+		}
+
+		Utils::ApplyRainbow(rcolors, 0.0015f);
+	}
 	static auto tracerMod = moduleMgr->getModule<Tracer>();
 	vec2_t target;
 	refdef->OWorldToScreen(origin, *ent->getPos(), target, fov, screenSize);
 	vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame) / 2));
 	if (target != vec2_t(0, 0)) {
-		DrawUtils::setColor(0, 0, 255, 1);
-		DrawUtils::drawLine(mid, target, 0.2f);
+		if (tracerMod->RGB == false()) {
+			DrawUtils::setColor(rcolors[0], rcolors[1], rcolors[2], 1);
+		} else {
+			DrawUtils::setColor(0, 0, 255, 1);
+		}
+			DrawUtils::drawLine(mid, target, 0.2f);
 	}
 }
 
@@ -473,6 +488,26 @@ void DrawUtils::drawItem(C_ItemStack* item, vec2_t itemPos, float opacity, float
 }
 
 void DrawUtils::drawKeystroke(char key, vec2_t pos) {
+	static float rcolors[4];          // Rainbow color array RGBA
+	static float disabledRcolors[4];  // Rainbow Colors, but for disabled modules
+	static float currColor[4];        // ArrayList colors
+
+	// Rainbow color updates
+	{
+		Utils::ApplyRainbow(rcolors);  // Increase Hue of rainbow color array
+		disabledRcolors[0] = std::min(1.f, rcolors[0] * 0.4f + 0.2f);
+		disabledRcolors[1] = std::min(1.f, rcolors[1] * 0.4f + 0.2f);
+		disabledRcolors[2] = std::min(1.f, rcolors[2] * 0.4f + 0.2f);
+		disabledRcolors[3] = 1;
+	}
+	int a = 0;
+	int b = 0;
+	int c = 0;
+	currColor[3] = rcolors[3];
+	Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
+	currColor[0] += 1.f / a * c;
+	Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
+
 	static auto hudModule = moduleMgr->getModule<HudModule>();
 	std::string keyString = Utils::getKeybindName(key);
 	C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
@@ -486,7 +521,12 @@ void DrawUtils::drawKeystroke(char key, vec2_t pos) {
 		(rectPos.x + (rectPos.z - rectPos.x) / 2) - (DrawUtils::getTextWidth(&keyString) / 2.f),
 		rectPos.y + 10.f - DrawUtils::getFont(Fonts::SMOOTH)->getLineHeight() / 2.f);
 	fillRectangle(rectPos, GameData::isKeyDown(key) ? MC_Color(255, 255, 255) : MC_Color(0, 0, 0), hudModule->opacity);
-	drawText(textPos, &keyString, MC_Color(0, 0, 255), 1.f, 1.f);
+	static auto rgbHud = moduleMgr->getModule<HudModule>();
+	if (rgbHud->rgbtext == false()) {
+		drawText(textPos, &keyString, MC_Color(rcolors), 1.f, 1.f);
+	} else {
+		drawText(textPos, &keyString, MC_Color(0, 0, 255), 1.f, 1.f);
+	}
 }
 
 vec2_t DrawUtils::worldToScreen(const vec3_t& world) {
