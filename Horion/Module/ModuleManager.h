@@ -94,7 +94,7 @@
 #include "Modules/ArrayList.h"
 #include "Modules/Radar.h"
 #include "Modules/InsideAura.h"
-#include "Modules/Twerk.h"
+#include "Modules/VoidTP.h"
 
 #ifdef _DEBUG
 #include "Modules/PacketLogger.h"

@@ -4,6 +4,7 @@ class Scaffold : public IModule {
 private:
 	bool free = false;
 	bool timerBool = false;
+	bool airplace = true;
 	int timer = 20;
 	bool AutoSelect = true;
 	bool FinishSelect = false;

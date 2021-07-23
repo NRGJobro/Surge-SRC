@@ -6,6 +6,7 @@
 Scaffold::Scaffold() : IModule(0, Category::WORLD, "it makes me mad how bad u r at coding - packet") {
 	registerBoolSetting("Freecam Scaffold", &this->free, this->free);
 	registerBoolSetting("Timer", &this->timerBool, this->timerBool);
+	registerBoolSetting("AirPlace", &this->airplace, this->airplace);
 	registerBoolSetting("Staircase Mode", &this->staircaseMode, this->staircaseMode);
 	registerBoolSetting("Andromeda Bridge", &this->andromeda, this->andromeda);
 	registerBoolSetting("Tower", &this->tower, this->tower);
@@ -33,32 +34,67 @@ bool Scaffold::tryScaffold(vec3_t blockBelow) {
 		vec3_ti blok(blockBelow);
 
 		// Find neighbour
-		static std::vector<vec3_ti*> checklist;
-		//if (checklist.empty()) {
-		//}
-
-		bool foundCandidate = true;
-		int i = 0;
-		for (auto current : checklist) {
-			vec3_ti calc = blok.sub(*current);
-			bool Y = ((g_Data.getLocalPlayer()->region->getBlock(calc)->blockLegacy))->material->isReplaceable;
-			if (!((g_Data.getLocalPlayer()->region->getBlock(calc)->blockLegacy))->material->isReplaceable) {
-				// Found a solid block to click
-				foundCandidate = true;
-				blok = calc;
-				break;
+		if (airplace) {
+			static std::vector<vec3_ti*> checklist;
+			if (checklist.empty()) {
+				checklist.push_back(new vec3_ti(0, -1, 0));
+				checklist.push_back(new vec3_ti(0, 1, 0));
 			}
-			i++;
-		}
-		if (foundCandidate) {
-			if (spoof) findBlock();
 			bool foundCandidate = true;
-			g_Data.getCGameMode()->buildBlock(&blok, i);
+			int i = 0;
+			for (auto current : checklist) {
+				vec3_ti calc = blok.sub(*current);
+				bool Y = ((g_Data.getLocalPlayer()->region->getBlock(calc)->blockLegacy))->material->isReplaceable;
+				if (!((g_Data.getLocalPlayer()->region->getBlock(calc)->blockLegacy))->material->isReplaceable) {
+					// Found a solid block to click
+					foundCandidate = true;
+					blok = calc;
+					break;
+				}
+				i++;
+			}
+			if (foundCandidate) {
+				if (spoof) findBlock();
+				bool foundCandidate = true;
+				g_Data.getCGameMode()->buildBlock(&blok, i);
 
-			return true;
+				return true;
+			}
+		} else {
+			static std::vector<vec3_ti*> checklist;
+			if (checklist.empty()) {
+				checklist.push_back(new vec3_ti(0, -1, 0));
+				checklist.push_back(new vec3_ti(0, 1, 0));
+
+				checklist.push_back(new vec3_ti(0, 0, -1));
+				checklist.push_back(new vec3_ti(0, 0, 1));
+
+				checklist.push_back(new vec3_ti(-1, 0, 0));
+				checklist.push_back(new vec3_ti(1, 0, 0));
+			}
+			bool foundCandidate = false;
+			int i = 0;
+			for (auto current : checklist) {
+				vec3_ti calc = blok.sub(*current);
+				bool Y = ((g_Data.getLocalPlayer()->region->getBlock(calc)->blockLegacy))->material->isReplaceable;
+				if (!((g_Data.getLocalPlayer()->region->getBlock(calc)->blockLegacy))->material->isReplaceable) {
+					// Found a solid block to click
+					foundCandidate = true;
+					blok = calc;
+					break;
+				}
+				i++;
+			}
+			if (foundCandidate) {
+				if (spoof) findBlock();
+				bool foundCandidate = true;
+				g_Data.getCGameMode()->buildBlock(&blok, i);
+
+				return true;
+			}
 		}
+		return false;
 	}
-	return false;
 }
 
 bool Scaffold::findBlock() {

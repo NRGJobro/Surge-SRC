@@ -102,7 +102,7 @@ void ModuleManager::initModules() {
 		this->moduleList.push_back(std::shared_ptr<IModule>(new	ArrayList()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new	Radar()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new InsideTP()));
-		//this->moduleList.push_back(std::shared_ptr<IModule>(new Twerk()));
+		//this->moduleList.push_back(std::shared_ptr<IModule>(new VoidTP()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new FollowPathModule()));
 
 #ifdef _DEBUG

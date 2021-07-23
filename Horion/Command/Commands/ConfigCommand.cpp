@@ -17,7 +17,7 @@ bool ConfigCommand::execute(std::vector<std::string>* args) {
 		return true;
 	} else if (args->at(1) == "save") {
 		configMgr->saveConfig();
-		clientMessageF("[%sSurge%s] %sSuccessfully saved config %s%s%s!", GOLD, WHITE, GREEN, GRAY, configMgr->currentConfig.c_str(), GREEN);
+		clientMessageF("[%sSurge%s] %sSuccessfully saved config %s%s%s!", BLUE, WHITE, BLUE, WHITE, configMgr->currentConfig.c_str(), WHITE);
 		return true;
 	}
 	return false;
