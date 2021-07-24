@@ -433,12 +433,6 @@ void Scaffold::onTick(C_GameMode* gm) {
 		}
 		if (!tryScaffold(blockBelow)) {
 			if (speed > 0.05f) {  // Are we actually walking?
-				if (this->rot) {
-					for (int i = 0; i < 40; i++) {
-						auto player = g_Data.getLocalPlayer();
-						player->bodyYaw = blockBelow.y;
-					}
-				}
 				blockBelow.z -= vel.z * 0.4f;
 				if (!tryScaffold(blockBelow)) {
 					blockBelow.x -= vel.x * 0.4f;
@@ -487,8 +481,16 @@ void Scaffold::onTick(C_GameMode* gm) {
 void Scaffold::onMove(C_MoveInputHandler* input) {
 	auto player = g_Data.getLocalPlayer();
 	vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
+	vec3_t blockBelow = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
 	bool pressed = moveVec2d.magnitude() > 0.01f;
 	if (player == nullptr) return;
+	if (this->rot) {
+		for (int i = 0; i < 40; i++) {
+			auto player = g_Data.getLocalPlayer();
+			player->bodyYaw = blockBelow.y;
+			player->pitch = blockBelow.y;
+		}
+	}
 }
 
 void Scaffold::onDisable() {
