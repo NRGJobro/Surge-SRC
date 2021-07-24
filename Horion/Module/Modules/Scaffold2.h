@@ -5,7 +5,7 @@
 class Scaffold2 : public IModule {
 private:
 	int counter = 1;
-	float speed = 0.9f;
+	float speed = 0.39f;
 	bool Fly = true;
 	bool Blinc = false;
 	bool Glide = false;

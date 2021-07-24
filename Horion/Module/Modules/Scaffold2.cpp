@@ -1,10 +1,8 @@
 #include "Scaffold2.h"
 
-Scaffold2::Scaffold2() : IModule(0, Category::CUSTOM, "Fly, but for the hive") {
-	//registerFloatSetting("Fly Speed", &this->speed, this->speed, 0.1f, 0.9f);
-	registerBoolSetting("BlockFly", &this->Fly, this->Fly);
-	//registerBoolSetting("Damage Fly", &this->Blinc, this->Blinc);
-	//registerBoolSetting("PVP Fly", &this->Glide, this->Glide);
+Scaffold2::Scaffold2() : IModule(0, Category::CUSTOM, "Block Fly") {
+	registerFloatSetting("Speed", &this->speed, this->speed, 0.1f, 0.7f);
+	registerBoolSetting("Damage", &this->Blinc, this->Blinc);
 }
 
 Scaffold2::~Scaffold2() {
@@ -34,28 +32,59 @@ void Scaffold2::onMove(C_MoveInputHandler* input) {
 	vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
 	bool pressed = moveVec2d.magnitude() > 0.01f;
 
-	if (pressed && Glide) {
-		player->velocity.y = -0.24f;
+	if (pressed) {
+		float calcYaw = (player->yaw + 90) * (PI / 180);
+		vec3_t moveVec;
+		float c = cos(calcYaw);
+		float s = sin(calcYaw);
+		moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
+		moveVec.x = moveVec2d.x * speed;
+		moveVec.y = 0.00f;
+		moveVec.z = moveVec2d.y * speed;
+		if (pressed) player->lerpMotion(moveVec);
 	}
 
-	if (pressed && Fly && counter >= 0) {
+	if (pressed && counter >= 0) {
 		auto blinkMod = moduleMgr->getModule<Scaffold>();
 		if (blinkMod->isEnabled()) {
 			blinkMod->setEnabled(false);
 		}
 	}
-	if (pressed && Fly && counter == 2) {
+	if (pressed && counter == 6) {
 		auto blinkMod = moduleMgr->getModule<Scaffold>();
 		if (this->Fly) {
 			blinkMod->setEnabled(true);
 		}
 	}
-	if (pressed && Fly && counter == 4) {
+	if (pressed && counter == 4) {
 		auto selectedItem = g_Data.getLocalPlayer()->getSelectedItem();
 		if (!selectedItem->isValid() || !(*selectedItem->item)->isBlock())  // Block in hand?
 			return;
-		auto player = g_Data.getLocalPlayer();
-		player->jumpFromGround();
+		player->velocity.x = 0.f;
+		player->velocity.y = 0.00f;
+		player->velocity.z = 0.f;
+		//auto player = g_Data.getLocalPlayer();
+		//player->jumpFromGround();
+	}
+	if (pressed && counter == 5) {
+		player->velocity.x = 0.f;
+		player->velocity.y = 0.00f;
+		player->velocity.z = 0.f;
+	}
+	if (pressed && counter == 6) {
+		player->velocity.x = 0.f;
+		player->velocity.y = 0.0f;
+		player->velocity.z = 0.f;
+	}
+	if (pressed && counter == 7) {
+		player->velocity.x = 0.f;
+		player->velocity.y = -0.01f;
+		player->velocity.z = 0.f;
+	}
+	if (pressed && counter == 8) {
+		player->velocity.x = 0.f;
+		player->velocity.y = 0.00f;
+		player->velocity.z = 0.f;
 	}
 
 	if (counter == 11) {
