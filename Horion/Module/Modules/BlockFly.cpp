@@ -57,9 +57,6 @@ void BlockFly::onMove(C_MoveInputHandler* input) {
 		}
 	}
 	if (pressed && counter == 4) {
-		auto selectedItem = g_Data.getLocalPlayer()->getSelectedItem();
-		if (!selectedItem->isValid() || !(*selectedItem->item)->isBlock())  // Block in hand?
-			return;
 		player->velocity.x = 0.f;
 		player->velocity.y = 0.00f;
 		player->velocity.z = 0.f;
