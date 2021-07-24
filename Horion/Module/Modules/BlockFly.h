@@ -23,4 +23,3 @@ public:
 	virtual void onTick(C_GameMode* gm);
 	virtual void onDisable() override;
 };
-//fixing up and down later

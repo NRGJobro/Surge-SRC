@@ -1,25 +1,25 @@
-#include "Scaffold2.h"
+#include "BlockFly.h"
 
-Scaffold2::Scaffold2() : IModule(0, Category::CUSTOM, "Block Fly") {
+BlockFly::BlockFly() : IModule(0, Category::CUSTOM, "Block Fly") {
 	registerFloatSetting("Speed", &this->speed, this->speed, 0.1f, 0.7f);
 	registerBoolSetting("Damage", &this->Blinc, this->Blinc);
 }
 
-Scaffold2::~Scaffold2() {
+BlockFly::~BlockFly() {
 }
 
-const char* Scaffold2::getModuleName() {
+const char* BlockFly::getModuleName() {
 	return ("BlockFly");
 }
 
-void Scaffold2::onEnable() {
+void BlockFly::onEnable() {
 	if (this->Blinc) {
 		auto player = g_Data.getLocalPlayer();
 		player->animateHurt();
 	}
 }
 
-void Scaffold2::onMove(C_MoveInputHandler* input) {
+void BlockFly::onMove(C_MoveInputHandler* input) {
 	auto player = g_Data.getLocalPlayer();
 	if (player == nullptr) return;
 
@@ -93,12 +93,12 @@ void Scaffold2::onMove(C_MoveInputHandler* input) {
 		counter++;
 	}
 }
-void Scaffold2::onTick(C_GameMode* gm) {
+void BlockFly::onTick(C_GameMode* gm) {
 	auto blinkMod = moduleMgr->getModule<Scaffold>();
 	blinkMod->spoof = false;
 }
 
-void Scaffold2::onDisable() {
+void BlockFly::onDisable() {
 	auto blinkMod = moduleMgr->getModule<Scaffold>();
 	auto player = g_Data.getLocalPlayer();
 	blinkMod->spoof = true;
