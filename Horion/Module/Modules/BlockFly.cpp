@@ -92,7 +92,7 @@ void BlockFly::onMove(C_MoveInputHandler* input) {
 }
 void BlockFly::onTick(C_GameMode* gm) {
 	auto blinkMod = moduleMgr->getModule<Scaffold>();
-	blinkMod->spoof = false;
+	blinkMod->spoof = true;
 }
 
 void BlockFly::onDisable() {
