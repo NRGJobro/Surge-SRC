@@ -31,7 +31,15 @@ void BlockFly::onMove(C_MoveInputHandler* input) {
 
 	vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
 	bool pressed = moveVec2d.magnitude() > 0.01f;
-
+	if (!player->onGround) {
+		clientMessageF("U Can't Start In Air Idiot");
+		this->setEnabled(false);
+	}
+	auto selectedItem = g_Data.getLocalPlayer()->getSelectedItem();
+	if ((selectedItem == nullptr || selectedItem->count == 0 || selectedItem->item == nullptr || !selectedItem->getItem()->isBlock())) {  // Block in hand?
+		clientMessageF("U Have No Blocks In Ur Inventory :/");
+		this->setEnabled(false);
+	}
 	if (pressed) {
 		float calcYaw = (player->yaw + 90) * (PI / 180);
 		vec3_t moveVec;
@@ -57,6 +65,9 @@ void BlockFly::onMove(C_MoveInputHandler* input) {
 		}
 	}
 	if (pressed && counter == 4) {
+		auto selectedItem = g_Data.getLocalPlayer()->getSelectedItem();
+		if (!selectedItem->isValid() || !(*selectedItem->item)->isBlock())  // Block in hand?
+			return;
 		player->velocity.x = 0.f;
 		player->velocity.y = 0.00f;
 		player->velocity.z = 0.f;
@@ -91,8 +102,19 @@ void BlockFly::onMove(C_MoveInputHandler* input) {
 	}
 }
 void BlockFly::onTick(C_GameMode* gm) {
-	auto blinkMod = moduleMgr->getModule<Scaffold>();
-	blinkMod->spoof = true;
+	C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+	C_Inventory* inv = supplies->inventory;
+	float damage = 0;
+	int slot = supplies->selectedHotbarSlot;
+	for (int n = 0; n < 9; n++) {
+		C_ItemStack* stack = inv->getItemStack(n);
+		if (stack->item != nullptr) {
+			if ((*stack->item)->isBlock()) {
+				slot = n;
+			}
+		}
+	}
+	supplies->selectedHotbarSlot = slot;
 }
 
 void BlockFly::onDisable() {
