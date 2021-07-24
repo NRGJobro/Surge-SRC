@@ -26,7 +26,7 @@
 #include "Modules/AntiVoid.h"
 #include "Modules/ChestAura.h"
 #include "Modules/ChestESP.h"
-#include "Modules/Scaffold2.h"
+#include "Modules/BlockFly.h"
 #include "Modules/ClickGuiMod.h"
 #include "Modules/Teleport.h"
 #include "Modules/Crasher.h"
