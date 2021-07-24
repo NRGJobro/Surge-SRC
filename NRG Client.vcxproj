@@ -295,7 +295,7 @@
     <ClCompile Include="Horion\Module\Modules\BowAimbot.cpp" />
     <ClCompile Include="Horion\Module\Modules\ChestAura.cpp" />
     <ClCompile Include="Horion\Module\Modules\ChestESP.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Scaffold2.cpp" />
+    <ClCompile Include="Horion\Module\Modules\BlockFly.cpp" />
     <ClCompile Include="Horion\Module\Modules\ClickGuiMod.cpp" />
     <ClCompile Include="Horion\Module\Modules\ArrayList.cpp" />
     <ClCompile Include="Horion\Module\Modules\Crasher.cpp" />
@@ -482,7 +482,7 @@
     <ClInclude Include="Horion\Module\Modules\BowAimbot.h" />
     <ClInclude Include="Horion\Module\Modules\ChestAura.h" />
     <ClInclude Include="Horion\Module\Modules\ChestESP.h" />
-    <ClInclude Include="Horion\Module\Modules\Scaffold2.h" />
+    <ClInclude Include="Horion\Module\Modules\BlockFly.h" />
     <ClInclude Include="Horion\Module\Modules\ClickGuiMod.h" />
     <ClInclude Include="Horion\Module\Modules\ArrayList.h" />
     <ClInclude Include="Horion\Module\Modules\Crasher.h" />

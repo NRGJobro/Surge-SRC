@@ -2,7 +2,7 @@
 #include "..\ModuleManager.h"
 #include "Module.h"
 
-class Scaffold2 : public IModule {
+class BlockFly : public IModule {
 private:
 	int counter = 1;
 	float speed = 0.39f;
@@ -13,8 +13,8 @@ private:
 	float glideModEffective = 0;
 
 public:
-	Scaffold2();
-	~Scaffold2();
+	BlockFly();
+	~BlockFly();
 
 	// Inherited via IModule
 	virtual const char* getModuleName() override;
