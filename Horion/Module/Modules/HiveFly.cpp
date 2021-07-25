@@ -4,7 +4,7 @@ HiveFly::HiveFly() : IModule(0, Category::CUSTOM, "Fly, but for the hive") {
 	registerFloatSetting("Fly Speed", &this->speed, this->speed, 0.1f, 0.9f);
 	registerBoolSetting("Blink Fly", &this->Fly, this->Fly);
 	registerBoolSetting("Damage Fly", &this->Blinc, this->Blinc);
-	//registerBoolSetting("PVP Fly", &this->Glide, this->Glide);
+	registerBoolSetting("PVP Fly", &this->Glide, this->Glide);
 }
 
 HiveFly::~HiveFly() {
@@ -37,10 +37,6 @@ void HiveFly::onMove(C_MoveInputHandler* input) {
 	vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
 	bool pressed = moveVec2d.magnitude() > 0.01f;
 
-	if (pressed && Glide) {
-		player->velocity.y = -0.24f;
-	}
-
 	if (pressed && Fly && counter >= 0) {
 		player->velocity.y = 0.f;
 		auto blinkMod = moduleMgr->getModule<Blink>();
@@ -62,16 +58,28 @@ void HiveFly::onMove(C_MoveInputHandler* input) {
 	} else {
 		counter++;
 	}
-
-	float calcYaw = (player->yaw + 90) * (PI / 180);
-	vec3_t moveVec;
-	float c = cos(calcYaw);
-	float s = sin(calcYaw);
-	moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
-	moveVec.x = moveVec2d.x * speed;
-	moveVec.y = player->velocity.y;
-	moveVec.z = moveVec2d.y * speed;
-	if (pressed) player->lerpMotion(moveVec);
+	if (pressed && Glide) {
+		*g_Data.getClientInstance()->minecraft->timer = 72.f * 0.30;
+		float calcYaw = (player->yaw + 90) * (PI / 180);
+		vec3_t moveVec;
+		float c = cos(calcYaw);
+		float s = sin(calcYaw);
+		moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
+		moveVec.x = moveVec2d.x * 0.23;
+		moveVec.y = player->velocity.y;
+		moveVec.z = moveVec2d.y * 0.23;
+		if (pressed) player->lerpMotion(moveVec);
+	} else {
+		float calcYaw = (player->yaw + 90) * (PI / 180);
+		vec3_t moveVec;
+		float c = cos(calcYaw);
+		float s = sin(calcYaw);
+		moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
+		moveVec.x = moveVec2d.x * speed;
+		moveVec.y = player->velocity.y;
+		moveVec.z = moveVec2d.y * speed;
+		if (pressed) player->lerpMotion(moveVec);
+	}
 }
 void HiveFly::onTick(C_GameMode* gm) {
 	glideModEffective = glideMod;
