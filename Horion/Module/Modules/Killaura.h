@@ -9,13 +9,14 @@ private:
 	bool isMulti = true;
 	int delay = 0;
 	int Odelay = 0;
-	bool autoweapon = false;
+	bool autoweapon = true;
 	void findWeapon();
 	bool silent = true;
 	bool target = true;
 	bool spin = true;
 
 public:
+	bool shouldChange = false;
 	bool isMobAura = false;
 	bool hurttime = true;
 	float range = 6;
