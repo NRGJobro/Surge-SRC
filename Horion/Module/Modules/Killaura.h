@@ -12,6 +12,7 @@ private:
 	bool autoweapon = true;
 	void findWeapon();
 	bool silent = true;
+	bool strafe = false;
 	bool target = true;
 	bool spin = true;
 
@@ -20,6 +21,7 @@ public:
 	bool isMobAura = false;
 	bool hurttime = true;
 	float range = 6;
+	float speed = 0.25;
 
 
 	Killaura();
@@ -30,5 +32,6 @@ public:
 	virtual void onTick(C_GameMode* gm) override;
 	virtual void onEnable() override;
 	virtual void onSendPacket(C_Packet* packet) override;
+	void onMove(C_MoveInputHandler* input);
 };
 

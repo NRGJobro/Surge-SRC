@@ -10,6 +10,8 @@ Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around y
 	this->registerBoolSetting("Rotations", &this->silent, this->silent);
 	this->registerBoolSetting("Spin Rotations", &this->spin, this->spin);
 	this->registerBoolSetting("Move To Target", &this->target, this->target);
+	this->registerBoolSetting("Strafe", &this->strafe, this->strafe);
+	this->registerFloatSetting("Strafe Speed", &this->speed, this->speed, 0.1f, 1.f);
 }
 
 Killaura::~Killaura() {
@@ -58,6 +60,50 @@ void findEntity(C_Entity* currentEntity, bool isRegularEntity) {
 
 	if (dist < killauraMod->range) {
 		targetList.push_back(currentEntity);
+	}
+}
+void Killaura::onMove(C_MoveInputHandler* input) {
+	if (this->strafe) {
+		auto player = g_Data.getLocalPlayer();
+		if (player == nullptr) return;
+
+		if (player->isInLava() == 1 || player->isInWater() == 1)
+			return;
+
+		if (player->isSneaking())
+			return;
+
+		float yaw = player->yaw;
+
+		bool pressed = input->forward || input->backward || input->right || input->left;
+
+		if (input->forward && input->backward)
+			return;
+
+		if (input->right) {
+			yaw += 90.f;
+			if (input->forward)
+				yaw -= 45.f;
+			else if (input->backward)
+				yaw += 45.f;
+		}
+		if (input->left) {
+			yaw -= 90.f;
+			if (input->forward)
+				yaw += 45.f;
+			else if (input->backward)
+				yaw -= 45.f;
+		}
+
+		if (input->backward && !input->left && !input->right)
+			yaw += 180.f;
+
+		float calcYaw = (yaw + 90) * (PI / 180);
+		vec3_t moveVec;
+		moveVec.x = cos(calcYaw) * speed;
+		moveVec.y = player->velocity.y;
+		moveVec.z = sin(calcYaw) * speed;
+		if (pressed) player->lerpMotion(moveVec);
 	}
 }
 
