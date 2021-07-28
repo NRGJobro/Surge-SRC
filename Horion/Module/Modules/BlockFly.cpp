@@ -2,7 +2,7 @@
 
 BlockFly::BlockFly() : IModule(0, Category::CUSTOM, "Block Fly") {
 	registerFloatSetting("Speed", &this->speed, this->speed, 0.1f, 0.7f);
-	registerBoolSetting("Damage", &this->Blinc, this->Blinc);
+	registerBoolSetting("Damage", &this->dmg, this->dmg);
 }
 
 BlockFly::~BlockFly() {
@@ -13,7 +13,7 @@ const char* BlockFly::getModuleName() {
 }
 
 void BlockFly::onEnable() {
-	if (this->Blinc) {
+	if (this->dmg) {
 		auto player = g_Data.getLocalPlayer();
 		player->animateHurt();
 	}
