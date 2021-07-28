@@ -6,6 +6,7 @@
 #include "CInventory.h"
 #include "CInventoryTransaction.h"
 #include "TextHolder.h"
+#include "../Utils/Utils.h"
 
 class C_GameMode;
 
@@ -863,11 +864,11 @@ public:
 		//swingFunc(this);
 		this->swing();
 	}
-	/*void localPlayerTurn(vec2_t* viewAngles) {
-		using Turn = void(__thiscall*)(void*, vec2_t*);
+	void localPlayerTurn(vec2_t *viewAngles) {
+		using Turn = void(__thiscall *)(void *, vec2_t *);
 		static Turn TurnFunc = reinterpret_cast<Turn>(FindSignature("4C 8B DC 55 57 ?? ?? ?? ?? ?? ?? ?? 48 ?? ?? ?? ?? ?? ?? 45 ?? ?? ?? ?? ?? ?? ?? 48 8B 05 D6 D4 A5 01 48 33 C4 48 89 45 ?? 49 89 5B ?? 48 8B F9 ?? ?? ?? ?? ?? ?? ?? 48 8B DA 4D 89 73 E8 41 0F 29 73 D8 41 0F 29 7B C8 48 8B 01 FF 90 ?? ?? ?? ?? F2 0F 10 03"));
 		TurnFunc(this, viewAngles);
-	}*/
+	}
 	void applyTurnDelta(vec2_t *viewAngleDelta);
 	void setGameModeType(int gma);
 };
