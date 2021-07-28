@@ -447,6 +447,19 @@ void Scaffold::onTick(C_GameMode* gm) {
 				}
 			}
 		}
+		if (!tryScaffold(blockBelow)) {
+			if (speed > 0.05f) {
+				blockBelow.z -= vel.z * 0.4f;
+				if (!tryScaffold(blockBelow)) {
+					blockBelow.x -= vel.x * 0.4f;
+					if (!tryScaffold(blockBelow) && g_Data.getLocalPlayer()->isSprinting()) {
+						blockBelow.z += vel.z;
+						blockBelow.x += vel.x;
+						tryScaffold(blockBelow);
+					}
+				}
+			}
+		}
 	}
 	if (shouldChange) {
 		shouldChange = true;
