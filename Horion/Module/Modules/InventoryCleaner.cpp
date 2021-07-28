@@ -40,14 +40,14 @@ void InventoryCleaner::onTick(C_GameMode* gm) {
 			for (int n = 0; n < 36; n++) {
 				C_ItemStack* stack = inv->getItemStack(n);
 				if (stack->item != NULL) {
-					float currentDamage = stack->getAttackingDamageWithEnchants();
-					if (currentDamage > damage) {
-						damage = currentDamage;
-						item = n;
+					if (stack->item != nullptr) {
+						if ((*stack->item)->isBlock()) {
+							item = n;
+						}
 					}
 				}
 			}
-			if (item != 0) inv->moveItem(item, 0);
+			if (item != 0) inv->moveItem(item, 8);
 		}
 	}
 }

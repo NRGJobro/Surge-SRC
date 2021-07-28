@@ -8,7 +8,7 @@ ChestESP::~ChestESP() {
 }
 
 const char* ChestESP::getModuleName() {
-	return ("ChestESP");
+	return ("StorageESP");
 }
 
 void ChestESP::onPreRender(C_MinecraftUIRenderContext* renderCtx) {

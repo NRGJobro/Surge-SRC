@@ -26,7 +26,7 @@ void ModuleManager::initModules() {
 		this->moduleList.push_back(std::shared_ptr<IModule>(new Jetpack()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new Aimbot()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new TriggerBot()));
-		//this->moduleList.push_back(std::shared_ptr<IModule>(new ChestESP()));
+		this->moduleList.push_back(std::shared_ptr<IModule>(new ChestESP()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new Velocity()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new RainbowSky()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new AirJump()));
@@ -78,7 +78,7 @@ void ModuleManager::initModules() {
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new Spammer()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new EchestAura()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new AntiBot()));
-		//this->moduleList.push_back(std::shared_ptr<IModule>(new InventoryCleaner()));
+		this->moduleList.push_back(std::shared_ptr<IModule>(new InventoryCleaner()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new HiveNuker()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new Crasher()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new CrystalAura()));

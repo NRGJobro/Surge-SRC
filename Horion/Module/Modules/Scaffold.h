@@ -11,6 +11,7 @@ private:
 	int prevSlot;
 	int delay = 0;
 	bool tower = false;
+	bool AutoSort = false;
 	bool staircaseMode = false;
 	bool extend = false;
 	bool andromeda = false;
@@ -19,6 +20,7 @@ private:
 	bool findBlock();
 	float thicc = 5.f;
 	float towerspeed = 1.5f;
+	int slot = false;
 	C_PlayerInventoryProxy* supplies = nullptr;
 	C_Inventory* inv = nullptr;
 

@@ -7,10 +7,11 @@ Scaffold::Scaffold() : IModule(0, Category::WORLD, "it makes me mad how bad u r 
 	registerBoolSetting("Freecam Scaffold", &this->free, this->free);
 	registerBoolSetting("Timer", &this->timerBool, this->timerBool);
 	registerBoolSetting("AirPlace", &this->airplace, this->airplace);
+	registerBoolSetting("Working Spoof", &this->AutoSort, this->AutoSort);
 	registerBoolSetting("Staircase Mode", &this->staircaseMode, this->staircaseMode);
 	registerBoolSetting("Andromeda Bridge", &this->andromeda, this->andromeda);
 	registerBoolSetting("Tower", &this->tower, this->tower);
-	registerBoolSetting("Auto select", &this->AutoSelect, this->AutoSelect);
+	//registerBoolSetting("Auto select", &this->AutoSelect, this->AutoSelect);
 	registerBoolSetting("Thick", &this->extend, this->extend);
 	registerFloatSetting("Thick Radius", &thicc, thicc, 0.1f, 0.7f);
 	registerBoolSetting("Rotations", &this->rot, this->rot);
@@ -98,20 +99,22 @@ bool Scaffold::tryScaffold(vec3_t blockBelow) {
 }
 
 bool Scaffold::findBlock() {
-C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
-	C_Inventory* inv = supplies->inventory;
-	float damage = 0;
-	int slot = supplies->selectedHotbarSlot;
-	for (int n = 0; n < 9; n++) {
-		C_ItemStack* stack = inv->getItemStack(n);
-		if (stack->item != nullptr) {
-		if ((*stack->item)->isBlock()) {
-				slot = n;
+	if (this->AutoSelect) {
+		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+		C_Inventory* inv = supplies->inventory;
+		float damage = 0;
+		int slot = supplies->selectedHotbarSlot;
+		for (int n = 0; n < 9; n++) {
+			C_ItemStack* stack = inv->getItemStack(n);
+			if (stack->item != nullptr) {
+				if ((*stack->item)->isBlock()) {
+					slot = n;
+				}
 			}
 		}
+		supplies->selectedHotbarSlot = slot;
+		return false;
 	}
-	supplies->selectedHotbarSlot = slot;
-	return false;
 }
 
 void Scaffold::onTick(C_GameMode* gm) {
@@ -457,20 +460,14 @@ void Scaffold::onTick(C_GameMode* gm) {
 		return;
 	}
 
-	if (this->AutoSelect) {
-		C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
-		C_Inventory* inv = supplies->inventory;
-		float damage = 0;
-		int slot = supplies->selectedHotbarSlot;
-		for (int n = 0; n < 9; n++) {
-			C_ItemStack* stack = inv->getItemStack(n);
-			if (stack->item != nullptr) {
-				if ((*stack->item)->isBlock()) {
-					slot = n;
-				}
-			}
+	if (this->AutoSort && tower) {
+		return;
+	} else {
+		if (this->AutoSort) {
+			C_PlayerInventoryProxy* supplies = g_Data.getLocalPlayer()->getSupplies();
+			C_Inventory* inv = supplies->inventory;
+			supplies->selectedHotbarSlot = slot;
 		}
-		supplies->selectedHotbarSlot = slot;
 	}
 	if (this->delay >= 2) {
 		this->delay = 0;

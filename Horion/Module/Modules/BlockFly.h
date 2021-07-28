@@ -11,6 +11,8 @@ private:
 	bool Glide = false;
 	float glideMod = 0.f;
 	float glideModEffective = 0;
+	int slot = false;
+	int slotyes = false;
 
 public:
 	BlockFly();
