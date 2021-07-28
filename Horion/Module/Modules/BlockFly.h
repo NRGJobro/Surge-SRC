@@ -7,7 +7,7 @@ private:
 	int counter = 1;
 	float speed = 0.39f;
 	bool Fly = true;
-	bool Blinc = false;
+	bool dmg = false;
 	bool Glide = false;
 	float glideMod = 0.f;
 	float glideModEffective = 0;
