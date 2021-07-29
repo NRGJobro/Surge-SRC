@@ -6,6 +6,7 @@ HudModule::HudModule() : IModule(0, Category::VISUAL, "Displays More") {
 	registerBoolSetting("ClickToggle", &this->clickToggle, this->clickToggle);
 	registerBoolSetting("Watermark", &this->watermark, this->watermark);
 	registerBoolSetting("Coordinates", &this->coordinates, this->coordinates);
+	registerBoolSetting("Sup Bitch", &this->supbitch, this->supbitch);
 	registerBoolSetting("Show Keybinds", &this->keybinds, this->keybinds);
 	registerBoolSetting("Show ArmorHUD", &this->displayArmor, this->displayArmor);
 	registerBoolSetting("RGB Borders", &this->rgbborders, this->rgbborders);
@@ -67,6 +68,20 @@ void HudModule::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
 			}
 
 			startY += f;
+		}
+	}
+	{  // Sup Bitch
+		if (!(g_Data.getLocalPlayer() == nullptr || !this->supbitch)) {
+			std::string fpsText = "Sup Bitch";
+			vec4_t rectPos = vec4_t(300.f, startY + 3.f * scale, len, startY + 150.f * scale);
+			vec2_t textPos = vec2_t(rectPos.x + 1.5f, rectPos.y + 1.f);
+			DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0),0);
+			static auto rgbHud = moduleMgr->getModule<HudModule>();
+			if (rgbHud->rgbtext == false()) {
+				DrawUtils::drawText(textPos, &fpsText, MC_Color(rcolors), scale);
+			} else {
+				DrawUtils::drawText(textPos, &fpsText, MC_Color(0, 0, 255), scale);
+			}
 		}
 	}
 	{  // CPS

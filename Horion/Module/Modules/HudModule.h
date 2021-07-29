@@ -18,6 +18,7 @@ public:
 	bool rgbtext = true;
 	bool fps = true;
 	bool cps = true;
+	bool supbitch = true;
 	bool alwaysShow = false;
 
 	float scale = 1.f;
