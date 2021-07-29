@@ -1,6 +1,7 @@
 #include "Shaders.h"
 
 Shaders::Shaders() : IModule(0, Category::VISUAL, "Puts your gamma to max") {
+	registerFloatSetting("Shade", &this->shade, this->shade, -2.f, -0.01f);
 }
 
 Shaders::~Shaders() {

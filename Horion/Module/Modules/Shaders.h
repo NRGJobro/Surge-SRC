@@ -3,6 +3,7 @@
 class Shaders : public IModule {
 public:
 	float* gammaPtr = nullptr;
+	float shade = -0.064f;
 	Shaders();
 	~Shaders();
 

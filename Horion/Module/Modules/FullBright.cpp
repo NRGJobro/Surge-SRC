@@ -1,6 +1,7 @@
 #include "FullBright.h"
 
 FullBright::FullBright() : IModule(0, Category::VISUAL, "Puts your gamma to max") {
+	registerFloatSetting("Brightness", &this->bright, this->bright, 1, 5);
 }
 
 FullBright::~FullBright() {
