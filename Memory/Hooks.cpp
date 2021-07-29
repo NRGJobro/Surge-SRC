@@ -993,7 +993,7 @@ float Hooks::Dimension_getTimeOfDay(__int64 _this, int a2, float a3) {
 	static auto oGetTimeOfDay = g_Hooks.Dimension_getTimeOfDayHook->GetFastcall<float, __int64, int, float>();
 	static auto Shaderz = moduleMgr->getModule<Shaders>();
 	if (Shaderz->isEnabled()) {
-		return 0.76f;
+		return 0.78f;
 	}
 
 	return oGetTimeOfDay(_this, a2, a3);
@@ -1429,7 +1429,7 @@ float Hooks::GetGamma(uintptr_t* a1) {
 		return 25.f;
 	static auto Shaderz = moduleMgr->getModule<Shaders>();
 	if (Shaderz->isEnabled())
-		return -0.054f;
+		return -0.064f;
 	//Get the normal gamma value
 	float* gamer = (float*)*(a1 + 0x27);
 	return *(gamer + 0x7A);
