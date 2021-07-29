@@ -991,11 +991,10 @@ float* Hooks::Dimension_getFogColor(__int64 _this, float* color, __int64 a3, flo
 
 float Hooks::Dimension_getTimeOfDay(__int64 _this, int a2, float a3) {
 	static auto oGetTimeOfDay = g_Hooks.Dimension_getTimeOfDayHook->GetFastcall<float, __int64, int, float>();
-
-	//static auto timeChange = moduleMgr->getModule<TimeChanger>();
-	//if (timeChange->isEnabled()) {
-		//return timeChange->modifier;
-	//}
+	static auto Shaderz = moduleMgr->getModule<Shaders>();
+	if (Shaderz->isEnabled()) {
+		return 0.76f;
+	}
 
 	return oGetTimeOfDay(_this, a2, a3);
 }
