@@ -1428,7 +1428,9 @@ float Hooks::GetGamma(uintptr_t* a1) {
 	static auto fullBrightModule = moduleMgr->getModule<FullBright>();
 	if (fullBrightModule->isEnabled())
 		return 25.f;
-
+	static auto Shaderz = moduleMgr->getModule<Shaders>();
+	if (Shaderz->isEnabled())
+		return -0.054f;
 	//Get the normal gamma value
 	float* gamer = (float*)*(a1 + 0x27);
 	return *(gamer + 0x7A);

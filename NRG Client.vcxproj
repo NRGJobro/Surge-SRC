@@ -310,7 +310,7 @@
     <ClCompile Include="Horion\Module\Modules\Fly.cpp" />
     <ClCompile Include="Horion\Module\Modules\FollowPathModule.cpp" />
     <ClCompile Include="Horion\Module\Modules\Freecam.cpp" />
-    <ClCompile Include="Horion\Module\Modules\Freelook.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Shaders.cpp" />
     <ClCompile Include="Horion\Module\Modules\Breaker.cpp" />
     <ClCompile Include="Horion\Module\Modules\FullBright.cpp" />
     <ClCompile Include="Horion\Module\Modules\Glide.cpp" />
@@ -497,7 +497,7 @@
     <ClInclude Include="Horion\Module\Modules\Fly.h" />
     <ClInclude Include="Horion\Module\Modules\FollowPathModule.h" />
     <ClInclude Include="Horion\Module\Modules\Freecam.h" />
-    <ClInclude Include="Horion\Module\Modules\Freelook.h" />
+    <ClInclude Include="Horion\Module\Modules\Shaders.h" />
     <ClInclude Include="Horion\Module\Modules\Breaker.h" />
     <ClInclude Include="Horion\Module\Modules\FullBright.h" />
     <ClInclude Include="Horion\Module\Modules\Glide.h" />

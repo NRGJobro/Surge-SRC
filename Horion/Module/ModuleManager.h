@@ -84,7 +84,7 @@
 #include "Modules/Teams.h"
 #include "Modules/Nbt.h"
 #include "Modules/Godmode.h"
-#include "Modules/Freelook.h"
+#include "Modules/Shaders.h"
 #include "Modules/NoHurtcam.h"
 #include "Modules/AntiImmobile.h"
 #include "Modules/FollowPathModule.h"

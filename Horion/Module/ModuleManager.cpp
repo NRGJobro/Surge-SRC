@@ -91,7 +91,7 @@ void ModuleManager::initModules() {
 		this->moduleList.push_back(std::shared_ptr<IModule>(new Teams()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new Nbt()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new Godmode()));
-		//this->moduleList.push_back(std::shared_ptr<IModule>(new Freelook()));
+		this->moduleList.push_back(std::shared_ptr<IModule>(new Shaders()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new AutoSneak()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new NoHurtcam()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new AntiImmobile()));
