@@ -9,6 +9,7 @@ public:
 	bool underbar = false;
 	bool ice = true;
 	bool rgb = true;
+	bool bottom = false;
 	bool rgbtext = true;
 
 	ArrayList();

@@ -771,7 +771,10 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 								modContainerList.emplace(IModuleContainer(it));
 						}
 					}
-
+					static auto Bottomyees = moduleMgr->getModule<ArrayList>();
+					if (Bottomyees->bottom) {
+						yOffset = windowSize.y - textHeight;
+					}
 					int a = 0;
 					int b = 0;
 					int c = 0;
@@ -843,23 +846,23 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 
 						DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), arraylist->opacity);  // Background
 						static auto rgbmod = moduleMgr->getModule<ArrayList>();
-						if (rgbmod->rgb == false()) {
+						if (rgbmod->rgb) {
 							DrawUtils::fillRectangle(underline, MC_Color(currColor), 1.f);
 							DrawUtils::fillRectangle(leftRect, MC_Color(currColor), 1.f);
 						} else {
 							static auto underbarmod = moduleMgr->getModule<ArrayList>();
-							if (underbarmod->underbar == false()) {
+							if (underbarmod->underbar) {
 								DrawUtils::fillRectangle(underline, MC_Color(0, 0, 0), 1.f);
 							}
 
 							static auto barmod = moduleMgr->getModule<ArrayList>();
-							if (barmod->bar == false()) {
+							if (barmod->bar) {
 								DrawUtils::fillRectangle(leftRect, MC_Color(0, 0, 0), 1.f);
 							}
 						}
 
 						static auto icemod = moduleMgr->getModule<ArrayList>();
-						if (icemod->ice == false()) {
+						if (icemod->ice) {
 							DrawUtils::fillRectangle(topIce, MC_Color(209, 237, 242), 1.f);
 							DrawUtils::fillRectangle(rightRect, MC_Color(220, 220, 220), 1.f);
 						}
@@ -875,13 +878,17 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 								DrawUtils::fillRectangle(selectedRect, MC_Color(0.8f, 0.8f, 0.8f, 0.8f), 0.3f);
 						}
 						static auto rgbText = moduleMgr->getModule<ArrayList>();
-						if (rgbText->rgbtext == false()) {
+						if (rgbText->rgbtext) {
 							DrawUtils::drawText(textPos, &textStr, MC_Color(currColor), textSize);
 						} else {
 							DrawUtils::drawText(textPos, &textStr, MC_Color(0, 0, 255), textSize);
 						}
-
-						yOffset += textHeight + (textPadding * 2);
+						static auto Bottomyes = moduleMgr->getModule<ArrayList>();
+						if (Bottomyes->bottom) {
+							yOffset -= textHeight + (textPadding * 2);
+						} else {
+							yOffset += textHeight + (textPadding * 2);
+						}
 					}
 					c = 0;
 					modContainerList.clear();
