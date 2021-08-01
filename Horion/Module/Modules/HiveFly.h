@@ -4,6 +4,8 @@
 
 class HiveFly : public IModule {
 private:
+	std::vector<C_MovePlayerPacket*> MovePlayerPacketHolder;
+	std::vector<PlayerAuthInputPacket*> PlayerAuthInputPacketHolder;
 	int counter = 1;
 	float speed = 0.9f;
 	bool Fly = true;
@@ -22,5 +24,7 @@ public:
 	virtual void onMove(C_MoveInputHandler* input) override;
 	virtual void onTick(C_GameMode* gm);
 	virtual void onDisable() override;
+	inline std::vector<C_MovePlayerPacket*>* getMovePlayerPacketHolder() { return &MovePlayerPacketHolder; };
+	inline std::vector<PlayerAuthInputPacket*>* getPlayerAuthInputPacketHolder() { return &PlayerAuthInputPacketHolder; };
 };
 //fixing up and down later
