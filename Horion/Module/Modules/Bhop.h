@@ -9,7 +9,7 @@ private:
 	bool bhopspeed = false;
 	bool LowHop = false;
 	bool timer = true;
-	float hight = 0.5f;
+	float hight = 0.25f;
 
 public:
 	Bhop();
