@@ -7,7 +7,7 @@ const char* NoHurtcam::getModuleName() {
 	return "NoHurtcam";
 }
 
-void NoHurtcam::onTick(C_GameMode* gm) {
+void NoHurtcam::onLevelRender() {
 	auto player = g_Data.getLocalPlayer();
 	player->respawn();
 }
