@@ -128,7 +128,7 @@ void Killaura::findWeapon() {
 	supplies->selectedHotbarSlot = slot;
 }
 
-void Killaura::onTick(C_GameMode* gm) {
+void Killaura::onLevelRender() {
 	auto KillauraMod = moduleMgr->getModule<Killaura>();
 	if (!g_Data.isInGame())
 		KillauraMod->setEnabled(false);
@@ -165,7 +165,8 @@ void Killaura::onTick(C_GameMode* gm) {
 			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
 			auto player = g_Data.getLocalPlayer();
 			player->bodyYaw = angle.x;
-			player->pitch = angle.y;
+			player->bodyYaw = angle.y;
+			//player->pitch = angle.y;
 		}
 			if (this->target) {
 			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());

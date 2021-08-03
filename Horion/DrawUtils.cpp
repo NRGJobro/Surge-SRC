@@ -194,7 +194,7 @@ void DrawUtils::drawTracer(C_Entity* ent) {
 	refdef->OWorldToScreen(origin, *ent->getPos(), target, fov, screenSize);
 	vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame) / 2));
 	if (target != vec2_t(0, 0)) {
-		if (tracerMod->RGB == false()) {
+		if (tracerMod->RGB) {
 			DrawUtils::setColor(rcolors[0], rcolors[1], rcolors[2], 1);
 		} else {
 			DrawUtils::setColor(0, 0, 255, 1);
