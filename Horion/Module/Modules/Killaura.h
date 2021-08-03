@@ -11,7 +11,6 @@ private:
 	int Odelay = 0;
 	bool autoweapon = true;
 	void findWeapon();
-	bool silent = true;
 	bool strafe = false;
 	bool target = true;
 	bool spin = true;
@@ -33,6 +32,7 @@ public:
 	virtual void onEnable() override;
 	virtual void onSendPacket(C_Packet* packet) override;
 	void onMove(C_MoveInputHandler* input);
+	bool silent = true;
 	virtual void onLevelRender() override;
 };
 

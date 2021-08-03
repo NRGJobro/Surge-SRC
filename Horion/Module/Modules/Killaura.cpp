@@ -144,7 +144,7 @@ void Killaura::onLevelRender() {
 
 		if (g_Data.getLocalPlayer()->velocity.squaredxzlen() < 0.01) {
 			C_MovePlayerPacket p(g_Data.getLocalPlayer(), *g_Data.getLocalPlayer()->getPos());
-			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p);  // make sure to update rotation if player is standing still
+			//g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p);  // make sure to update rotation if player is standing still
 		}
 
 		// Attack all entitys in targetList
@@ -202,12 +202,20 @@ void Killaura::onSendPacket(C_Packet* packet) {
 	if (!g_Data.isInGame())
 		KillauraMod->setEnabled(false);
 	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr) {
-		if (!targetList.empty()) {
+		if (!targetList.empty() && !this->silent) {
 			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
 			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
 			movePacket->pitch = angle.x;
 			movePacket->headYaw = angle.y;
 			movePacket->yaw = angle.y;
+		} else {
+			if (!targetList.empty()) {
+				auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
+				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+				movePacket->pitch = angle.x;
+				movePacket->headYaw = angle.y;
+				movePacket->yaw = angle.y;
+			}
 		}
 	}
 }
