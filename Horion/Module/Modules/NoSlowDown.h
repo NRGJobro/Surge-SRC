@@ -4,7 +4,7 @@
 
 class NoSlowDown : public IModule {
 private:
-	float speed = 0.200f;
+	bool keyPressed = false;
 
 public:
 	NoSlowDown();
@@ -12,5 +12,5 @@ public:
 
 	// Inherited via IModule
 	virtual const char* getModuleName() override;
-	virtual void onMove(C_MoveInputHandler* input) override;
+	virtual void onTick(C_GameMode* gm) override;
 };

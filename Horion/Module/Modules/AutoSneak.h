@@ -2,7 +2,7 @@
 #include "Module.h"
 class AutoSneak : public IModule {
 private:
-	
+	bool keyPressed = false;
 
 public:
 	bool doSilent = false;

@@ -1,6 +1,6 @@
 #include "NoSlowDown.h"
 
-NoSlowDown::NoSlowDown() : IModule(0, Category::MOVEMENT, "This will slow things like bhop and longjump. (developed by Vic)") {
+NoSlowDown::NoSlowDown() : IModule(0, Category::MOVEMENT, "Less Slowdown.") {
 }
 
 NoSlowDown::~NoSlowDown() {
@@ -10,26 +10,55 @@ const char* NoSlowDown::getModuleName() {
 	return ("NoSlowDown");
 }
 
-void NoSlowDown::onMove(C_MoveInputHandler* input) {
-	auto player = g_Data.getLocalPlayer();
-	if (player == nullptr) return;
+void NoSlowDown::onTick(C_GameMode* gm) {
+		C_GameSettingsInput* input = g_Data.getClientInstance()->getGameSettingsInput();
 
-	if (player->isInLava() == 1 || player->isInWater() == 1) 
-		return;
-	
-	if (player->isSneaking()) 
-		return;
+		if (input == nullptr)
+			return;
 
-	vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
-	bool pressed = moveVec2d.magnitude() > 0.01f;
-	
-	float calcYaw = (player->yaw + 90) * (PI / 180);
-	vec3_t moveVec;
-	float c = cos(calcYaw);
-	float s = sin(calcYaw);
-	moveVec2d = {moveVec2d.x * c - moveVec2d.y * s, moveVec2d.x * s + moveVec2d.y * c};
-	moveVec.x = moveVec2d.x * speed;
-	moveVec.y = player->velocity.y;
-	moveVec.z = moveVec2d.y * speed;
-	if(pressed) player->lerpMotion(moveVec);
-}
+		float speed = 0.2f;
+		float yaw = gm->player->yaw;
+
+		if (GameData::isKeyDown(*input->spaceBarKey) && gm->player->onGround)
+			gm->player->jumpFromGround();
+
+		if (GameData::isKeyDown(*input->forwardKey) && GameData::isKeyDown(*input->backKey))
+			return;
+		else if (GameData::isKeyDown(*input->forwardKey) && GameData::isKeyDown(*input->rightKey) && !GameData::isKeyDown(*input->leftKey)) {
+			yaw += 45.f;
+			keyPressed = true;
+		} else if (GameData::isKeyDown(*input->forwardKey) && GameData::isKeyDown(*input->leftKey) && !GameData::isKeyDown(*input->rightKey)) {
+			yaw -= 45.f;
+			keyPressed = true;
+		} else if (GameData::isKeyDown(*input->backKey) && GameData::isKeyDown(*input->rightKey) && !GameData::isKeyDown(*input->leftKey)) {
+			yaw += 135.f;
+			keyPressed = true;
+		} else if (GameData::isKeyDown(*input->backKey) && GameData::isKeyDown(*input->leftKey) && !GameData::isKeyDown(*input->rightKey)) {
+			yaw -= 135.f;
+			keyPressed = true;
+		} else if (GameData::isKeyDown(*input->forwardKey)) {
+			keyPressed = true;
+		} else if (GameData::isKeyDown(*input->backKey)) {
+			yaw += 180.f;
+			keyPressed = true;
+		} else if (GameData::isKeyDown(*input->rightKey) && !GameData::isKeyDown(*input->leftKey)) {
+			yaw += 90.f;
+			keyPressed = true;
+		} else if (GameData::isKeyDown(*input->leftKey) && !GameData::isKeyDown(*input->rightKey)) {
+			yaw -= 90.f;
+			keyPressed = true;
+		}
+		if (yaw >= 180)
+			yaw -= 360.f;
+
+		float calcYaw = (yaw + 90) * (PI / 180);
+		//float calcPitch = (gm->player->pitch) * -(PI / 180);
+		vec3_t moveVec;
+		moveVec.x = cos(calcYaw) * speed;
+		moveVec.y = gm->player->velocity.y;
+		moveVec.z = sin(calcYaw) * speed;
+		if (keyPressed) {
+			gm->player->lerpMotion(moveVec);
+			keyPressed = false;
+		}
+	}
