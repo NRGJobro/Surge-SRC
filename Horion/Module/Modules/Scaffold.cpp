@@ -117,7 +117,7 @@ bool Scaffold::findBlock() {
 	}
 }
 
-void Scaffold::onTick(C_GameMode* gm) {
+void Scaffold::onLevelRender() {
 	auto freecamMod = moduleMgr->getModule<Freecam>();
 	auto towerMod = moduleMgr->getModule<Tower>();
 	freecamMod->speed = 0.32f;
@@ -147,6 +147,14 @@ void Scaffold::onTick(C_GameMode* gm) {
 	float speed = g_Data.getLocalPlayer()->velocity.magnitudexz();
 	vec3_t vel = g_Data.getLocalPlayer()->velocity;
 	vel = vel.normalize();  // Only use values from 0 - 1
+	vec3_t blockBelow = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
+	blockBelow.y -= g_Data.getLocalPlayer()->height;
+	blockBelow.y -= 0.5f;
+	if (this->rot) {
+		auto player = g_Data.getLocalPlayer();
+		//player->bodyYaw = blockBelow.y;
+		player->bodyYaw = blockBelow.y;
+	}
 	if (extend) {
 		vec3_t blockBelow = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
 		blockBelow.x -= 0.1f;
@@ -423,6 +431,11 @@ void Scaffold::onTick(C_GameMode* gm) {
 		blockBelow.y -= 0.5f;
 		if (!tryScaffold(blockBelow)) {
 			if (speed > 0.05f) {
+				if (this->rot) {
+					auto player = g_Data.getLocalPlayer();
+					player->bodyYaw = blockBelow.y;
+					player->bodyYaw = blockBelow.x;
+				}
 				blockBelow.z -= vel.z * 0.4f;
 				if (!tryScaffold(blockBelow)) {
 					blockBelow.x -= vel.x * 0.4f;
@@ -449,6 +462,11 @@ void Scaffold::onTick(C_GameMode* gm) {
 		}
 		if (!tryScaffold(blockBelow)) {
 			if (speed > 0.05f) {
+				if (this->rot) {
+					auto player = g_Data.getLocalPlayer();
+					player->bodyYaw = blockBelow.y;
+					player->bodyYaw = blockBelow.x;
+				}
 				blockBelow.z -= vel.z * 0.4f;
 				if (!tryScaffold(blockBelow)) {
 					blockBelow.x -= vel.x * 0.4f;
@@ -494,13 +512,6 @@ void Scaffold::onMove(C_MoveInputHandler* input) {
 	vec3_t blockBelow = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
 	bool pressed = moveVec2d.magnitude() > 0.01f;
 	if (player == nullptr) return;
-	if (this->rot) {
-		for (int i = 0; i < 40; i++) {
-			auto player = g_Data.getLocalPlayer();
-			player->bodyYaw = blockBelow.y;
-			player->pitch = blockBelow.y;
-		}
-	}
 }
 
 void Scaffold::onDisable() {

@@ -32,7 +32,7 @@ public:
 
 	// Inherited via IModule
 	virtual const char* getModuleName() override;
-	virtual void onTick(C_GameMode* gm) override;
+	virtual void onLevelRender() override;
 	void onMove(C_MoveInputHandler* input);
 	virtual void onDisable() override;
 };

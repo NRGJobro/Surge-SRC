@@ -128,11 +128,10 @@ void Killaura::findWeapon() {
 	supplies->selectedHotbarSlot = slot;
 }
 
-void Killaura::onLevelRender() {
+void Killaura::onTick(C_GameMode* gm) {
 	auto KillauraMod = moduleMgr->getModule<Killaura>();
 	if (!g_Data.isInGame())
-		KillauraMod->setEnabled(false);
-	C_LocalPlayer* localPlayer = g_Data.getLocalPlayer();
+		this->setEnabled(false);
 	//Loop through all our players and retrieve their information
 	targetList.clear();
 
@@ -144,7 +143,7 @@ void Killaura::onLevelRender() {
 
 		if (g_Data.getLocalPlayer()->velocity.squaredxzlen() < 0.01) {
 			C_MovePlayerPacket p(g_Data.getLocalPlayer(), *g_Data.getLocalPlayer()->getPos());
-			//g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p);  // make sure to update rotation if player is standing still
+			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&p);  // make sure to update rotation if player is standing still
 		}
 
 		// Attack all entitys in targetList
@@ -161,33 +160,32 @@ void Killaura::onLevelRender() {
 				g_Data.getCGameMode()->attack(targetList[0]);
 			}
 		}
+	}
+}
+
+void Killaura::onLevelRender() {
 		if (this->silent) {
-			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
-			auto player = g_Data.getLocalPlayer();
-			player->bodyYaw = angle.x;
-			player->bodyYaw = angle.y;
-			player->pitch = angle.x;
-		}
-			if (this->target) {
-			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
-			auto player = g_Data.getLocalPlayer();
-			auto movePacket = g_Data.getLocalPlayer();
-			//player->bodyYaw = angle.x;
-			//player->oldBodyYaw = angle.x;
-			player->bodyYaw = angle.y;
-			movePacket->viewAngles = angle;
+			for (auto& i : targetList) {
+				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*i->getPos()).normAngles();
+				auto player = g_Data.getLocalPlayer();
+				player->yawUnused1 = angle.x;
+				player->yawUnused1 = angle.y;
+				player->bodyYaw = angle.x;
+				player->bodyYaw = angle.y;
 			}
+		}
+		if (this->target) {
+			for (auto& i : targetList) {
+				vec2_t angleCock = g_Data.getLocalPlayer()->getPos()->CalcAngle(*i->getPos()).normAngles();
+				g_Data.getCGameMode()->player->yaw = angleCock.y;
+			}
+		}
 			if (this->spin) {
 				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
 				auto player = g_Data.getLocalPlayer();
-				//player->pitch = angle.x;
-				//player->pitch = angle.y;
-				//player->bodyYaw = angle.y;
-				//player->bodyYaw = angle.x;
-				localPlayer->applyTurnDelta(&angle);
+				g_Data.getLocalPlayer()->applyTurnDelta(&angle);
 			}
 		}
-	}
 
 void Killaura::onEnable() {
 		auto KillauraMod = moduleMgr->getModule<Killaura>();

@@ -33,6 +33,7 @@ public:
 	virtual void onSendPacket(C_Packet* packet) override;
 	void onMove(C_MoveInputHandler* input);
 	bool silent = true;
+	virtual void onTick(C_GameMode* gm) override;
 	virtual void onLevelRender() override;
 };
 
