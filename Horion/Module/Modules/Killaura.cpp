@@ -166,7 +166,7 @@ void Killaura::onLevelRender() {
 			auto player = g_Data.getLocalPlayer();
 			player->bodyYaw = angle.x;
 			player->bodyYaw = angle.y;
-			//player->pitch = angle.y;
+			player->pitch = angle.x;
 		}
 			if (this->target) {
 			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
