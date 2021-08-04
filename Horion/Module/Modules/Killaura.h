@@ -13,7 +13,7 @@ private:
 	void findWeapon();
 	bool strafe = false;
 	bool target = true;
-	bool spin = true;
+	bool spin = false;
 
 public:
 	bool shouldChange = false;

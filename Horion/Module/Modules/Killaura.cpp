@@ -8,7 +8,7 @@ Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around y
 	this->registerBoolSetting("hurttime", &this->hurttime, this->hurttime);
 	this->registerBoolSetting("AutoWeapon", &this->autoweapon, this->autoweapon);
 	this->registerBoolSetting("Rotations", &this->silent, this->silent);
-	this->registerBoolSetting("Spin Rotations", &this->spin, this->spin);
+	//this->registerBoolSetting("Spin Rotations", &this->spin, this->spin);
 	this->registerBoolSetting("Move To Target", &this->target, this->target);
 	this->registerBoolSetting("Strafe", &this->strafe, this->strafe);
 	this->registerFloatSetting("Strafe Speed", &this->speed, this->speed, 0.1f, 1.f);
