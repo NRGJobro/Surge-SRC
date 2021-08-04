@@ -7,6 +7,7 @@ Scaffold::Scaffold() : IModule(0, Category::WORLD, "it makes me mad how bad u r 
 	registerBoolSetting("Freecam Scaffold", &this->free, this->free);
 	registerBoolSetting("Timer", &this->timerBool, this->timerBool);
 	registerBoolSetting("AirPlace", &this->airplace, this->airplace);
+	registerBoolSetting("Scaffold Box", &this->box, this->box);
 	registerBoolSetting("Working Spoof", &this->AutoSort, this->AutoSort);
 	registerBoolSetting("Staircase Mode", &this->staircaseMode, this->staircaseMode);
 	registerBoolSetting("Andromeda Bridge", &this->andromeda, this->andromeda);
@@ -28,7 +29,9 @@ const char* Scaffold::getModuleName() {
 
 bool Scaffold::tryScaffold(vec3_t blockBelow) {
 	blockBelow = blockBelow.floor();
-
+	if (box) {
+		DrawUtils::drawBoxScaffold(blockBelow,MC_Color (0, 0, 255), vec3_t(blockBelow).add(1), 1.f);
+	}
 	C_Block* block = g_Data.getLocalPlayer()->region->getBlock(vec3_ti(blockBelow));
 	C_BlockLegacy* blockLegacy = (block->blockLegacy);
 	if (blockLegacy->material->isReplaceable) {
@@ -140,7 +143,7 @@ void Scaffold::onLevelRender() {
 	}
 
 	auto selectedItem = g_Data.getLocalPlayer()->getSelectedItem();
-	if ((selectedItem == nullptr || selectedItem->count == 0 || selectedItem->item == nullptr || !selectedItem->getItem()->isBlock()) && !spoof)  // Block in hand?
+	if ((selectedItem == nullptr || selectedItem->count == 0 || selectedItem->item == nullptr || !selectedItem->getItem()->isBlock()) && !spoof && !box)  // Block in hand?
 		return;
 
 	// Adjustment by velocity
@@ -503,6 +506,24 @@ void Scaffold::onLevelRender() {
 	if (this->delay >= 2) {
 		this->delay = 0;
 		return;
+	}
+}
+
+void Scaffold::onPostRender(C_MinecraftUIRenderContext* renderCtx) {
+	vec3_t blockBelow = g_Data.getLocalPlayer()->eyePos0;  // Block below the player
+	blockBelow.y -= g_Data.getLocalPlayer()->height;
+	blockBelow.y -= 0.5f;
+
+	// Adjustment by velocity
+	//float speed = g_Data.getLocalPlayer()->velocity.magnitudexy();
+	//vec3_t vel = g_Data.getLocalPlayer()->velocity;
+	//vel.normalize();  // Only use values from 0 - 1
+
+	if (!tryScaffold(blockBelow)) {
+	} else {
+		if (box) {
+			(blockBelow.y);
+		}
 	}
 }
 

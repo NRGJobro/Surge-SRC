@@ -361,6 +361,118 @@ void DrawUtils::drawBox(vec3_t lower, vec3_t upper, float lineWidth, bool outlin
 	}
 }
 
+void DrawUtils::drawBoxScaffold(vec3_t lower, MC_Color color, vec3_t upper, float lineWidth, bool outline) {
+	vec3_t diff;
+	diff.x = upper.x - lower.x;
+	diff.y = upper.y - lower.y;
+	diff.z = upper.z - lower.z;
+
+	vec3_t vertices[8];
+	vertices[0] = vec3_t(lower.x, lower.y, lower.z);
+	vertices[1] = vec3_t(lower.x + diff.x, lower.y, lower.z);
+	vertices[2] = vec3_t(lower.x, lower.y + diff.y, lower.z);
+	vertices[3] = vec3_t(lower.x + diff.x, lower.y + diff.y, lower.z);
+	vertices[4] = vec3_t(lower.x, lower.y, lower.z + diff.z);
+	vertices[5] = vec3_t(lower.x + diff.x, lower.y, lower.z + diff.z);
+	vertices[6] = vec3_t(lower.x, lower.y + diff.y, lower.z + diff.z);
+	vertices[7] = vec3_t(lower.x + diff.x, lower.y + diff.y, lower.z + diff.z);
+
+	// Convert to screen coord
+	std::vector<std::tuple<int, vec2_t>> screenCords;
+	for (int i = 0; i < 8; i++) {
+		vec2_t screen;
+		if (refdef->OWorldToScreen(origin, vertices[i], screen, fov, screenSize)) {
+			screenCords.emplace_back(outline ? (int)screenCords.size() : i, screen);
+		}
+	}
+	if (screenCords.size() < 2)
+		return;  // No lines possible
+
+	if (!outline) {
+		for (auto it = screenCords.begin(); it != screenCords.end(); it++) {
+			auto from = *it;
+			auto fromOrig = vertices[std::get<0>(from)];
+
+			for (auto to : screenCords) {
+				auto toOrig = vertices[std::get<0>(to)];
+
+				bool shouldDraw = false;
+				// X direction
+				shouldDraw |= fromOrig.y == toOrig.y && fromOrig.z == toOrig.z && fromOrig.x < toOrig.x;
+				// Y direction
+				shouldDraw |= fromOrig.x == toOrig.x && fromOrig.z == toOrig.z && fromOrig.y < toOrig.y;
+				// Z direction
+				shouldDraw |= fromOrig.x == toOrig.x && fromOrig.y == toOrig.y && fromOrig.z < toOrig.z;
+
+				if (shouldDraw)
+					drawLine(std::get<1>(from), std::get<1>(to), lineWidth);
+			}
+		}
+
+		return;
+	}
+	// Find start vertex
+	auto it = screenCords.begin();
+	std::tuple<int, vec2_t> start = *it;
+	it++;
+	for (; it != screenCords.end(); it++) {
+		auto cur = *it;
+		if (std::get<1>(cur).x < std::get<1>(start).x) {
+			start = cur;
+		}
+	}
+
+	// Follow outer line
+	std::vector<int> indices;
+
+	auto current = start;
+	indices.push_back(std::get<0>(current));
+	vec2_t lastDir(0, -1);
+	do {
+		float smallestAngle = PI * 2;
+		vec2_t smallestDir;
+		std::tuple<int, vec2_t> smallestE;
+		auto lastDirAtan2 = atan2(lastDir.y, lastDir.x);
+		for (auto cur : screenCords) {
+			if (std::get<0>(current) == std::get<0>(cur))
+				continue;
+
+			// angle between vecs
+			vec2_t dir = vec2_t(std::get<1>(cur)).sub(std::get<1>(current));
+			float angle = atan2(dir.y, dir.x) - lastDirAtan2;
+			if (angle > PI) {
+				angle -= 2 * PI;
+			} else if (angle <= -PI) {
+				angle += 2 * PI;
+			}
+			if (angle >= 0 && angle < smallestAngle) {
+				smallestAngle = angle;
+				smallestDir = dir;
+				smallestE = cur;
+			}
+		}
+		indices.push_back(std::get<0>(smallestE));
+		lastDir = smallestDir;
+		current = smallestE;
+	} while (std::get<0>(current) != std::get<0>(start) && indices.size() < 8);
+
+	// draw
+
+	vec2_t lastVertex;
+	bool hasLastVertex = false;
+	for (auto& indice : indices) {
+		vec2_t curVertex = std::get<1>(screenCords[indice]);
+		if (!hasLastVertex) {
+			hasLastVertex = true;
+			lastVertex = curVertex;
+			continue;
+		}
+
+		drawLine(lastVertex, curVertex, lineWidth);
+		lastVertex = curVertex;
+	}
+}
+
 void DrawUtils::drawImage(std::string FilePath, vec2_t& imagePos, vec2_t& ImageDimension, vec2_t& idk) {
 	if (texturePtr == nullptr) {
 		texturePtr = new C_TexturePtr();
