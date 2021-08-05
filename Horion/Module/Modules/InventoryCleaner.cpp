@@ -26,7 +26,7 @@ void InventoryCleaner::onTick(C_GameMode* gm) {
 	std::vector<int> dropSlots = findUselessItems();
 	if (!dropSlots.empty()) {
 		for (int i : dropSlots) {
-			g_Data.getLocalPlayer()->getSupplies()->inventory->dropSlot(i);
+			g_Data.getLocalPlayer()->getSupplies()->inventory->dropAll(i);
 		}
 	}
 
@@ -47,7 +47,7 @@ void InventoryCleaner::onTick(C_GameMode* gm) {
 					}
 				}
 			}
-			if (item != 0) inv->moveItem(item, 8);
+			if (item != 0) inv->dropAll(item);
 		}
 	}
 }

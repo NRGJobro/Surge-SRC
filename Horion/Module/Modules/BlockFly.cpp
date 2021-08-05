@@ -3,6 +3,7 @@
 BlockFly::BlockFly() : IModule(0, Category::CUSTOM, "Block Fly") {
 	registerFloatSetting("Speed", &this->speed, this->speed, 0.1f, 0.7f);
 	registerBoolSetting("Damage", &this->dmg, this->dmg);
+	registerBoolSetting("Fail Safe", &this->safe, this->safe);
 }
 
 BlockFly::~BlockFly() {
@@ -32,8 +33,16 @@ void BlockFly::onMove(C_MoveInputHandler* input) {
 	vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
 	bool pressed = moveVec2d.magnitude() > 0.01f;
 	if (!player->onGround) {
-		clientMessageF("U Can't Start In Air Idiot");
+		g_Data.getGuiData()->displayClientMessageF("[BlockFly] U Cant Start in The Air, Idiot");
+		if (this->safe) {
+			player->velocity.y = 0.00f;
+			player->velocity.y = 0.00f;
+			player->velocity.y = 0.00f;
+			auto scaff = moduleMgr->getModule<Scaffold>();
+			scaff->setEnabled(true);
+		}
 		this->setEnabled(false);
+		return;
 	}
 	auto selectedItem = g_Data.getLocalPlayer()->getSelectedItem();
 	//if ((selectedItem == nullptr || selectedItem->count == 0 || selectedItem->item == nullptr || !selectedItem->getItem()->isBlock())) {  // Block in hand?
@@ -108,8 +117,11 @@ void BlockFly::onDisable() {
 	auto blinkMod = moduleMgr->getModule<Scaffold>();
 	auto player = g_Data.getLocalPlayer();
 	blinkMod->spoof = true;
-
-	if (blinkMod->isEnabled()) {
-		blinkMod->setEnabled(false);
+	if (this->safe) {
+		//hi :)
+	} else {
+		if (blinkMod->isEnabled()) {
+			blinkMod->setEnabled(false);
+		}
 	}
 }

@@ -26,7 +26,7 @@ void GameData::retrieveClientInstance() {
 #endif
 }
 
-void GameData::checkGameVersion() {
+/* void GameData::checkGameVersion() {
 	static uintptr_t sigOffset = 0;
 	// near string MinimumCompatibleClientVersion
 	if (sigOffset == 0)
@@ -41,7 +41,7 @@ void GameData::checkGameVersion() {
 
 	int num = std::stoi(ver.substr(lastDot + 1));
 	this->version = static_cast<GAMEVERSION>(num);
-}
+}*/
 
 bool GameData::canUseMoveKeys() {
 	MinecraftGame* mc = g_Data.clientInstance->minecraftGame;

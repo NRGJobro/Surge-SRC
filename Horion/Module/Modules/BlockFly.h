@@ -9,10 +9,12 @@ private:
 	bool Fly = true;
 	bool dmg = false;
 	bool Glide = false;
+	bool safe = true;
 	float glideMod = 0.f;
 	float glideModEffective = 0;
 	int slot = false;
 	int slotyes = false;
+	vec3_t savepo;
 
 public:
 	BlockFly();

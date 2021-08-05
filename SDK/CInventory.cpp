@@ -13,7 +13,7 @@ void C_Inventory::dropAll(int slot) {
 	using dropAll_t = void(__fastcall*)(C_Inventory*, int, int, char);
 	static dropAll_t func = reinterpret_cast<dropAll_t>(FindSignature("48 89 5C 24 ?? 48 89 6C 24 ?? 48 89 74 24 ?? 48 89 7C 24 ?? 41 56 48 83 EC ?? 48 8B 01 41 0F"));
 	if (func != 0)
-		func(this, slot, 0, 0);
+		func(this, slot, 0, 36);
 }
 bool C_Inventory::isFull() {
 	int fullslots = 0;

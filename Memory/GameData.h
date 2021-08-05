@@ -124,7 +124,7 @@ public:
 	static void setHIDController(C_HIDController* Hid);
 	static void setRakNetInstance(C_RakNetInstance* raknet);
 	static void log(const char* fmt, ...);
-	void checkGameVersion();
+	//void checkGameVersion();
 	float fov = 0.f;
 	int fps = 0;
 	int frameCount = 0;

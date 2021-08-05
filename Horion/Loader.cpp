@@ -323,7 +323,7 @@ DWORD WINAPI start(LPVOID lpParam) {
 	gameModule = mem.GetModule(L"Minecraft.Windows.exe");  // Get Module for Base Address
 
 	MH_Initialize();
-	g_Data.checkGameVersion();
+	//g_Data.checkGameVersion();
 	GameData::initGameData(gameModule, &mem, (HMODULE)lpParam);
 	Target::init(g_Data.getPtrLocalPlayer());
 
