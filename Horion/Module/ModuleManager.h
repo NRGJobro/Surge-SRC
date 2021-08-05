@@ -95,6 +95,7 @@
 #include "Modules/Radar.h"
 #include "Modules/InsideAura.h"
 #include "Modules/VoidTP.h"
+#include "Modules/Disabler.h"
 
 #ifdef _DEBUG
 #include "Modules/PacketLogger.h"

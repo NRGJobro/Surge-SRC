@@ -52,7 +52,7 @@ PlayerAuthInputPacket::PlayerAuthInputPacket(__int64 entityRuntimeId, vec3_t pos
 	this->yawUnused = yawUnused;
 	this->entityRuntimeId = entityRuntimeId;
 }
-/*C_ActorFallPacket::C_ActorFallPacket() {
+C_ActorFallPacket::C_ActorFallPacket() {
 	static uintptr_t** ActorFallPacketVtable = 0x0;
 	if (ActorFallPacketVtable == 0x0) {
 		uintptr_t sigOffset = FindSignature("48 8D ? ? ? ? ? 48 89 ? E7 48 89 45 0F F3 0F 11 75 ?");
@@ -65,7 +65,7 @@ PlayerAuthInputPacket::PlayerAuthInputPacket(__int64 entityRuntimeId, vec3_t pos
 	}
 	memset(this, 0, sizeof(C_ActorFallPacket));  // Avoid overwriting vtable
 	vTable = ActorFallPacketVtable;
-}*/
+}
 C_MobEquipmentPacket::C_MobEquipmentPacket() {
 	static uintptr_t** MobEquipmentPacketVtable = 0x0;
 	if (MobEquipmentPacketVtable == 0x0) {
