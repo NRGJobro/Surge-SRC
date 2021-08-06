@@ -44,6 +44,7 @@ void Bhop::onMove(C_MoveInputHandler* input) {
 		counter++;
 	}
 	
+	
 	if (pressed && bhopspeed) {
 		player->velocity.y = -0.5f;
 	}
