@@ -10,7 +10,7 @@ private:
 	int counter = 1;
 	bool LowHop = false;
 	bool timer = true;
-	float hight = 0.25f;
+	float hight = 0.15f;
 
 public:
 	Bhop();
