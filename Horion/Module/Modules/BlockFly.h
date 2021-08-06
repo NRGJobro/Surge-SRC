@@ -1,6 +1,7 @@
 #pragma once
 #include "..\ModuleManager.h"
 #include "Module.h"
+#include "..\..\Config\ConfigManager.h"
 
 class BlockFly : public IModule {
 private:

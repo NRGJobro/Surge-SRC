@@ -33,7 +33,7 @@ void BlockFly::onMove(C_MoveInputHandler* input) {
 	vec2_t moveVec2d = {input->forwardMovement, -input->sideMovement};
 	bool pressed = moveVec2d.magnitude() > 0.01f;
 	if (!player->onGround) {
-		g_Data.getGuiData()->displayClientMessageF("[BlockFly] U Cant Start in The Air, Idiot");
+		g_Data.getGuiData()->displayClientMessageF("[%sBlockFly%s] %sU Cant Start In The Air Idiot%s!", BLUE, WHITE, BLUE, WHITE, configMgr, WHITE);
 		if (this->safe) {
 			player->velocity.y = 0.00f;
 			player->velocity.y = 0.00f;
