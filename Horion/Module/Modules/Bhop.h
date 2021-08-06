@@ -7,6 +7,7 @@ private:
 	float speed = 0.325f;
 	float tspeed = 0.325f;
 	bool bhopspeed = false;
+	int counter = 1;
 	bool LowHop = false;
 	bool timer = true;
 	float hight = 0.25f;

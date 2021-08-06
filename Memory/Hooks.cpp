@@ -1177,7 +1177,23 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 	//static auto autoSneakMod = moduleMgr->getModule<AutoSneak>();
 	static auto freecamMod = moduleMgr->getModule<Freecam>();
 	static auto blinkMod = moduleMgr->getModule<Blink>();
+	static auto disabler = moduleMgr->getModule<Disabler>();
 	static auto noPacketMod = moduleMgr->getModule<NoPacket>();
+
+	if (disabler->isEnabled() && g_Data.isInGame()) {
+		if (disabler->hive) {
+			auto player = g_Data.getLocalPlayer();
+			if (packet->isInstanceOf<C_MovePlayerPacket>()) {
+				auto* ree = reinterpret_cast<C_MovePlayerPacket*>(packet);
+				if (g_Data.getLocalPlayer() != nullptr && g_Data.getLocalPlayer()->fallDistance > 0.5f) {
+					ree->onGround == true;
+					g_Data.getCGameMode()->player->fallDistance = 0.f;
+					disabler->getMovePlayerPacketHolder()->push_back(new C_MovePlayerPacket(*ree));
+					return;  //dont send Off groung packet
+				}
+			}
+		}
+	}
 
 	if (noPacketMod->isEnabled() && g_Data.isInGame())
 		return;
@@ -1219,7 +1235,7 @@ void Hooks::LoopbackPacketSender_sendToServer(C_LoopbackPacketSender* a, C_Packe
 	//if (autoSneakMod->isEnabled() && g_Data.getLocalPlayer() != nullptr && autoSneakMod->doSilent && packet->isInstanceOf<C_PlayerActionPacket>()) {
 		//auto* pp = reinterpret_cast<C_PlayerActionPacket*>(packet);
 		
-		//if (pp->action == 12 && pp->entityRuntimeId == g_Data.getLocalPlayer()->entityRuntimeId) 
+		//if (pp->action == 9 && pp->entityRuntimeId == g_Data.getLocalPlayer()->entityRuntimeId) 
 			//return; //dont send uncrouch
 	//}
 	

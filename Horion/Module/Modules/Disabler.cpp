@@ -9,19 +9,20 @@ const char* Disabler::getModuleName() {
 }
 
 void Disabler::onTick(C_GameMode* gm) {
+	//gm->player->fallDistance = 0.f;
 }
 
 void Disabler::onSendPacket(C_Packet* packet) {
-	if (counter == 1) {
-		//clientMessageF("Packet Sent");
-		PlayerAuthInputPacket* movePacket = reinterpret_cast<PlayerAuthInputPacket*>(packet);
-		movePacket->pos;
-		this->getMovePlayerPacketHolder()->clear();
-		this->getPlayerAuthInputPacketHolder()->clear();
-	}
-	if (counter == 19) {
-		counter = 0;
-	} else {
-		counter++;
-	}
+	//if (counter == 1) {
+		//clientMessageF("Packet Dissabled");
+		//PlayerAuthInputPacket* movePacket = reinterpret_cast<PlayerAuthInputPacket*>(packet);
+		//movePacket->pos;
+		//this->getMovePlayerPacketHolder()->clear();
+		//this->getPlayerAuthInputPacketHolder()->clear();
+	//}
+	//if (counter == 40) {
+	//	counter = 0;
+	//} else {
+	//	counter++;
+	//}
 }
