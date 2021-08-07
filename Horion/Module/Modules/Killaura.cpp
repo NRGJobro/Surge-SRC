@@ -160,32 +160,35 @@ void Killaura::onTick(C_GameMode* gm) {
 				g_Data.getCGameMode()->attack(targetList[0]);
 			}
 		}
-	}
-}
-
-void Killaura::onLevelRender() {
-		if (this->silent) {
-			for (auto& i : targetList) {
-				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*i->getPos()).normAngles();
-				auto player = g_Data.getLocalPlayer();
-				player->yawUnused1 = angle.x;
-				player->yawUnused1 = angle.y;
-				player->bodyYaw = angle.x;
-				player->bodyYaw = angle.y;
-			}
-		}
 		if (this->target) {
 			for (auto& i : targetList) {
 				vec2_t angleCock = g_Data.getLocalPlayer()->getPos()->CalcAngle(*i->getPos()).normAngles();
 				g_Data.getCGameMode()->player->yaw = angleCock.y;
+				g_Data.getCGameMode()->player->yawUnused1 = angleCock.y;
 			}
 		}
-			if (this->spin) {
-				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
-				auto player = g_Data.getLocalPlayer();
-				g_Data.getLocalPlayer()->applyTurnDelta(&angle);
-			}
+		if (this->spin) {
+			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+			auto player = g_Data.getLocalPlayer();
+			g_Data.getLocalPlayer()->applyTurnDelta(&angle);
 		}
+	}
+}
+
+void Killaura::onLevelRender() {
+	if (this->silent) {
+		for (auto& i : targetList) {
+			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*i->getPos()).normAngles();
+			auto player = g_Data.getLocalPlayer();
+			//player->pitch = angle.x;
+			//player->pitch = angle.x;
+			player->bodyYaw = angle.y;
+			//player->bodyYaw = angle.x;
+			//player->yawUnused1 = angle.x;
+			player->yawUnused1 = angle.y;
+		}
+	}
+}
 
 void Killaura::onEnable() {
 		auto KillauraMod = moduleMgr->getModule<Killaura>();
@@ -200,20 +203,12 @@ void Killaura::onSendPacket(C_Packet* packet) {
 	if (!g_Data.isInGame())
 		KillauraMod->setEnabled(false);
 	if (packet->isInstanceOf<C_MovePlayerPacket>() && g_Data.getLocalPlayer() != nullptr) {
-		if (!targetList.empty() && !this->silent) {
+		if (!targetList.empty()) {
 			auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
 			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
 			movePacket->pitch = angle.x;
 			movePacket->headYaw = angle.y;
 			movePacket->yaw = angle.y;
-		} else {
-			if (!targetList.empty()) {
-				auto* movePacket = reinterpret_cast<C_MovePlayerPacket*>(packet);
-				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
-				movePacket->pitch = angle.x;
-				movePacket->headYaw = angle.y;
-				movePacket->yaw = angle.y;
-			}
 		}
 	}
 }
