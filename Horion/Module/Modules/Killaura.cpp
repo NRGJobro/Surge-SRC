@@ -172,22 +172,22 @@ void Killaura::onTick(C_GameMode* gm) {
 			auto player = g_Data.getLocalPlayer();
 			g_Data.getLocalPlayer()->applyTurnDelta(&angle);
 		}
+		if (this->silent) {
+			for (auto& i : targetList) {
+				vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*i->getPos()).normAngles();
+				auto player = g_Data.getLocalPlayer();
+				//player->pitch = angle.x;
+				//player->pitch = angle.x;
+				player->bodyYaw = angle.y;
+				//player->bodyYaw = angle.x;
+				//player->yawUnused1 = angle.x;
+				player->yawUnused1 = angle.y;
+			}
+		}
 	}
 }
 
 void Killaura::onLevelRender() {
-	if (this->silent) {
-		for (auto& i : targetList) {
-			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*i->getPos()).normAngles();
-			auto player = g_Data.getLocalPlayer();
-			//player->pitch = angle.x;
-			//player->pitch = angle.x;
-			player->bodyYaw = angle.y;
-			//player->bodyYaw = angle.x;
-			//player->yawUnused1 = angle.x;
-			player->yawUnused1 = angle.y;
-		}
-	}
 }
 
 void Killaura::onEnable() {
