@@ -33,7 +33,8 @@ void Breaker::onTick(C_GameMode* gm) {
 				if (id == 122 && this->eggs) destroy = true;     // Dragon Eggs
 				if (id == 92 && this->cakes) destroy = true;     // Cakes
 				if (id == 54 && this->chests) destroy = true;    // Chests
-				if (id == 73 && this->redstone) destroy = true;  // Redstone
+				if (id == 73 && this->redstone) destroy = true;
+				if (id == 74 && this->redstone) destroy = true;  // Redstone
 				if (id == 56 && this->diamond) destroy = true;  // Diamond
 				if (id == 129 && this->emerald) destroy = true;  // Emerald
 																 /*	
