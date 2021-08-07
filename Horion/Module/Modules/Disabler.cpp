@@ -55,3 +55,6 @@ void Disabler::onMove(C_MoveInputHandler* input) {
 		if (pressed) player->lerpMotion(moveVec);
 	}
 }
+void Disabler::onSendPacket(C_Packet* packet) {
+	//idk
+}
