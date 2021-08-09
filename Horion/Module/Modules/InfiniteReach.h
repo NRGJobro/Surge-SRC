@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Module.h"
 #include "../ModuleManager.h"
+#include "Module.h"
 
 class InfiniteReach : public IModule {
 private:
@@ -10,6 +10,7 @@ private:
 	bool isMulti = false;
 
 public:
+	bool isMobAura = false;
 	float range = 15;
 	InfiniteReach();
 	~InfiniteReach();
