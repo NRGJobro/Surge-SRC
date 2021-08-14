@@ -104,11 +104,11 @@ void ModuleManager::initModules() {
 		this->moduleList.push_back(std::shared_ptr<IModule>(new InsideTP()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new Disabler()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new VoidTP()));
+		this->moduleList.push_back(std::shared_ptr<IModule>(new Antikb()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new FollowPathModule()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new PacketLogger()));
 
 #ifdef _DEBUG
-		//this->moduleList.push_back(std::shared_ptr<IModule>(new PacketLogger()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new TestModule()));
 #endif
 

@@ -15,6 +15,8 @@ private:
 	float glideModEffective = 0;
 	int slot = false;
 	int slotyes = false;
+	int timer = 20;
+	bool time = false;
 	vec3_t savepo;
 
 public:

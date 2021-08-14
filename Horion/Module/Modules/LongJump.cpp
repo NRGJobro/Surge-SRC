@@ -3,6 +3,8 @@
 LongJump::LongJump() : IModule(0, Category::MOVEMENT, "Jump higher than ever before") {
 	registerFloatSetting("Jump Height", &this->jumpPower, this->jumpPower, 1.f, 1.21f);
 	registerFloatSetting("Jump Length", &this->speed, this->speed, 0.1f, 0.8f);
+	//registerBoolSetting("Blink", &this->Blinc, this->Blinc);
+	//registerFloatSetting("Blink Frequency", &this->freq, this->freq, 1, 50);
 }
 
 LongJump::~LongJump() {
@@ -36,4 +38,7 @@ void LongJump::onMove(C_MoveInputHandler* input) {
 	moveVec.y = player->velocity.y* jumpPower;
 	moveVec.z = moveVec2d.y * speed;
 	if (pressed) player->lerpMotion(moveVec);
+}
+
+void LongJump::onDisable() {
 }

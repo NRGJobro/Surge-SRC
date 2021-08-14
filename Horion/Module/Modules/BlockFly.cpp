@@ -2,6 +2,8 @@
 
 BlockFly::BlockFly() : IModule(0, Category::CUSTOM, "Block Fly") {
 	registerFloatSetting("Speed", &this->speed, this->speed, 0.1f, 0.7f);
+	registerIntSetting("Timer Speed", &this->timer, this->timer, 20, 200);
+	registerBoolSetting("Timer", &this->time, this->time);
 	registerBoolSetting("Damage", &this->dmg, this->dmg);
 	registerBoolSetting("Fail Safe", &this->safe, this->safe);
 }
@@ -109,6 +111,11 @@ void BlockFly::onMove(C_MoveInputHandler* input) {
 	} else {
 		counter++;
 	}
+	if (timer) {
+		*g_Data.getClientInstance()->minecraft->timer = static_cast<float>(this->timer);
+	} else {
+		*g_Data.getClientInstance()->minecraft->timer = 20.f;
+	}
 }
 void BlockFly::onTick(C_GameMode* gm) {
 }
@@ -124,4 +131,5 @@ void BlockFly::onDisable() {
 			blinkMod->setEnabled(false);
 		}
 	}
+	*g_Data.getClientInstance()->minecraft->timer = 20.f;
 }

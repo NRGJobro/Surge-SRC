@@ -1030,6 +1030,7 @@ void Hooks::Actor_lerpMotion(C_Entity* _this, vec3_t motVec) {
 	if (g_Data.getLocalPlayer() != _this)
 		return oLerp(_this, motVec);
 
+	static auto AntiKB = moduleMgr->getModule<Antikb>();
 	static auto noKnockbackmod = moduleMgr->getModule<Velocity>();
 	if (noKnockbackmod->isEnabled()) {
 		static void* networkSender = nullptr;
@@ -1041,6 +1042,18 @@ void Hooks::Actor_lerpMotion(C_Entity* _this, vec3_t motVec) {
 
 		if (networkSender == _ReturnAddress()) {
 			motVec = _this->velocity.lerp(motVec, noKnockbackmod->xModifier, noKnockbackmod->yModifier, noKnockbackmod->xModifier);
+		}
+	}
+	if ( AntiKB->isEnabled()) {
+		static void* networkSender = nullptr;
+
+		if (!networkSender) {
+			if (g_Data.getVersion() == GAMEVERSION::g_1_16_0)
+				networkSender = reinterpret_cast<void*>(FindSignature("48 8B ? ? ? C6 47 11 ? 48 8B ? ? ? 48 83 C4"));
+		}
+
+		if (networkSender == _ReturnAddress()) {
+			motVec = _this->velocity.lerp(motVec, AntiKB->xMod, AntiKB->yMod, AntiKB->xMod);
 		}
 	}
 

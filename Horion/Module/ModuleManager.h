@@ -95,11 +95,11 @@
 #include "Modules/Radar.h"
 #include "Modules/InsideAura.h"
 #include "Modules/VoidTP.h"
+#include "Modules/Antikb.h"
 #include "Modules/Disabler.h"
 #include "Modules/PacketLogger.h"
 
 #ifdef _DEBUG
-//#include "Modules/PacketLogger.h"
 #include "Modules/TestModule.h"
 #endif
 

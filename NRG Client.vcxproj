@@ -283,6 +283,7 @@
     <ClCompile Include="Horion\Module\Modules\AirSwim.cpp" />
     <ClCompile Include="Horion\Module\Modules\AntiBot.cpp" />
     <ClCompile Include="Horion\Module\Modules\AntiImmobile.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Antikb.cpp" />
     <ClCompile Include="Horion\Module\Modules\AntiVoid.cpp" />
     <ClCompile Include="Horion\Module\Modules\Disabler.cpp" />
     <ClCompile Include="Horion\Module\Modules\XP.cpp" />
@@ -471,6 +472,7 @@
     <ClInclude Include="Horion\Module\Modules\AirSwim.h" />
     <ClInclude Include="Horion\Module\Modules\AntiBot.h" />
     <ClInclude Include="Horion\Module\Modules\AntiImmobile.h" />
+    <ClInclude Include="Horion\Module\Modules\Antikb.h" />
     <ClInclude Include="Horion\Module\Modules\AntiVoid.h" />
     <ClInclude Include="Horion\Module\Modules\Disabler.h" />
     <ClInclude Include="Horion\Module\Modules\XP.h" />

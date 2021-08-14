@@ -7,6 +7,7 @@ private:
 	bool airplace = true;
 	bool box = true;
 	int timer = 20;
+	int counter = 1;
 	bool AutoSelect = true;
 	bool FinishSelect = false;
 	int prevSlot;

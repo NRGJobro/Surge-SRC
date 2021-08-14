@@ -1,8 +1,8 @@
 #include "Velocity.h"
 
 Velocity::Velocity() : IModule(0, Category::MOVEMENT, "No Knockback") {
-	this->registerFloatSetting("Linear Modifier", &this->xModifier, this->xModifier, 0.f, 1.f);
-	this->registerFloatSetting("Height Modifier", &this->yModifier, this->yModifier, 0.f, 1.f);
+	this->registerFloatSetting("Linear Modifier", &this->xModifier, this->xModifier, -50.f, 50.f);
+	this->registerFloatSetting("Height Modifier", &this->yModifier, this->yModifier, -50.f, 50.f);
 }
 
 Velocity::~Velocity() {
