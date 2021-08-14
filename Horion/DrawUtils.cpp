@@ -101,21 +101,79 @@ void DrawUtils::setColor(float r, float g, float b, float a) {
 
 C_Font* DrawUtils::getFont(Fonts font) {
 	auto clickguiMod = moduleMgr->getModule<ClickGuiMod>();
-	if (clickguiMod->type.selected == 3) {
+	//font
+	if (clickguiMod->type.selected == 8) {
 		if (true)
-			return g_Data.getClientInstance()->minecraftGame->fontRepository1->fontList->fontEntries[5].font;
+			return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[8].font;
 	}
-	if (clickguiMod->type.selected == 2) {
+	if (clickguiMod->type.selected == 7) {
+		if (true)
+			return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[7].font;
+	}
+	if (clickguiMod->type.selected == 6) {
 		if (true)
 			return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[6].font;
 	}
-	if (clickguiMod->type.selected == 1) {
+	if (clickguiMod->type.selected == 5) {
+		if (true)
+			return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[5].font;
+	}
+	if (clickguiMod->type.selected == 4) {
+		if (true)
+			return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[4].font;
+	}
+	if (clickguiMod->type.selected == 3) {
 		if (true)
 			return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[3].font;
 	}
+	if (clickguiMod->type.selected == 2) {
+		if (true)
+			return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[2].font;
+	}
+	if (clickguiMod->type.selected == 1) {
+		if (true)
+			return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[1].font;
+	}
 	if (clickguiMod->type.selected == 0) {
 		if (true)
-			return g_Data.getClientInstance()->minecraftGame->getOldFont();
+			return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[0].font;
+	}
+	//font Repo 1
+	if (clickguiMod->type.selected == 17) {
+		if (true)
+			return g_Data.getClientInstance()->minecraftGame->fontRepository1->fontList->fontEntries[8].font;
+	}
+	if (clickguiMod->type.selected == 16) {
+		if (true)
+			return g_Data.getClientInstance()->minecraftGame->fontRepository1->fontList->fontEntries[7].font;
+	}
+	if (clickguiMod->type.selected == 15) {
+		if (true)
+			return g_Data.getClientInstance()->minecraftGame->fontRepository1->fontList->fontEntries[6].font;
+	}
+	if (clickguiMod->type.selected == 14) {
+		if (true)
+			return g_Data.getClientInstance()->minecraftGame->fontRepository1->fontList->fontEntries[5].font;
+	}
+	if (clickguiMod->type.selected == 13) {
+		if (true)
+			return g_Data.getClientInstance()->minecraftGame->fontRepository1->fontList->fontEntries[4].font;
+	}
+	if (clickguiMod->type.selected == 12) {
+		if (true)
+			return g_Data.getClientInstance()->minecraftGame->fontRepository1->fontList->fontEntries[3].font;
+	}
+	if (clickguiMod->type.selected == 11) {
+		if (true)
+			return g_Data.getClientInstance()->minecraftGame->fontRepository1->fontList->fontEntries[2].font;
+	}
+	if (clickguiMod->type.selected == 10) {
+		if (true)
+			return g_Data.getClientInstance()->minecraftGame->fontRepository1->fontList->fontEntries[1].font;
+	}
+	if (clickguiMod->type.selected == 9) {
+		if (true)
+			return g_Data.getClientInstance()->minecraftGame->fontRepository1->fontList->fontEntries[0].font;
 	}
 	switch (font) {
 	case Fonts::SMOOTH:
