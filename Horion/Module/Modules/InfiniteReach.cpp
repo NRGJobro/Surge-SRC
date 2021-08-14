@@ -1,6 +1,6 @@
 #include "InfiniteReach.h"
 
-InfiniteReach::InfiniteReach() : IModule(0, Category::BLATANT, "Killaura with infinite reach") {
+InfiniteReach::InfiniteReach() : IModule(0, Category::COMBAT, "Killaura with infinite reach") {
 	this->registerBoolSetting("multiaura", &this->isMulti, this->isMulti);
 	this->registerBoolSetting("MobAura", &this->isMobAura, this->isMobAura);
 	this->registerFloatSetting("range", &this->range, this->range, 15, 100);

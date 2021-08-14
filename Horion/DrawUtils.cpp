@@ -101,9 +101,17 @@ void DrawUtils::setColor(float r, float g, float b, float a) {
 
 C_Font* DrawUtils::getFont(Fonts font) {
 	auto clickguiMod = moduleMgr->getModule<ClickGuiMod>();
+	if (clickguiMod->type.selected == 3) {
+		if (true)
+			return g_Data.getClientInstance()->minecraftGame->fontRepository1->fontList->fontEntries[5].font;
+	}
+	if (clickguiMod->type.selected == 2) {
+		if (true)
+			return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[6].font;
+	}
 	if (clickguiMod->type.selected == 1) {
 		if (true)
-			return g_Data.getClientInstance()->minecraftGame->getTheBetterFontYes();
+			return g_Data.getClientInstance()->minecraftGame->fontRepository->fontList->fontEntries[3].font;
 	}
 	if (clickguiMod->type.selected == 0) {
 		if (true)
