@@ -3,6 +3,7 @@
 
 class ClickGuiMod : public IModule {
 public:
+	SettingEnum type;
 	ClickGuiMod();
 	~ClickGuiMod();
 
