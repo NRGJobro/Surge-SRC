@@ -1,9 +1,10 @@
 #include "InfiniteReach.h"
 
-InfiniteReach::InfiniteReach() : IModule(0, Category::COMBAT, "Killaura with infinite reach") {
+InfiniteReach::InfiniteReach() : IModule(0, Category::BLATANT, "Killaura with infinite reach") {
 	this->registerBoolSetting("multiaura", &this->isMulti, this->isMulti);
-	this->registerFloatSetting("range", &this->range, this->range, 7, 300);
-	this->registerIntSetting("delay", &this->delay, this->delay, 0, 20);
+	this->registerBoolSetting("MobAura", &this->isMobAura, this->isMobAura);
+	this->registerFloatSetting("range", &this->range, this->range, 15, 100);
+	this->registerIntSetting("delay", &this->delay, this->delay, 5, 20);
 }
 
 InfiniteReach::~InfiniteReach() {
@@ -17,7 +18,7 @@ static std::vector<C_Entity*> targetList0;
 
 void findEntities(C_Entity* currentEntity, bool isRegularEntitie) {
 	static auto infiniteReachMod = moduleMgr->getModule<InfiniteReach>();
-	
+
 	if (currentEntity == g_Data.getLocalPlayer())  // Skip Local player
 		return;
 
@@ -29,19 +30,28 @@ void findEntities(C_Entity* currentEntity, bool isRegularEntitie) {
 
 	if (FriendList::findPlayer(currentEntity->getNameTag()->getText()))  // Skip Friend
 		return;
-
-	if (!Target::isValidTarget(currentEntity))
-		return;
-
-	float dist = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
-
-	if (dist < infiniteReachMod->range) {
-		targetList0.push_back(currentEntity);
+	if (infiniteReachMod->isMobAura) {
+		if (currentEntity->getNameTag()->getTextLength() <= 1 && currentEntity->getEntityTypeId() == 63)
+			return;
+		if (currentEntity->width <= 0.01f || currentEntity->height <= 0.01f)  // Don't hit this pesky antibot on 2b2e.org
+			return;
+		if (currentEntity->getEntityTypeId() == 64)  // item
+			return;
+	} else {
+		if (!Target::isValidTarget(currentEntity))
+			return;
 	}
-}
+
+		float dist = (*currentEntity->getPos()).dist(*g_Data.getLocalPlayer()->getPos());
+
+		if (dist < infiniteReachMod->range) {
+			targetList0.push_back(currentEntity);
+		}
+	}
 
 void InfiniteReach::onTick(C_GameMode* gm) {
-
+	if (!g_Data.isInGame())
+		this->setEnabled(false);
 	//Loop through all our players and retrieve their information
 	targetList0.clear();
 
@@ -49,8 +59,8 @@ void InfiniteReach::onTick(C_GameMode* gm) {
 	Odelay++;
 
 	if (targetList0.size() > 0 && Odelay >= delay) {
-		//if (!moduleMgr->getModule<NoSwing>()->isEnabled()) 
-			g_Data.getLocalPlayer()->swingArm();
+		//if (!moduleMgr->getModule<NoSwing>()->isEnabled())
+		g_Data.getLocalPlayer()->swingArm();
 
 		float calcYaw = (gm->player->yaw + 90) * (PI / 180);
 		float calcPitch = (gm->player->pitch) * -(PI / 180);
@@ -58,18 +68,6 @@ void InfiniteReach::onTick(C_GameMode* gm) {
 		float teleportX = cos(calcYaw) * cos(calcPitch) * 3.5f;
 		float teleportZ = sin(calcYaw) * cos(calcPitch) * 3.5f;
 		C_MovePlayerPacket teleportPacket;
-
-		if (strcmp(g_Data.getRakNetInstance()->serverIp.getText(), "mco.cubecraft.net") == 0) {
-			vec3_t pos = *g_Data.getLocalPlayer()->getPos();
-
-			C_MovePlayerPacket movePlayerPacket(g_Data.getLocalPlayer(), pos);
-			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&movePlayerPacket);
-
-			pos.y += 0.35f;
-
-			movePlayerPacket = C_MovePlayerPacket(g_Data.getLocalPlayer(), pos);
-			g_Data.getClientInstance()->loopbackPacketSender->sendToServer(&movePlayerPacket);
-		}
 
 		// Attack all entitys in targetList
 		if (isMulti) {
