@@ -6,6 +6,7 @@ ArrayList::ArrayList() : IModule(0, Category::VISUAL, "ArrayList") {
 	this->registerBoolSetting("Icy Arraylist", &this->ice, this->ice);
 	this->registerBoolSetting("RGB Borders", &this->rgb, this->rgb);
 	this->registerBoolSetting("RGB text", &this->rgbtext, this->rgbtext);
+	this->registerBoolSetting("Better Colors", &this->different, this->different);
 	this->registerBoolSetting("Side Bar", &this->bar, this->bar);
 	this->registerBoolSetting("Bottom Bar", &this->underbar, this->underbar);
 	this->registerBoolSetting("Bottom Right", &this->bottom, this->bottom);

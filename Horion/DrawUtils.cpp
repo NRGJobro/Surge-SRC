@@ -264,14 +264,38 @@ void DrawUtils::drawTracer(C_Entity* ent) {
 	static auto tracerMod = moduleMgr->getModule<Tracer>();
 	vec2_t target;
 	refdef->OWorldToScreen(origin, *ent->getPos(), target, fov, screenSize);
-	vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame) / 2));
-	if (target != vec2_t(0, 0)) {
-		if (tracerMod->RGB) {
-			DrawUtils::setColor(rcolors[0], rcolors[1], rcolors[2], 1);
-		} else {
-			DrawUtils::setColor(0, 0, 255, 1);
-		}
+	if (tracerMod->type.selected == 1) {
+		vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame - 330) / 2));
+		if (target != vec2_t(0, 0)) {
+			if (tracerMod->RGB) {
+				DrawUtils::setColor(rcolors[0], rcolors[1], rcolors[2], 1);
+			} else {
+				DrawUtils::setColor(0, 0, 255, 1);
+			}
 			DrawUtils::drawLine(mid, target, 0.2f);
+		}
+	}
+	if (tracerMod->type.selected == 2) {
+		vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame + 330) / 2));
+		if (target != vec2_t(0, 0)) {
+			if (tracerMod->RGB) {
+				DrawUtils::setColor(rcolors[0], rcolors[1], rcolors[2], 1);
+			} else {
+				DrawUtils::setColor(0, 0, 255, 1);
+			}
+			DrawUtils::drawLine(mid, target, 0.2f);
+		}
+	}
+	if (tracerMod->type.selected == !1) {
+		vec2_t mid(((g_Data.getClientInstance()->getGuiData()->widthGame) / 2), ((g_Data.getClientInstance()->getGuiData()->heightGame) / 2));
+		if (target != vec2_t(0, 0)) {
+			if (tracerMod->RGB) {
+				DrawUtils::setColor(rcolors[0], rcolors[1], rcolors[2], 1);
+			} else {
+				DrawUtils::setColor(0, 0, 255, 1);
+			}
+			DrawUtils::drawLine(mid, target, 0.2f);
+		}
 	}
 }
 

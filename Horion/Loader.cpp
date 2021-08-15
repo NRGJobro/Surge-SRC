@@ -54,11 +54,11 @@ DWORD WINAPI keyThread(LPVOID lpParam) {
 
 		memcpy_s(keyMap, 0xFF * 4, keyMapAddr, 0xFF * 4);
 
-		Sleep(2);
+		Sleep(1);
 	}
 	logF("Stopping Threads...");
 	GameData::terminate();
-	Sleep(200);  // Give the threads a bit of time to exit
+	Sleep(100);  // Give the threads a bit of time to exit
 
 	FreeLibraryAndExitThread(static_cast<HMODULE>(lpParam), 1);  // Uninject
 }
@@ -108,7 +108,7 @@ DWORD WINAPI injectorConnectionThread(LPVOID lpParam) {
 	bool loggedIn = false;
 
 	while (isRunning) {
-		Sleep(2);
+		Sleep(1);
 		LARGE_INTEGER endTime;
 		QueryPerformanceCounter(&endTime);
 		bool isConnected = horionToInjector->isPresent && injectorToHorion->isPresent && horionToInjector->protocolVersion >= injectorToHorion->protocolVersion;
@@ -288,13 +288,13 @@ DWORD WINAPI injectorConnectionThread(LPVOID lpParam) {
 				horionToInjector->isUnread = true;
 			}
 		} else
-			Sleep(30);
+			Sleep(10);
 	}
 	logF("Quitting connection thread");
 	horionToInjector->isPresent = false;
 	memset(magicValues, 0, sizeof(magicValues));
 	memset(magicArray, 0, sizeof(magicValues) + sizeof(uintptr_t) * 2);
-	Sleep(150);
+	Sleep(15);
 	delete *horionToInjectorPtr;
 	delete *injectorToHorionPtr;
 	delete[] magicArray;

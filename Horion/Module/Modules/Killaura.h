@@ -14,6 +14,7 @@ private:
 	bool strafe = false;
 	bool target = true;
 	bool spin = false;
+	bool swingg = false;
 
 public:
 	bool shouldChange = false;

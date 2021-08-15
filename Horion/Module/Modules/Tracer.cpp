@@ -4,7 +4,12 @@
 #include "../../../SDK/CCamera.h"
 #include "../ModuleManager.h"
 
-Tracer::Tracer() : IModule('R', Category::VISUAL, "Draws lines to ESP highlighted entities(MADE BY OLD GREGGO!!)") {
+Tracer::Tracer() : IModule('R', Category::VISUAL, "Draws lines to entities(MADE BY OLD GREGGO!!)") {
+	registerEnumSetting("Tracer Type", &type, 0);
+	type = SettingEnum(this)
+			   .addEntry(EnumEntry("Normal Tracers", 0))
+			   .addEntry(EnumEntry("Top Tracers", 1))
+			   .addEntry(EnumEntry("Bottom tracers", 2));
 	this->registerBoolSetting("Mob Tracers", &this->isMob, this->isMob);
 	this->registerBoolSetting("Player Tracers", &this->isPlayer, this->isPlayer);
 	this->registerBoolSetting("RGB", &this->RGB, this->RGB);

@@ -841,9 +841,13 @@ __int64 Hooks::RenderText(__int64 a1, C_MinecraftUIRenderContext* renderCtx) {
 							b = 0;
 						currColor[3] = rcolors[3];
 						Utils::ColorConvertRGBtoHSV(rcolors[0], rcolors[1], rcolors[2], currColor[0], currColor[1], currColor[2]);
-						currColor[0] += 1.f / a * c;
-						Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
-
+						if (arraylist->different) {
+							currColor[0] += 10.f / a * c;
+							Utils::ColorConvertHSVtoRGB(currColor[0], currColor[0], currColor[1], currColor[0], currColor[0], currColor[1]);
+						} else {
+							currColor[0] += 1.f / a * c;
+							Utils::ColorConvertHSVtoRGB(currColor[0], currColor[1], currColor[2], currColor[0], currColor[1], currColor[2]);
+						}
 						DrawUtils::fillRectangle(rectPos, MC_Color(0, 0, 0), arraylist->opacity);  // Background
 						static auto rgbmod = moduleMgr->getModule<ArrayList>();
 						if (rgbmod->rgb) {

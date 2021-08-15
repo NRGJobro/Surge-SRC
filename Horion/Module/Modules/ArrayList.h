@@ -5,10 +5,11 @@ class ArrayList : public IModule {
 public:
 	float opacity = 0.f;
 	bool enabled = true;
+	bool different = true;
 	bool bar = false;
 	bool underbar = false;
-	bool ice = true;
-	bool rgb = true;
+	bool ice = false;
+	bool rgb = false;
 	bool bottom = false;
 	bool rgbtext = true;
 

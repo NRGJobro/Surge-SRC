@@ -10,6 +10,7 @@ Killaura::Killaura() : IModule('P', Category::COMBAT, "Attacks entities around y
 	this->registerBoolSetting("Rotations", &this->silent, this->silent);
 	//this->registerBoolSetting("Spin Rotations", &this->spin, this->spin);
 	this->registerBoolSetting("Move To Target", &this->target, this->target);
+	this->registerBoolSetting("NoSwing", &this->swingg, this->swingg);
 	this->registerBoolSetting("Strafe", &this->strafe, this->strafe);
 	this->registerFloatSetting("Strafe Speed", &this->speed, this->speed, 0.1f, 1.f);
 }
@@ -150,13 +151,21 @@ void Killaura::onTick(C_GameMode* gm) {
 		if (isMulti) {
 			for (auto& i : targetList) {
 				if (!(i->damageTime > 1 && hurttime)) {
-					g_Data.getLocalPlayer()->swing();
+					if (swingg) {
+						//idk
+					} else {
+						g_Data.getLocalPlayer()->swing();
+					}
 					g_Data.getCGameMode()->attack(i);
 				}
 			}
 		} else {
 			if (!(targetList[0]->damageTime > 1 && hurttime)) {
-				g_Data.getLocalPlayer()->swing();
+				if (swingg) {
+					//hi
+				} else {
+					g_Data.getLocalPlayer()->swing();
+				}
 				g_Data.getCGameMode()->attack(targetList[0]);
 			}
 		}
@@ -168,7 +177,7 @@ void Killaura::onTick(C_GameMode* gm) {
 			}
 		}
 		if (this->spin) {
-			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos());
+			vec2_t angle = g_Data.getLocalPlayer()->getPos()->CalcAngle(*targetList[0]->getPos()).normAngles();
 			auto player = g_Data.getLocalPlayer();
 			g_Data.getLocalPlayer()->applyTurnDelta(&angle);
 		}

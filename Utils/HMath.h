@@ -88,9 +88,9 @@ struct vec2_t {
 		while (x < -90.f)
 			x += 180.0f;
 
-		while (y > 180.0f)
+		while (y > 360.0f)
 			y -= 360.0f;
-		while (y < -180.0f)
+		while (y < -360.0f)
 			y += 360.0f;
 		return vec2_t(x, y);
 	}
@@ -245,6 +245,7 @@ struct vec3_t {
 		vec3_t diff = dst.sub(*this);
 
 		diff.y = diff.y / diff.magnitude();
+		diff.x = diff.x / diff.magnitude();
 		vec2_t angles;
 		angles.x = asinf(diff.y) * -DEG_RAD;
 		angles.y = (float)-atan2f(diff.x, diff.z) * DEG_RAD;

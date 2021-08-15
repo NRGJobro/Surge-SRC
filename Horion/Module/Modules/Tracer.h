@@ -2,6 +2,7 @@
 #include "Module.h"
 class Tracer : public IModule {
 public:
+	SettingEnum type;
 	bool isMob = false;
 	bool RGB = true;
 	bool isPlayer = true;
