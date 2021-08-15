@@ -73,7 +73,7 @@ void ModuleManager::initModules() {
 		this->moduleList.push_back(std::shared_ptr<IModule>(new Tower()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new AntiVoid()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new MidClick()));
-		//this->moduleList.push_back(std::shared_ptr<IModule>(new Teleport()));
+		this->moduleList.push_back(std::shared_ptr<IModule>(new Teleport()));
 		this->moduleList.push_back(std::shared_ptr<IModule>(new NoFriends()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new Spammer()));
 		//this->moduleList.push_back(std::shared_ptr<IModule>(new EchestAura()));

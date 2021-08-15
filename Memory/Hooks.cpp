@@ -1536,14 +1536,12 @@ float Hooks::GameMode_getPickRange(C_GameMode* _this, __int64 a2, char a3) {
 
 	if (g_Data.getLocalPlayer() != nullptr) {
 		static auto extendedBlockReachModule = moduleMgr->getModule<ExtendedBlockReach>();
+		static auto extendedBlockReachMod = moduleMgr->getModule<Teleport>();
 		if (extendedBlockReachModule->isEnabled())
 			return extendedBlockReachModule->getBlockReach();
-
-		//static auto teleportModule = moduleMgr->getModule<Teleport>();
-		//if (teleportModule->isEnabled())
-			//return 255;
+		if (extendedBlockReachMod->isEnabled())
+			return extendedBlockReachMod->getBlockReach();
 	}
-
 	return oFunc(_this, a2, a3);
 }
 
